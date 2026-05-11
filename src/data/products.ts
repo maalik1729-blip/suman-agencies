@@ -24,8 +24,8 @@ export const products: Product[] = [
     name: "Aria Cloud Sofa",
     category: "furniture",
     subcategory: "Sofas",
-    price: 2499,
-    originalPrice: 3200,
+    price: 209999,
+    originalPrice: 268999,
     rating: 4.8,
     reviewCount: 247,
     images: [
@@ -57,7 +57,7 @@ export const products: Product[] = [
     name: "Zen Dining Table",
     category: "furniture",
     subcategory: "Dining",
-    price: 1899,
+    price: 159999,
     rating: 4.9,
     reviewCount: 183,
     images: [
@@ -89,8 +89,8 @@ export const products: Product[] = [
     name: "Atlas Bookshelf",
     category: "furniture",
     subcategory: "Storage",
-    price: 849,
-    originalPrice: 1100,
+    price: 70999,
+    originalPrice: 91999,
     rating: 4.7,
     reviewCount: 312,
     images: [
@@ -122,7 +122,7 @@ export const products: Product[] = [
     name: "Haven Bed Frame",
     category: "furniture",
     subcategory: "Bedroom",
-    price: 1650,
+    price: 138999,
     rating: 4.9,
     reviewCount: 428,
     images: [
@@ -154,8 +154,8 @@ export const products: Product[] = [
     name: "Nova Accent Chair",
     category: "furniture",
     subcategory: "Chairs",
-    price: 699,
-    originalPrice: 899,
+    price: 58999,
+    originalPrice: 75999,
     rating: 4.6,
     reviewCount: 156,
     images: [
@@ -187,7 +187,7 @@ export const products: Product[] = [
     name: "Marble Coffee Table",
     category: "furniture",
     subcategory: "Tables",
-    price: 1250,
+    price: 104999,
     rating: 4.8,
     reviewCount: 203,
     images: [
@@ -219,8 +219,8 @@ export const products: Product[] = [
     name: "Lumina 4K OLED TV 65\"",
     category: "electronics",
     subcategory: "TVs",
-    price: 3299,
-    originalPrice: 4199,
+    price: 276999,
+    originalPrice: 352999,
     rating: 4.9,
     reviewCount: 589,
     images: [
@@ -253,8 +253,8 @@ export const products: Product[] = [
     name: "SoundArc Pro Soundbar",
     category: "electronics",
     subcategory: "Audio",
-    price: 899,
-    originalPrice: 1199,
+    price: 75999,
+    originalPrice: 100999,
     rating: 4.8,
     reviewCount: 342,
     images: [
@@ -286,7 +286,7 @@ export const products: Product[] = [
     name: "AirPure Smart Air Purifier",
     category: "electronics",
     subcategory: "Home Appliances",
-    price: 449,
+    price: 37999,
     rating: 4.7,
     reviewCount: 218,
     images: [
@@ -319,8 +319,8 @@ export const products: Product[] = [
     name: "ChronoLight Smart Lamp",
     category: "electronics",
     subcategory: "Lighting",
-    price: 299,
-    originalPrice: 399,
+    price: 24999,
+    originalPrice: 33999,
     rating: 4.6,
     reviewCount: 167,
     images: [
@@ -352,7 +352,7 @@ export const products: Product[] = [
     name: "NestHub Smart Display 10\"",
     category: "electronics",
     subcategory: "Smart Home",
-    price: 329,
+    price: 27999,
     rating: 4.7,
     reviewCount: 294,
     images: [
@@ -384,8 +384,8 @@ export const products: Product[] = [
     name: "FrostGuard Smart Refrigerator",
     category: "electronics",
     subcategory: "Home Appliances",
-    price: 2199,
-    originalPrice: 2799,
+    price: 184999,
+    originalPrice: 234999,
     rating: 4.8,
     reviewCount: 412,
     images: [
@@ -453,8 +453,8 @@ export const products: Product[] = [
     name: "Student Study Table",
     category: "furniture",
     subcategory: "Office Tables",
-    price: 6500,
-    originalPrice: 8000,
+    price: 545999,
+    originalPrice: 671999,
     rating: 4.6,
     reviewCount: 112,
     images: [
@@ -488,8 +488,8 @@ export const products: Product[] = [
     name: "Carved Teak Dining Chair",
     category: "furniture",
     subcategory: "Wooden Chairs",
-    price: 4200,
-    originalPrice: 5500,
+    price: 352999,
+    originalPrice: 461999,
     rating: 4.7,
     reviewCount: 89,
     images: [
@@ -521,8 +521,8 @@ export const products: Product[] = [
     name: "Sheesham Wood Accent Chair",
     category: "furniture",
     subcategory: "Wooden Chairs",
-    price: 7800,
-    originalPrice: 9500,
+    price: 654999,
+    originalPrice: 797999,
     rating: 4.9,
     reviewCount: 57,
     images: [
@@ -569,7 +569,7 @@ export const products: Product[] = [
       "/products/ata_images_a7b6284b-d44e-4b6c-8457-6ba436594774.jpg"
     ], description: "A majestic king-size bed crafted from solid teak with a hand-carved headboard. Built for decades of use in Indian homes.", features: ["Solid teak construction", "Hand-carved headboard", "Box storage base", "Anti-termite treatment", "Glossy polish finish"], specs: { Dimensions: "200cm × 180cm × 110cm", Material: "Solid Teak", "Storage": "Box type", Warranty: "5 Years" }, inStock: true, badge: "bestseller" },
 
-  { id: "f013", name: "Single Cot with Drawers", category: "furniture", subcategory: "Bedroom", price: 9500, originalPrice: 12000, rating: 4.6, reviewCount: 91, images: [
+  { id: "f013", name: "Single Cot with Drawers", category: "furniture", subcategory: "Bedroom", price: 797999, originalPrice: 12000, rating: 4.6, reviewCount: 91, images: [
       "/products/ata_images_a8107166-b319-495e-aa6f-7f8f1993eedc.jpg",
       "/products/ata_images_a84817aa-beb4-4e5d-9333-68bc3b4804b8.jpg"
     ], description: "A sturdy single cot with 2 under-bed drawers for storage. Ideal for children's rooms, hostels, and compact bedrooms.", features: ["2 under-bed drawers", "Engineered wood frame", "Anti-scratch laminate", "Easy assembly", "Compact design"], specs: { Dimensions: "200cm × 90cm × 80cm", Material: "Engineered Wood", Warranty: "2 Years" }, inStock: true, badge: "new" },
@@ -585,7 +585,7 @@ export const products: Product[] = [
       "/products/ata_images_c205eede-9d11-4927-90bd-ce8aa2b1e0ee.jpg"
     ], description: "A complete 6-seater dining set in solid sheesham wood. Includes table and 6 cushioned chairs, perfect for Indian families.", features: ["Solid sheesham wood", "6 cushioned chairs", "Scratch-resistant top", "Natural oil finish", "Easy to clean"], specs: { Dimensions: "180cm × 90cm × 75cm", Seats: "6 people", Material: "Sheesham Wood", Warranty: "3 Years" }, inStock: true, badge: "bestseller" },
 
-  { id: "f016", name: "Folding Dining Table", category: "furniture", subcategory: "Dining", price: 7800, originalPrice: 9500, rating: 4.4, reviewCount: 62, images: [
+  { id: "f016", name: "Folding Dining Table", category: "furniture", subcategory: "Dining", price: 654999, originalPrice: 797999, rating: 4.4, reviewCount: 62, images: [
       "/products/ata_images_c46a8b56-0a9c-4ae6-b741-ba25c013a6f2.jpg",
       "/products/ata_images_cab02473-01ee-4d5a-a029-7d015d0ead81.jpg"
     ], description: "A space-saving folding dining table ideal for small homes and apartments. Seats 4 comfortably, folds flat for storage.", features: ["Foldable design", "Seats 4 people", "Durable laminate top", "Steel folding legs", "Lightweight & portable"], specs: { Dimensions: "120cm × 75cm × 75cm", Seats: "4 people", Material: "MDF, Steel", Warranty: "1 Year" }, inStock: true, badge: "new" },
@@ -601,7 +601,7 @@ export const products: Product[] = [
       "/products/ata_images_e2250491-6f3f-4b09-ae01-eaa43db49dbe.jpg"
     ], description: "A stylish wall-mounted TV unit in walnut finish with open shelves and closed cabinets. Fits TVs up to 65 inches.", features: ["Walnut laminate finish", "2 closed cabinets", "Open display shelves", "Cable management holes", "Wall-mount brackets included"], specs: { Dimensions: "180cm × 40cm × 50cm", "TV Size": "Up to 65\"", Material: "MDF, Walnut Laminate", Warranty: "2 Years" }, inStock: true, badge: "new" },
 
-  { id: "f019", name: "5-Tier Bookshelf", category: "furniture", subcategory: "Storage", price: 5500, originalPrice: 7000, rating: 4.5, reviewCount: 56, images: [
+  { id: "f019", name: "5-Tier Bookshelf", category: "furniture", subcategory: "Storage", price: 461999, originalPrice: 587999, rating: 4.5, reviewCount: 56, images: [
       "/products/ata_images_e95d25ff-749b-4ea1-ba1d-fc3c0f832f84.jpg",
       "/products/ata_images_ec4f4d4d-b11e-47a8-94f2-e356a665d2a7.jpg"
     ], description: "A tall 5-tier wooden bookshelf for living rooms, offices, and study rooms. Holds books, décor, and display items.", features: ["5 adjustable shelves", "Solid wood sides", "Anti-tip wall anchor", "Matte finish", "Easy DIY assembly"], specs: { Dimensions: "90cm × 30cm × 180cm", Shelves: "5", Material: "Engineered Wood", Warranty: "1 Year" }, inStock: true },
@@ -612,18 +612,18 @@ export const products: Product[] = [
       "/products/ata_images_0132119d-bb52-489c-9c79-87b1149d0e90.jpg"
     ], description: "A premium marble-top centre/coffee table with brass-finish metal legs. Adds a luxurious touch to any living room.", features: ["Natural marble top", "Brass-finish legs", "Lower shelf", "Scratch resistant", "Easy to clean"], specs: { Dimensions: "120cm × 60cm × 45cm", Top: "Natural marble", Legs: "Powder-coated steel", Warranty: "2 Years" }, inStock: true, badge: "trending" },
 
-  { id: "f021", name: "Nested Side Tables (Set of 3)", category: "furniture", subcategory: "Tables", price: 6200, originalPrice: 8000, rating: 4.6, reviewCount: 44, images: [
+  { id: "f021", name: "Nested Side Tables (Set of 3)", category: "furniture", subcategory: "Tables", price: 520999, originalPrice: 671999, rating: 4.6, reviewCount: 44, images: [
       "/products/ata_images_064f8e4c-75c5-4b7b-aa4f-b06153b74d38.jpg",
       "/products/ata_images_0a2bc870-3326-41d2-8acc-ca38571969e5.jpg"
     ], description: "A set of 3 nesting side tables in teak finish. Can be used together or separately for flexible living room arrangements.", features: ["Set of 3 tables", "Nesting design saves space", "Teak wood finish", "Round corners", "Lightweight"], specs: { Dimensions: "45/40/35cm diameter", Material: "MDF, Teak Veneer", Warranty: "1 Year" }, inStock: true, badge: "new" },
 
   // Chairs
-  { id: "f022", name: "Rattan Cane Arm Chair", category: "furniture", subcategory: "Chairs", price: 8500, originalPrice: 10500, rating: 4.7, reviewCount: 68, images: [
+  { id: "f022", name: "Rattan Cane Arm Chair", category: "furniture", subcategory: "Chairs", price: 713999, originalPrice: 10500, rating: 4.7, reviewCount: 68, images: [
       "/products/ata_images_15c6fdf6-395d-4d54-b759-773f4f55f065.jpg",
       "/products/ata_images_1a553fc8-9961-4ae8-ac3d-3079926141e8.jpg"
     ], description: "A handwoven rattan cane armchair with a cushioned seat. Adds a natural, ethnic charm to living rooms and verandahs.", features: ["Hand-woven rattan", "Cushioned fabric seat", "Solid wood frame", "Lightweight", "Indoor & outdoor use"], specs: { Dimensions: "65cm × 70cm × 90cm", Material: "Rattan, Teak", Warranty: "1 Year" }, inStock: true, badge: "trending" },
 
-  { id: "f023", name: "Folding Wooden Chair", category: "furniture", subcategory: "Chairs", price: 2800, originalPrice: 3500, rating: 4.3, reviewCount: 112, images: [
+  { id: "f023", name: "Folding Wooden Chair", category: "furniture", subcategory: "Chairs", price: 234999, originalPrice: 293999, rating: 4.3, reviewCount: 112, images: [
       "/products/ata_images_1af1d7cf-1f72-4a78-b515-e4e7c9fa4dbb.jpg",
       "/products/ata_images_1b0883eb-8d1a-44a0-8e58-00fb02ddab4e.jpg"
     ], description: "A simple and sturdy folding wooden chair ideal for extra seating during functions, offices, and dining rooms.", features: ["Foldable design", "Solid wood", "Non-slip feet", "Lightweight", "Easy storage"], specs: { Dimensions: "45cm × 45cm × 85cm", Weight: "4kg", Material: "Solid Wood", Warranty: "1 Year" }, inStock: true },
@@ -657,40 +657,40 @@ export const products: Product[] = [
       "/products/ata_images_4f64a51c-c636-4267-88ee-614f5a7b6396.jpg"
     ], description: "A powerful 5.1 channel home theatre system with 120W output, Bluetooth, and HDMI ARC. Perfect for movie nights.", features: ["120W total output", "5.1 channel surround", "HDMI ARC", "Bluetooth & USB", "Remote control"], specs: { Power: "120W RMS", Channels: "5.1", Connectivity: "HDMI, Bluetooth, USB", Warranty: "2 Years" }, inStock: true, badge: "trending" },
 
-  { id: "e013", name: "Portable Bluetooth Speaker", category: "electronics", subcategory: "Audio", price: 3200, originalPrice: 4500, rating: 4.6, reviewCount: 302, images: [
+  { id: "e013", name: "Portable Bluetooth Speaker", category: "electronics", subcategory: "Audio", price: 268999, originalPrice: 377999, rating: 4.6, reviewCount: 302, images: [
       "/products/ata_images_5f87bfc7-2f3e-49d5-9bea-b3e165814936.jpg",
       "/products/ata_images_60771f8b-de5a-4669-b3db-a8a5759a18e9.jpg"
     ], description: "A compact waterproof Bluetooth speaker with 12-hour battery life and rich bass. Ideal for home, travel, and outdoors.", features: ["IPX7 waterproof", "12-hour battery", "Deep bass", "360° sound", "USB-C charging"], specs: { Battery: "12 hours", Connectivity: "Bluetooth 5.3", Rating: "IPX7", Warranty: "1 Year" }, inStock: true, badge: "new" },
 
   // Lighting
-  { id: "e014", name: "LED Ceiling Fan with Light", category: "electronics", subcategory: "Lighting", price: 4800, originalPrice: 6200, rating: 4.7, reviewCount: 176, images: [
+  { id: "e014", name: "LED Ceiling Fan with Light", category: "electronics", subcategory: "Lighting", price: 402999, originalPrice: 520999, rating: 4.7, reviewCount: 176, images: [
       "/products/ata_images_618f32f1-488b-491e-b8e9-24255b40e5f8.jpg",
       "/products/ata_images_638819a6-173d-4693-9e3d-5f72878a740b.jpg"
     ], description: "A modern ceiling fan with integrated LED light, remote control, and 3-speed settings. Energy-efficient and stylish.", features: ["Integrated LED light", "Remote control", "3-speed settings", "Energy-saving motor", "Sleek design"], specs: { Power: "50W fan + 24W light", Sweep: "1200mm", Speeds: "3", Control: "Remote", Warranty: "2 Years" }, inStock: true, badge: "bestseller" },
 
-  { id: "e015", name: "Smart LED Strip Lights (5m)", category: "electronics", subcategory: "Lighting", price: 1800, originalPrice: 2500, rating: 4.5, reviewCount: 412, images: [
+  { id: "e015", name: "Smart LED Strip Lights (5m)", category: "electronics", subcategory: "Lighting", price: 150999, originalPrice: 209999, rating: 4.5, reviewCount: 412, images: [
       "/products/ata_images_63f9c457-889b-4e3c-b35a-a89471568c6b.jpg",
       "/products/ata_images_657d92c5-4135-4523-a2f8-783a43eda2c0.jpg"
     ], description: "App-controlled RGB LED strip lights with 16 million colours, music sync, and voice assistant support. 5m roll.", features: ["16M colour options", "Music sync mode", "App & voice control", "Cuttable every 3 LEDs", "Self-adhesive backing"], specs: { Length: "5 metres", Control: "App, Voice", Colors: "16 million RGB", Warranty: "1 Year" }, inStock: true, badge: "trending" },
 
-  { id: "e016", name: "Decorative Pendant Light", category: "electronics", subcategory: "Lighting", price: 3500, originalPrice: 4800, rating: 4.6, reviewCount: 58, images: [
+  { id: "e016", name: "Decorative Pendant Light", category: "electronics", subcategory: "Lighting", price: 293999, originalPrice: 402999, rating: 4.6, reviewCount: 58, images: [
       "/products/ata_images_6583edba-2daf-4565-8a09-9ae0266f661f.jpg",
       "/products/ata_images_6e84b6a6-d883-4011-9db8-1111b4e8caeb.jpg"
     ], description: "A handcrafted metal pendant light in a geometric cage design. Perfect above dining tables and kitchen islands.", features: ["Geometric cage design", "E27 bulb compatible", "Adjustable cord length", "Matte black finish", "Easy installation"], specs: { Material: "Iron", Bulb: "E27 (not included)", "Cord Length": "Adjustable up to 150cm", Warranty: "1 Year" }, inStock: true, badge: "new" },
 
   // Smart Home
-  { id: "e017", name: "Smart Video Doorbell", category: "electronics", subcategory: "Smart Home", price: 5200, originalPrice: 7000, rating: 4.7, reviewCount: 94, images: [
+  { id: "e017", name: "Smart Video Doorbell", category: "electronics", subcategory: "Smart Home", price: 436999, originalPrice: 587999, rating: 4.7, reviewCount: 94, images: [
       "/products/ata_images_6ece089e-2a0a-4b48-867f-15ed6bb8f1eb.jpg",
       "/products/ata_images_766e5125-a0de-47ce-b095-8b7bd4260e0c.jpg"
     ], description: "A Wi-Fi video doorbell with 1080p live view, motion alerts, two-way audio, and night vision. Works with Alexa & Google.", features: ["1080p live video", "Two-way audio", "Motion detection alerts", "Night vision", "Alexa & Google compatible"], specs: { Resolution: "1080p HD", Connectivity: "Wi-Fi 2.4GHz", Night: "IR night vision", Warranty: "1 Year" }, inStock: true, badge: "new" },
 
-  { id: "e018", name: "Smart Plug (4-Pack)", category: "electronics", subcategory: "Smart Home", price: 1999, originalPrice: 2800, rating: 4.5, reviewCount: 267, images: [
+  { id: "e018", name: "Smart Plug (4-Pack)", category: "electronics", subcategory: "Smart Home", price: 167999, originalPrice: 234999, rating: 4.5, reviewCount: 267, images: [
       "/products/ata_images_76c004aa-b22e-45e4-ae23-ee0e6fc0e09d.jpg",
       "/products/ata_images_7791211c-1194-4f79-bbbb-b7a8153fc50f.jpg"
     ], description: "App-controlled smart plugs with energy monitoring, scheduling, and voice control. Compatible with all Indian sockets.", features: ["App & voice control", "Energy monitoring", "Schedule on/off", "Overload protection", "Compact design"], specs: { Pack: "4 plugs", Connectivity: "Wi-Fi 2.4GHz", Rating: "16A", Warranty: "1 Year" }, inStock: true, badge: "bestseller" },
 
   // Home Appliances
-  { id: "e019", name: "Tower Air Cooler (50L)", category: "electronics", subcategory: "Home Appliances", price: 9500, originalPrice: 12000, rating: 4.6, reviewCount: 183, images: [
+  { id: "e019", name: "Tower Air Cooler (50L)", category: "electronics", subcategory: "Home Appliances", price: 797999, originalPrice: 12000, rating: 4.6, reviewCount: 183, images: [
       "/products/ata_images_7d2edc23-0cdc-46cd-91c0-2d31b6bafdd6.jpg",
       "/products/ata_images_805646ec-a1a9-414f-a6e9-72fb7ad3fcf3.jpg"
     ], description: "A powerful 50-litre tower air cooler with 4-way air deflection, remote control, and auto-fill. Perfect for Indian summers.", features: ["50L water tank", "4-way air deflection", "Remote control", "Auto-fill option", "Honeycomb cooling pads"], specs: { "Tank Capacity": "50 litres", Speeds: "3", Coverage: "Up to 400 sq.ft", Warranty: "2 Years" }, inStock: true, badge: "trending" },
@@ -705,68 +705,68 @@ export const products: Product[] = [
       "/products/ata_images_95051693-a23d-47f0-86cc-616f3c4f8ae1.jpg"
     ], description: "A fully automatic front-load washing machine with 15 wash programs, steam wash, and in-built heater. Built for Indian fabrics.", features: ["15 wash programs", "Steam wash", "In-built heater", "Child lock", "Quick wash 15 min"], specs: { Capacity: "7 kg", Type: "Front Load", Programs: "15", Warranty: "10 Years motor" }, inStock: true, badge: "sale" },
 
-  { id: "e022", name: "Induction Cooktop 2000W", category: "electronics", subcategory: "Home Appliances", price: 3200, originalPrice: 4500, rating: 4.6, reviewCount: 389, images: [
+  { id: "e022", name: "Induction Cooktop 2000W", category: "electronics", subcategory: "Home Appliances", price: 268999, originalPrice: 377999, rating: 4.6, reviewCount: 389, images: [
       "/products/ata_images_992be3eb-7d8f-46e0-a68b-884400ab6ae2.jpg",
       "/products/ata_images_a783f36f-304f-4310-9cd0-4ae6c2894e78.jpg"
     ], description: "A 2000W induction cooktop with 8 preset cooking modes, digital display, and auto-shutoff. Ideal for Indian cooking.", features: ["2000W power", "8 preset modes", "Digital display", "Auto shut-off", "Child lock"], specs: { Power: "2000W", Modes: "8 preset", Voltage: "220V", Warranty: "2 Years" }, inStock: true, badge: "new" },
 
-  { id: "e023", name: "Mixer Grinder 750W (3 Jars)", category: "electronics", subcategory: "Home Appliances", price: 3800, originalPrice: 5000, rating: 4.7, reviewCount: 512, images: [
+  { id: "e023", name: "Mixer Grinder 750W (3 Jars)", category: "electronics", subcategory: "Home Appliances", price: 318999, originalPrice: 419999, rating: 4.7, reviewCount: 512, images: [
       "/products/ata_images_a7b6284b-d44e-4b6c-8457-6ba436594774.jpg",
       "/products/ata_images_a8107166-b319-495e-aa6f-7f8f1993eedc.jpg"
     ], description: "A heavy-duty 750W mixer grinder with 3 stainless steel jars. Perfect for South Indian cooking — idli batter, chutneys, and masala.", features: ["750W copper motor", "3 SS jars", "Overload protection", "4-speed control", "Centrifugal juicer"], specs: { Power: "750W", Jars: "3 (1.5L, 1L, 0.4L)", Speeds: "4 + pulse", Warranty: "2 Years" }, inStock: true, badge: "bestseller" },
 
-  { id: "e024", name: "Electric Ceiling Fan 1200mm", category: "electronics", subcategory: "Home Appliances", price: 2200, originalPrice: 3000, rating: 4.5, reviewCount: 644, images: [
+  { id: "e024", name: "Electric Ceiling Fan 1200mm", category: "electronics", subcategory: "Home Appliances", price: 184999, originalPrice: 251999, rating: 4.5, reviewCount: 644, images: [
       "/products/ata_images_a84817aa-beb4-4e5d-9333-68bc3b4804b8.jpg",
       "/products/ata_images_ad36fe06-f648-4bcd-bfb7-37e23509bc83.jpg"
     ], description: "An energy-efficient BEE 5-star rated ceiling fan with a powerful motor and attractive design. A must-have for Indian homes.", features: ["BEE 5-star rated", "Powerful copper motor", "Anti-dust blades", "3-speed regulator", "2-year warranty"], specs: { Sweep: "1200mm", Power: "75W", Speeds: "3", Finish: "Pearl white", Warranty: "2 Years" }, inStock: true, badge: "sale" },
 
   // ===== CABLES & ACCESSORIES =====
-  { id: "c001", name: "HDMI Cable 2.1 (2m)", category: "electronics", subcategory: "Cables & Accessories", price: 599, originalPrice: 999, rating: 4.7, reviewCount: 834, images: [
+  { id: "c001", name: "HDMI Cable 2.1 (2m)", category: "electronics", subcategory: "Cables & Accessories", price: 49999, originalPrice: 83999, rating: 4.7, reviewCount: 834, images: [
       "/products/ata_images_b755e9a3-6e03-4a37-a0e5-defaa6f85bef.jpg",
       "/products/ata_images_bb4e0319-2b7e-4cae-961b-8d9c9ac66321.jpg"
     ], description: "A premium HDMI 2.1 cable supporting 4K@120Hz and 8K@60Hz. Ideal for TVs, gaming consoles, and monitors. Gold-plated connectors for signal clarity.", features: ["HDMI 2.1 standard", "4K@120Hz / 8K@60Hz", "eARC support", "Gold-plated connectors", "Braided nylon sleeve"], specs: { Length: "2 metres", Standard: "HDMI 2.1", Resolution: "Up to 8K", Warranty: "1 Year" }, inStock: true, badge: "bestseller" },
 
-  { id: "c002", name: "USB-C to USB-C Cable (1m)", category: "electronics", subcategory: "Cables & Accessories", price: 349, originalPrice: 599, rating: 4.6, reviewCount: 1203, images: [
+  { id: "c002", name: "USB-C to USB-C Cable (1m)", category: "electronics", subcategory: "Cables & Accessories", price: 28999, originalPrice: 49999, rating: 4.6, reviewCount: 1203, images: [
       "/products/ata_images_c205eede-9d11-4927-90bd-ce8aa2b1e0ee.jpg",
       "/products/ata_images_c46a8b56-0a9c-4ae6-b741-ba25c013a6f2.jpg"
     ], description: "Fast-charging USB-C to USB-C cable supporting 100W PD charging and USB 3.2 data transfer. Compatible with laptops, phones, and tablets.", features: ["100W Power Delivery", "USB 3.2 Gen 2 data", "10Gbps data speed", "Braided nylon", "Universal compatibility"], specs: { Length: "1 metre", Charging: "100W PD", Data: "10Gbps", Warranty: "1 Year" }, inStock: true, badge: "new" },
 
-  { id: "c003", name: "USB-A to Micro USB Cable (1.5m)", category: "electronics", subcategory: "Cables & Accessories", price: 199, originalPrice: 349, rating: 4.4, reviewCount: 2187, images: [
+  { id: "c003", name: "USB-A to Micro USB Cable (1.5m)", category: "electronics", subcategory: "Cables & Accessories", price: 16999, originalPrice: 28999, rating: 4.4, reviewCount: 2187, images: [
       "/products/ata_images_cab02473-01ee-4d5a-a029-7d015d0ead81.jpg",
       "/products/ata_images_cb9f76c5-567b-4ee4-a868-5e8c93b27ec8.jpg"
     ], description: "Durable Micro USB charging cable compatible with older Android phones, cameras, and accessories. Tangle-free flat design.", features: ["Flat tangle-free design", "Fast charging support", "Durable TPE jacket", "Wide compatibility", "Flexible bend points"], specs: { Length: "1.5 metres", Connector: "USB-A to Micro USB", Warranty: "1 Year" }, inStock: true },
 
-  { id: "c004", name: "3.5mm AUX Audio Cable (2m)", category: "electronics", subcategory: "Cables & Accessories", price: 249, originalPrice: 399, rating: 4.5, reviewCount: 678, images: [
+  { id: "c004", name: "3.5mm AUX Audio Cable (2m)", category: "electronics", subcategory: "Cables & Accessories", price: 20999, originalPrice: 33999, rating: 4.5, reviewCount: 678, images: [
       "/products/ata_images_d940a8b8-992a-45d5-84c8-6e784784061b.jpg",
       "/products/ata_images_e1874ef9-766b-4f6f-8db3-4ef55ed9a520.jpg"
     ], description: "A 2-metre stereo AUX cable with gold-plated 3.5mm jacks. Ideal for connecting phones to car stereos, speakers, and home audio systems.", features: ["Gold-plated 3.5mm jacks", "Stereo audio", "Nylon braided jacket", "No signal loss", "Universal fit"], specs: { Length: "2 metres", Connector: "3.5mm TRS to TRS", Audio: "Stereo", Warranty: "1 Year" }, inStock: true, badge: "sale" },
 
-  { id: "c005", name: "Ethernet LAN Cable Cat6 (5m)", category: "electronics", subcategory: "Cables & Accessories", price: 399, originalPrice: 649, rating: 4.8, reviewCount: 445, images: [
+  { id: "c005", name: "Ethernet LAN Cable Cat6 (5m)", category: "electronics", subcategory: "Cables & Accessories", price: 33999, originalPrice: 54999, rating: 4.8, reviewCount: 445, images: [
       "/products/ata_images_e2250491-6f3f-4b09-ae01-eaa43db49dbe.jpg",
       "/products/ata_images_e95d25ff-749b-4ea1-ba1d-fc3c0f832f84.jpg"
     ], description: "Cat6 Ethernet cable delivering 1Gbps network speed. Perfect for routers, smart TVs, PCs, and gaming consoles for stable wired internet.", features: ["Cat6 standard", "1Gbps speed", "RJ45 gold-plated connectors", "Foil shielded", "5 metre length"], specs: { Length: "5 metres", Standard: "Cat6", Speed: "1Gbps", Connector: "RJ45", Warranty: "1 Year" }, inStock: true, badge: "bestseller" },
 
-  { id: "c006", name: "Lightning to USB Cable (1m)", category: "electronics", subcategory: "Cables & Accessories", price: 499, originalPrice: 799, rating: 4.6, reviewCount: 921, images: [
+  { id: "c006", name: "Lightning to USB Cable (1m)", category: "electronics", subcategory: "Cables & Accessories", price: 41999, originalPrice: 66999, rating: 4.6, reviewCount: 921, images: [
       "/products/ata_images_ec4f4d4d-b11e-47a8-94f2-e356a665d2a7.jpg",
       "/products/ata_images_fc786ca7-b875-4409-9fec-b3d350cce0e6.jpg"
     ], description: "MFi-certified Lightning to USB cable for iPhone and iPad. Supports fast charging and data sync. Durable braided design.", features: ["MFi certified", "Fast charging", "Data sync", "Braided nylon jacket", "Reinforced connectors"], specs: { Length: "1 metre", Connector: "Lightning to USB-A", Warranty: "1 Year" }, inStock: true, badge: "trending" },
 
-  { id: "c007", name: "USB Extension Cable 3.0 (3m)", category: "electronics", subcategory: "Cables & Accessories", price: 299, originalPrice: 499, rating: 4.5, reviewCount: 387, images: [
+  { id: "c007", name: "USB Extension Cable 3.0 (3m)", category: "electronics", subcategory: "Cables & Accessories", price: 24999, originalPrice: 41999, rating: 4.5, reviewCount: 387, images: [
       "/products/ata_images_0132119d-bb52-489c-9c79-87b1149d0e90.jpg",
       "/products/ata_images_064f8e4c-75c5-4b7b-aa4f-b06153b74d38.jpg"
     ], description: "A 3-metre USB 3.0 extension cable for keyboards, mice, printers, and USB hubs. Plug-and-play with all USB-A devices.", features: ["USB 3.0 speed", "3 metre reach", "Plug and play", "Stable signal", "Works with all USB-A devices"], specs: { Length: "3 metres", Standard: "USB 3.0", Speed: "5Gbps", Warranty: "1 Year" }, inStock: true, badge: "new" },
 
-  { id: "c008", name: "4-in-1 Multi Charging Cable (1.2m)", category: "electronics", subcategory: "Cables & Accessories", price: 599, originalPrice: 899, rating: 4.7, reviewCount: 1456, images: [
+  { id: "c008", name: "4-in-1 Multi Charging Cable (1.2m)", category: "electronics", subcategory: "Cables & Accessories", price: 49999, originalPrice: 75999, rating: 4.7, reviewCount: 1456, images: [
       "/products/ata_images_0a2bc870-3326-41d2-8acc-ca38571969e5.jpg",
       "/products/ata_images_15c6fdf6-395d-4d54-b759-773f4f55f065.jpg"
     ], description: "One cable for all devices — USB-C, Micro USB, Lightning, and USB-A connectors in a single braided cable. The only cable you need.", features: ["4 connectors in 1", "USB-C + Micro + Lightning + USB-A", "Nylon braided", "Fast charge support", "Universal compatibility"], specs: { Length: "1.2 metres", Connectors: "4 types", Charging: "Fast charge", Warranty: "1 Year" }, inStock: true, badge: "bestseller" },
 
-  { id: "c009", name: "TV Coaxial Cable (3m)", category: "electronics", subcategory: "Cables & Accessories", price: 299, originalPrice: 450, rating: 4.4, reviewCount: 312, images: [
+  { id: "c009", name: "TV Coaxial Cable (3m)", category: "electronics", subcategory: "Cables & Accessories", price: 24999, originalPrice: 37999, rating: 4.4, reviewCount: 312, images: [
       "/products/ata_images_1a553fc8-9961-4ae8-ac3d-3079926141e8.jpg",
       "/products/ata_images_1af1d7cf-1f72-4a78-b515-e4e7c9fa4dbb.jpg"
     ], description: "A high-quality RG6 coaxial cable for connecting DTH antennas, cable TV boxes, and satellite dishes to televisions. Noise-free signal.", features: ["RG6 coaxial standard", "Noise-free signal", "Gold-plated F-connector", "Double shielded", "3 metre length"], specs: { Length: "3 metres", Standard: "RG6", Connector: "F-Type", Warranty: "1 Year" }, inStock: true },
 
-  { id: "c010", name: "VGA to HDMI Adapter Cable (1.8m)", category: "electronics", subcategory: "Cables & Accessories", price: 449, originalPrice: 699, rating: 4.5, reviewCount: 228, images: [
+  { id: "c010", name: "VGA to HDMI Adapter Cable (1.8m)", category: "electronics", subcategory: "Cables & Accessories", price: 37999, originalPrice: 58999, rating: 4.5, reviewCount: 228, images: [
       "/products/ata_images_1b0883eb-8d1a-44a0-8e58-00fb02ddab4e.jpg",
       "/products/ata_images_1f0fbf85-031d-42e9-9e89-e135c9768a9d.jpg"
     ], description: "Convert VGA output from old laptops and PCs to HDMI displays. Supports 1080p video output with separate audio input. Plug-and-play.", features: ["VGA to HDMI conversion", "1080p Full HD output", "Audio input jack", "Plug and play", "Compact design"], specs: { Length: "1.8 metres", Input: "VGA + 3.5mm audio", Output: "HDMI", Resolution: "1080p", Warranty: "1 Year" }, inStock: true, badge: "new" },

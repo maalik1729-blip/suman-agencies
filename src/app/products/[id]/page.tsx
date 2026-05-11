@@ -204,10 +204,10 @@ export default function ProductDetailPage() {
 
               {/* Price */}
               <div className="flex items-baseline gap-3 mt-5">
-                <span className="text-4xl font-bold text-[#4a6fa5] font-serif">${product.price.toLocaleString()}</span>
+                <span className="text-4xl font-bold text-[#4a6fa5] font-serif">₹{product.price.toLocaleString("en-IN")}</span>
                 {product.originalPrice && (
                   <span className={cn("text-xl line-through", isDark ? "text-white/30" : "text-black/30")}>
-                    ${product.originalPrice.toLocaleString()}
+                    ₹{product.originalPrice.toLocaleString("en-IN")}
                   </span>
                 )}
                 {discount && (

@@ -114,11 +114,11 @@ export function ProductCard({ product, theme, className }: ProductCardProps) {
         <div className="flex items-center justify-between mt-auto pt-2">
           <div className="flex items-baseline gap-2">
             <span className="text-[#4a6fa5] font-bold text-base">
-              ${product.price.toLocaleString()}
+              ₹{product.price.toLocaleString("en-IN")}
             </span>
             {product.originalPrice && (
               <span className={cn("text-xs line-through", isDark ? "text-white/30" : "text-black/30")}>
-                ${product.originalPrice.toLocaleString()}
+                ₹{product.originalPrice.toLocaleString("en-IN")}
               </span>
             )}
           </div>

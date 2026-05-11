@@ -293,7 +293,7 @@ export default function CheckoutPage() {
                       </span>
                     ) : (
                       <span className="flex items-center gap-2">
-                        <Lock size={15} /> Confirm & Pay ${totalPrice.toLocaleString()} <ChevronRight size={15} />
+                        <Lock size={15} /> Confirm & Pay ₹{totalPrice.toLocaleString("en-IN")} <ChevronRight size={15} />
                       </span>
                     )}
                   </button>
@@ -314,7 +314,7 @@ export default function CheckoutPage() {
                       <p className={cn("text-xs font-medium line-clamp-1", isDark ? "text-white" : "text-[#1a1d23]")}>{item.product.name}</p>
                       <p className={cn("text-xs", isDark ? "text-white/40" : "text-black/40")}>Qty: {item.quantity}</p>
                     </div>
-                    <span className="text-xs font-bold text-[#4a6fa5] flex-shrink-0">${(item.product.price * item.quantity).toLocaleString()}</span>
+                    <span className="text-xs font-bold text-[#4a6fa5] flex-shrink-0">${(item.product.price * item.quantity).toLocaleString("en-IN")}</span>
                   </div>
                 ))}
               </div>
@@ -331,7 +331,7 @@ export default function CheckoutPage() {
               <div className={cn("border-t pt-3 space-y-2 text-sm", isDark ? "border-white/10" : "border-black/6")}>
                 <div className="flex justify-between">
                   <span className={isDark ? "text-white/50" : "text-black/40"}>Subtotal</span>
-                  <span className={isDark ? "text-white" : "text-[#1a1d23]"}>${totalPrice.toLocaleString()}</span>
+                  <span className={isDark ? "text-white" : "text-[#1a1d23]"}>₹{totalPrice.toLocaleString("en-IN")}</span>
                 </div>
                 <div className="flex justify-between">
                   <span className={isDark ? "text-white/50" : "text-black/40"}>Delivery</span>
@@ -339,7 +339,7 @@ export default function CheckoutPage() {
                 </div>
                 <div className={cn("flex justify-between font-bold text-base pt-2 border-t", isDark ? "border-white/10 text-white" : "border-black/6 text-[#1a1d23]")}>
                   <span>Total</span>
-                  <span className="text-[#4a6fa5]">${totalPrice.toLocaleString()}</span>
+                  <span className="text-[#4a6fa5]">₹{totalPrice.toLocaleString("en-IN")}</span>
                 </div>
               </div>
             </div>

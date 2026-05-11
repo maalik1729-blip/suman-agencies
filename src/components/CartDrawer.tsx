@@ -134,7 +134,7 @@ export function CartDrawer({ theme }: CartDrawerProps) {
                       </p>
                     )}
                     <p className="text-[#4a6fa5] font-bold text-sm mt-1">
-                      ${item.product.price.toLocaleString()}
+                      ₹{item.product.price.toLocaleString("en-IN")}
                     </p>
 
                     {/* Qty Controls */}
@@ -190,7 +190,7 @@ export function CartDrawer({ theme }: CartDrawerProps) {
             <div className="flex items-center justify-between">
               <span className={cn("text-sm", isDark ? "text-white/60" : "text-black/50")}>Subtotal</span>
               <span className={cn("font-bold text-lg", isDark ? "text-white" : "text-[#1a1a1a]")}>
-                ${totalPrice.toLocaleString()}
+                ₹{totalPrice.toLocaleString("en-IN")}
               </span>
             </div>
 

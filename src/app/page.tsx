@@ -369,11 +369,11 @@ function TrendingCarousel({ theme }: { theme?: string }) {
 
                 <div className="flex items-center gap-3 mt-6">
                   <span className="text-3xl font-bold text-[#4a6fa5]">
-                    ${trending[current]?.price.toLocaleString()}
+                    ₹{trending[current]?.price.toLocaleString("en-IN")}
                   </span>
                   {trending[current]?.originalPrice && (
                     <span className={cn("text-lg line-through", isDark ? "text-white/30" : "text-black/30")}>
-                      ${trending[current]?.originalPrice?.toLocaleString()}
+                      ₹{trending[current]?.originalPrice?.toLocaleString("en-IN")}
                     </span>
                   )}
                 </div>
