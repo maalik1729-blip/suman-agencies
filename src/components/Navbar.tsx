@@ -78,16 +78,35 @@ export function Navbar({ theme, toggleTheme }: NavbarProps) {
       >
         <nav className="max-w-7xl mx-auto px-4 sm:px-6 flex items-center justify-between">
           {/* Logo */}
-          <Link href="/" className="flex items-center gap-2 group">
-            <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-[#4a6fa5] to-[#2d4f7c] flex items-center justify-center shadow-md group-hover:scale-110 transition-transform duration-300">
-              <span className="text-white font-bold text-sm font-serif">S</span>
+          <Link href="/" className="flex items-center gap-2.5 group">
+            {/* Logo Icon: sofa silhouette */}
+            <div className="w-9 h-9 rounded-xl flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform duration-300 overflow-hidden" style={{ background: "linear-gradient(135deg, #1a2f52, #2d4f7c)" }}>
+              <svg viewBox="0 0 100 100" width="26" height="26" xmlns="http://www.w3.org/2000/svg">
+                {/* Back rest */}
+                <rect x="18" y="30" width="64" height="22" rx="6" fill="#e8c97a" />
+                {/* Seat */}
+                <rect x="18" y="50" width="64" height="18" rx="5" fill="#d4a843" />
+                {/* Left arm */}
+                <rect x="10" y="36" width="14" height="34" rx="5" fill="#e8c97a" />
+                {/* Right arm */}
+                <rect x="76" y="36" width="14" height="34" rx="5" fill="#e8c97a" />
+                {/* Left leg */}
+                <rect x="22" y="66" width="5" height="12" rx="2" fill="#c9a84c" />
+                {/* Right leg */}
+                <rect x="73" y="66" width="5" height="12" rx="2" fill="#c9a84c" />
+              </svg>
             </div>
-            <span
-              className="text-xl font-bold tracking-tight font-serif transition-colors duration-300"
-              style={{ color: logoColor }}
-            >
-              Suman Agency
-            </span>
+            <div className="flex flex-col leading-none">
+              <span
+                className="text-lg font-bold tracking-tight font-serif transition-colors duration-300"
+                style={{ color: logoColor }}
+              >
+                Suman Agency
+              </span>
+              <span className="text-[9px] font-medium tracking-widest uppercase" style={{ color: logoColor, opacity: 0.6 }}>
+                Furniture &amp; Electronics
+              </span>
+            </div>
           </Link>
 
           {/* Desktop Nav Links */}
