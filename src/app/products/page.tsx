@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useMemo } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Search, X, Grid3X3, List, ChevronDown, ChevronUp, SlidersHorizontal } from "lucide-react";
+import { Search, X, Grid3X3, List, SlidersHorizontal, Star } from "lucide-react";
 import { products, categories } from "@/data/products";
 import { ProductCard } from "@/components/ProductCard";
 import { cn } from "@/lib/utils";
@@ -12,22 +12,6 @@ type SortOption = "default" | "price-asc" | "price-desc" | "rating" | "name";
 
 const PRICE_MIN = 0;
 const PRICE_MAX = 200000;
-
-function FilterSection({ title, children, defaultOpen = true }: { title: string; children: React.ReactNode; defaultOpen?: boolean }) {
-  const [open, setOpen] = useState(defaultOpen);
-  return (
-    <div className="border-b border-black/8 dark:border-white/8 py-4">
-      <button
-        onClick={() => setOpen(!open)}
-        className="flex items-center justify-between w-full text-sm font-bold uppercase tracking-wider text-[#1a1d23] dark:text-white mb-0"
-      >
-        {title}
-        {open ? <ChevronUp size={15} /> : <ChevronDown size={15} />}
-      </button>
-      {open && <div className="mt-3 space-y-2">{children}</div>}
-    </div>
-  );
-}
 
 export default function ProductsPage() {
   const searchParams = useSearchParams();
@@ -42,7 +26,6 @@ export default function ProductsPage() {
   const [viewMode, setViewMode] = useState<"grid" | "list">("grid");
   const [priceRange, setPriceRange] = useState<[number, number]>([PRICE_MIN, PRICE_MAX]);
   const [minRating, setMinRating] = useState(0);
-  const [minDiscount, setMinDiscount] = useState(0);
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
   useEffect(() => {
@@ -75,11 +58,6 @@ export default function ProductsPage() {
     }
     list = list.filter((p) => p.price >= priceRange[0] && p.price <= priceRange[1]);
     if (minRating > 0) list = list.filter((p) => p.rating >= minRating);
-    if (minDiscount > 0) list = list.filter((p) => {
-      if (!p.originalPrice) return false;
-      const disc = Math.round((1 - p.price / p.originalPrice) * 100);
-      return disc >= minDiscount;
-    });
     switch (sort) {
       case "price-asc": return [...list].sort((a, b) => a.price - b.price);
       case "price-desc": return [...list].sort((a, b) => b.price - a.price);
@@ -87,7 +65,7 @@ export default function ProductsPage() {
       case "name": return [...list].sort((a, b) => a.name.localeCompare(b.name));
       default: return list;
     }
-  }, [activeCategory, activeSubcategories, activeBadge, search, sort, priceRange, minRating, minDiscount]);
+  }, [activeCategory, activeSubcategories, activeBadge, search, sort, priceRange, minRating]);
 
   const toggleSubcategory = (sub: string) => {
     setActiveSubcategories((prev) =>
@@ -101,7 +79,6 @@ export default function ProductsPage() {
     setActiveBadge("all");
     setPriceRange([PRICE_MIN, PRICE_MAX]);
     setMinRating(0);
-    setMinDiscount(0);
     setSearch("");
   };
 
@@ -111,103 +88,210 @@ export default function ProductsPage() {
     activeBadge !== "all",
     priceRange[0] > PRICE_MIN || priceRange[1] < PRICE_MAX,
     minRating > 0,
-    minDiscount > 0,
   ].filter(Boolean).length;
 
-  const Sidebar = () => (
-    <aside className={cn(
-      "w-64 flex-shrink-0 rounded-2xl border p-5 self-start sticky top-[8.5rem] max-h-[calc(100vh-9.5rem)] overflow-y-auto",
-      isDark ? "bg-[#141820] border-white/8" : "bg-white border-black/6"
-    )} style={{ boxShadow: "var(--shadow-luxe)" }}>
-      {/* Header */}
-      <div className="flex items-center justify-between mb-1">
-        <h2 className={cn("font-bold text-base flex items-center gap-2", isDark ? "text-white" : "text-[#1a1d23]")}>
+  /* ─── New Filter Sidebar ─── */
+  const FilterPanel = () => (
+    <div
+      className={cn(
+        "w-64 shrink-0 rounded-2xl border overflow-hidden",
+        isDark ? "bg-[#111827] border-white/10" : "bg-white border-gray-200"
+      )}
+      style={{ boxShadow: isDark ? "0 4px 24px rgba(0,0,0,0.4)" : "0 4px 24px rgba(0,0,0,0.08)" }}
+    >
+      {/* Panel Header */}
+      <div
+        className="flex items-center justify-between px-5 py-4 border-b"
+        style={{ borderColor: isDark ? "rgba(255,255,255,0.08)" : "rgba(0,0,0,0.06)" }}
+      >
+        <div className="flex items-center gap-2">
           <SlidersHorizontal size={16} className="text-[#4a6fa5]" />
-          Filters
+          <span className={cn("font-bold text-sm", isDark ? "text-white" : "text-gray-900")}>
+            Filters
+          </span>
           {activeFilterCount > 0 && (
-            <span className="ml-1 px-1.5 py-0.5 rounded-full bg-[#4a6fa5] text-white text-[10px] font-bold">{activeFilterCount}</span>
+            <span className="px-1.5 py-0.5 rounded-full bg-[#4a6fa5] text-white text-[10px] font-bold">
+              {activeFilterCount}
+            </span>
           )}
-        </h2>
+        </div>
         {activeFilterCount > 0 && (
-          <button onClick={resetFilters} className="text-xs text-[#4a6fa5] hover:underline font-medium">Clear All</button>
+          <button
+            onClick={resetFilters}
+            className="text-[11px] text-[#4a6fa5] hover:text-[#2d4f7c] font-semibold transition-colors"
+          >
+            Reset all
+          </button>
         )}
       </div>
 
-      {/* Category */}
-      <FilterSection title="Category">
-        {(["all", "furniture", "electronics"] as const).map((cat) => (
-          <label key={cat} className="flex items-center gap-2.5 cursor-pointer group">
-            <input
-              type="radio"
-              name="category"
-              checked={activeCategory === cat}
-              onChange={() => { setActiveCategory(cat); setActiveSubcategories([]); }}
-              className="accent-[#4a6fa5] w-4 h-4"
-            />
-            <span className={cn("text-sm capitalize transition-colors group-hover:text-[#4a6fa5]", isDark ? "text-white/70" : "text-black/70")}>
-              {cat === "all" ? "All Products" : cat}
-            </span>
-          </label>
-        ))}
-      </FilterSection>
+      <div className="px-5 py-4 space-y-6 overflow-y-auto max-h-[calc(100vh-14rem)]">
 
-      {/* Subcategory */}
-      <FilterSection title="Sub-Category" defaultOpen={false}>
-        <div className="max-h-48 overflow-y-auto space-y-2 pr-1">
-          {subcategoryList.filter(s => s !== "All").map((sub) => (
-            <label key={sub} className="flex items-center gap-2.5 cursor-pointer group">
-              <input
-                type="checkbox"
-                checked={activeSubcategories.includes(sub)}
-                onChange={() => toggleSubcategory(sub)}
-                className="accent-[#4a6fa5] w-4 h-4 rounded"
-              />
-              <span className={cn("text-sm transition-colors group-hover:text-[#4a6fa5]", isDark ? "text-white/70" : "text-black/70")}>{sub}</span>
-            </label>
-          ))}
+        {/* Category */}
+        <div>
+          <p className={cn("text-[11px] font-bold uppercase tracking-widest mb-3", isDark ? "text-white/40" : "text-gray-400")}>
+            Category
+          </p>
+          <div className="flex flex-col gap-2">
+            {(["all", "furniture", "electronics"] as const).map((cat) => (
+              <button
+                key={cat}
+                onClick={() => { setActiveCategory(cat); setActiveSubcategories([]); }}
+                className={cn(
+                  "w-full text-left px-3.5 py-2 rounded-xl text-sm font-medium transition-all duration-200",
+                  activeCategory === cat
+                    ? "bg-[#4a6fa5] text-white shadow-sm"
+                    : isDark
+                    ? "text-white/60 hover:bg-white/8 hover:text-white"
+                    : "text-gray-600 hover:bg-gray-100 hover:text-gray-900"
+                )}
+              >
+                {cat === "all" ? "All Products" : cat.charAt(0).toUpperCase() + cat.slice(1)}
+              </button>
+            ))}
+          </div>
         </div>
-      </FilterSection>
 
-      {/* Price Range */}
-      <FilterSection title="Price Range">
-        <div className="space-y-3">
-          <input
-            type="range"
-            min={PRICE_MIN}
-            max={PRICE_MAX}
-            step={500}
-            value={priceRange[1]}
-            onChange={(e) => setPriceRange([priceRange[0], Number(e.target.value)])}
-            className="w-full accent-[#4a6fa5]"
-          />
-          <div className="flex items-center gap-2">
+        {/* Divider */}
+        <div className={isDark ? "border-t border-white/8" : "border-t border-gray-100"} />
+
+        {/* Price Range */}
+        <div>
+          <p className={cn("text-[11px] font-bold uppercase tracking-widest mb-3", isDark ? "text-white/40" : "text-gray-400")}>
+            Price Range
+          </p>
+          <div className="space-y-3">
             <input
-              type="number"
-              value={priceRange[0]}
-              onChange={(e) => setPriceRange([Number(e.target.value), priceRange[1]])}
-              className={cn("w-full px-2 py-1.5 text-xs rounded-lg border focus:outline-none focus:border-[#4a6fa5]", isDark ? "bg-white/6 border-white/10 text-white" : "bg-gray-50 border-black/10 text-[#1a1d23]")}
-              placeholder="Min"
-            />
-            <span className={isDark ? "text-white/40" : "text-black/30"}>–</span>
-            <input
-              type="number"
+              type="range"
+              min={PRICE_MIN}
+              max={PRICE_MAX}
+              step={1000}
               value={priceRange[1]}
               onChange={(e) => setPriceRange([priceRange[0], Number(e.target.value)])}
-              className={cn("w-full px-2 py-1.5 text-xs rounded-lg border focus:outline-none focus:border-[#4a6fa5]", isDark ? "bg-white/6 border-white/10 text-white" : "bg-gray-50 border-black/10 text-[#1a1d23]")}
-              placeholder="Max"
+              className="w-full accent-[#4a6fa5] h-1.5 cursor-pointer"
             />
+            <div className="flex items-center gap-2">
+              <div className={cn("flex-1 px-2.5 py-1.5 rounded-lg border text-xs font-medium", isDark ? "bg-white/6 border-white/10 text-white" : "bg-gray-50 border-gray-200 text-gray-700")}>
+                ₹{priceRange[0].toLocaleString("en-IN")}
+              </div>
+              <span className={isDark ? "text-white/30 text-xs" : "text-gray-300 text-xs"}>—</span>
+              <div className={cn("flex-1 px-2.5 py-1.5 rounded-lg border text-xs font-medium", isDark ? "bg-white/6 border-white/10 text-white" : "bg-gray-50 border-gray-200 text-gray-700")}>
+                ₹{priceRange[1].toLocaleString("en-IN")}
+              </div>
+            </div>
           </div>
-          <p className="text-xs text-[#4a6fa5] font-medium">${priceRange[0].toLocaleString()} – ${priceRange[1].toLocaleString()}</p>
         </div>
-      </FilterSection>
 
+        {/* Divider */}
+        <div className={isDark ? "border-t border-white/8" : "border-t border-gray-100"} />
 
+        {/* Minimum Rating */}
+        <div>
+          <p className={cn("text-[11px] font-bold uppercase tracking-widest mb-3", isDark ? "text-white/40" : "text-gray-400")}>
+            Min Rating
+          </p>
+          <div className="flex gap-1.5 flex-wrap">
+            {[0, 3, 3.5, 4, 4.5].map((r) => (
+              <button
+                key={r}
+                onClick={() => setMinRating(r)}
+                className={cn(
+                  "flex items-center gap-1 px-2.5 py-1.5 rounded-lg text-xs font-semibold border transition-all duration-200",
+                  minRating === r
+                    ? "bg-amber-400 border-amber-400 text-white"
+                    : isDark
+                    ? "border-white/10 text-white/50 hover:border-amber-400 hover:text-amber-400"
+                    : "border-gray-200 text-gray-500 hover:border-amber-400 hover:text-amber-500"
+                )}
+              >
+                {r === 0 ? (
+                  "Any"
+                ) : (
+                  <>
+                    <Star size={10} className="fill-current" />
+                    {r}+
+                  </>
+                )}
+              </button>
+            ))}
+          </div>
+        </div>
 
+        {/* Divider */}
+        <div className={isDark ? "border-t border-white/8" : "border-t border-gray-100"} />
 
+        {/* Badge */}
+        <div>
+          <p className={cn("text-[11px] font-bold uppercase tracking-widest mb-3", isDark ? "text-white/40" : "text-gray-400")}>
+            Product Badge
+          </p>
+          <div className="flex flex-col gap-1.5">
+            {(["all", "new", "sale", "trending", "bestseller"] as const).map((badge) => (
+              <button
+                key={badge}
+                onClick={() => setActiveBadge(badge)}
+                className={cn(
+                  "w-full text-left px-3.5 py-2 rounded-xl text-sm font-medium transition-all duration-200",
+                  activeBadge === badge
+                    ? "bg-[#4a6fa5] text-white"
+                    : isDark
+                    ? "text-white/60 hover:bg-white/8 hover:text-white"
+                    : "text-gray-600 hover:bg-gray-100 hover:text-gray-900"
+                )}
+              >
+                {badge === "all" ? "All Badges" : badge.charAt(0).toUpperCase() + badge.slice(1)}
+              </button>
+            ))}
+          </div>
+        </div>
 
+        {/* Divider */}
+        <div className={isDark ? "border-t border-white/8" : "border-t border-gray-100"} />
 
+        {/* Sub-Categories */}
+        <div>
+          <p className={cn("text-[11px] font-bold uppercase tracking-widest mb-3", isDark ? "text-white/40" : "text-gray-400")}>
+            Sub-Category
+          </p>
+          <div className="space-y-1.5 max-h-44 overflow-y-auto pr-1">
+            {subcategoryList.filter((s) => s !== "All").map((sub) => (
+              <label key={sub} className="flex items-center gap-2.5 cursor-pointer group py-0.5">
+                <div
+                  onClick={() => toggleSubcategory(sub)}
+                  className={cn(
+                    "w-4 h-4 rounded border-2 flex items-center justify-center shrink-0 transition-all duration-150 cursor-pointer",
+                    activeSubcategories.includes(sub)
+                      ? "bg-[#4a6fa5] border-[#4a6fa5]"
+                      : isDark
+                      ? "border-white/20 group-hover:border-[#4a6fa5]"
+                      : "border-gray-300 group-hover:border-[#4a6fa5]"
+                  )}
+                >
+                  {activeSubcategories.includes(sub) && (
+                    <svg viewBox="0 0 10 8" width="8" height="8" fill="none">
+                      <path d="M1 4l3 3 5-6" stroke="white" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                    </svg>
+                  )}
+                </div>
+                <span
+                  className={cn(
+                    "text-sm transition-colors",
+                    activeSubcategories.includes(sub)
+                      ? "text-[#4a6fa5] font-medium"
+                      : isDark
+                      ? "text-white/60 group-hover:text-white"
+                      : "text-gray-600 group-hover:text-gray-900"
+                  )}
+                >
+                  {sub}
+                </span>
+              </label>
+            ))}
+          </div>
+        </div>
 
-    </aside>
+      </div>
+    </div>
   );
 
   return (
@@ -282,9 +366,9 @@ export default function ProductsPage() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 py-8">
         <div className="flex gap-7 items-start">
 
-          {/* Desktop Sidebar */}
-          <div className="hidden lg:block sticky top-36 self-start max-h-[calc(100vh-10rem)] overflow-y-auto w-[240px] shrink-0 pr-2 pb-10">
-            <Sidebar />
+          {/* Desktop Fixed Sidebar */}
+          <div className="hidden lg:block sticky top-36 self-start">
+            <FilterPanel />
           </div>
 
           {/* Mobile Sidebar Overlay */}
@@ -299,14 +383,14 @@ export default function ProductsPage() {
                 <motion.div
                   initial={{ x: -300 }} animate={{ x: 0 }} exit={{ x: -300 }}
                   transition={{ type: "spring", damping: 25 }}
-                  className="fixed top-0 left-0 h-full w-72 z-50 overflow-y-auto lg:hidden p-5"
-                  style={{ background: isDark ? "#141820" : "#fff" }}
+                  className="fixed top-0 left-0 h-full z-50 overflow-y-auto lg:hidden p-4"
+                  style={{ background: isDark ? "#0d1117" : "#fff" }}
                 >
                   <div className="flex items-center justify-between mb-4">
                     <h2 className={cn("font-bold text-base", isDark ? "text-white" : "text-[#1a1d23]")}>Filters</h2>
                     <button onClick={() => setSidebarOpen(false)}><X size={20} className={isDark ? "text-white" : "text-black"} /></button>
                   </div>
-                  <Sidebar />
+                  <FilterPanel />
                 </motion.div>
               </>
             )}
@@ -352,7 +436,7 @@ export default function ProductsPage() {
                             <h3 className={cn("font-bold text-base mt-1", isDark ? "text-white" : "text-[#1a1d23]")}>{product.name}</h3>
                             <p className={cn("text-sm mt-1 line-clamp-1", isDark ? "text-white/50" : "text-black/40")}>{product.description}</p>
                             <div className="flex items-center justify-between mt-3">
-                              <span className="font-bold text-[#4a6fa5] text-lg">${product.price.toLocaleString()}</span>
+                              <span className="font-bold text-[#4a6fa5] text-lg">₹{product.price.toLocaleString("en-IN")}</span>
                               <a href={`/products/${product.id}`} className="text-xs font-medium text-[#4a6fa5] hover:underline">View Details →</a>
                             </div>
                           </div>
