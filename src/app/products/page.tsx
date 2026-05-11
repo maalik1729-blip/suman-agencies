@@ -314,14 +314,7 @@ export default function ProductsPage() {
       {/* Top Bar */}
       <div className={cn("sticky top-16 z-40 px-4 sm:px-6 py-3 border-b", isDark ? "bg-[#0d1017]/90 border-white/10" : "bg-[#f8fafc]/90 border-black/8")} style={{ backdropFilter: "blur(20px)" }}>
         <div className="max-w-7xl mx-auto flex items-center gap-3">
-          {/* Mobile Filter Toggle */}
-          <button
-            onClick={() => setSidebarOpen(!sidebarOpen)}
-            className={cn("lg:hidden flex items-center gap-2 px-3 py-2 rounded-xl text-sm font-medium border transition-all", isDark ? "border-white/10 text-white/70" : "border-black/10 text-black/60")}
-          >
-            <SlidersHorizontal size={15} />
-            Filters {activeFilterCount > 0 && <span className="bg-[#4a6fa5] text-white text-[10px] px-1.5 py-0.5 rounded-full">{activeFilterCount}</span>}
-          </button>
+          {/* Mobile Filter Toggle removed */}
 
           {/* Search */}
           <div className="relative flex-1 max-w-xs">
@@ -366,35 +359,7 @@ export default function ProductsPage() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 py-8">
         <div className="flex gap-7 items-start">
 
-          {/* Desktop Fixed Sidebar */}
-          <div className="hidden lg:block sticky top-36 self-start">
-            <FilterPanel />
-          </div>
-
-          {/* Mobile Sidebar Overlay */}
-          <AnimatePresence>
-            {sidebarOpen && (
-              <>
-                <motion.div
-                  initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
-                  className="fixed inset-0 bg-black/50 z-50 lg:hidden"
-                  onClick={() => setSidebarOpen(false)}
-                />
-                <motion.div
-                  initial={{ x: -300 }} animate={{ x: 0 }} exit={{ x: -300 }}
-                  transition={{ type: "spring", damping: 25 }}
-                  className="fixed top-0 left-0 h-full z-50 overflow-y-auto lg:hidden p-4"
-                  style={{ background: isDark ? "#0d1117" : "#fff" }}
-                >
-                  <div className="flex items-center justify-between mb-4">
-                    <h2 className={cn("font-bold text-base", isDark ? "text-white" : "text-[#1a1d23]")}>Filters</h2>
-                    <button onClick={() => setSidebarOpen(false)}><X size={20} className={isDark ? "text-white" : "text-black"} /></button>
-                  </div>
-                  <FilterPanel />
-                </motion.div>
-              </>
-            )}
-          </AnimatePresence>
+          {/* Sidebar removed */}
 
           {/* Products Area */}
           <div className="flex-1 min-w-0">
