@@ -283,7 +283,7 @@ export default function ProductsPage() {
         <div className="flex gap-7 items-start">
 
           {/* Desktop Sidebar */}
-          <div className="hidden lg:block">
+          <div className="hidden lg:block sticky top-36 self-start max-h-[calc(100vh-10rem)] overflow-y-auto w-[240px] shrink-0 pr-2 pb-10">
             <Sidebar />
           </div>
 
