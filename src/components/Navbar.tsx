@@ -80,7 +80,7 @@ export function Navbar({ theme, toggleTheme }: NavbarProps) {
           {/* Logo */}
           <Link href="/" className="flex items-center gap-2 group">
             <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-[#4a6fa5] to-[#2d4f7c] flex items-center justify-center shadow-md group-hover:scale-110 transition-transform duration-300">
-              <span className="text-white font-bold text-sm font-serif">L</span>
+              <span className="text-white font-bold text-sm font-serif">S</span>
             </div>
             <span
               className="text-xl font-bold tracking-tight font-serif transition-colors duration-300"
