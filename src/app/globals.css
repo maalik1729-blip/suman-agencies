@@ -1,0 +1,431 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,500;0,700;1,400;1,500&family=DM+Sans:wght@300;400;500;600&display=swap");
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Inter", sans-serif;
+  --font-serif: "Playfair Display", serif;
+  --font-display: "DM Sans", sans-serif;
+
+  /* === Primary: Slate Indigo === */
+  --color-primary:       #4a6fa5;   /* steel blue */
+  --color-primary-light: #6b8fc4;   /* lighter blue */
+  --color-primary-pale:  #e8eef7;   /* pale blue tint */
+  --color-primary-dark:  #2d4f7c;   /* deep navy */
+  --color-primary-deep:  #1a2f50;   /* darkest navy */
+
+  /* === Cool Accent: Slate === */
+  --color-accent:        #64748b;   /* cool slate */
+  --color-accent-light:  #94a3b8;   /* light slate */
+  --color-accent-pale:   #f1f5f9;   /* near-white cool */
+
+  /* === Cool Neutrals === */
+  --color-charcoal:      #1a1d23;   /* cool near-black */
+  --color-slate-dark:    #252a34;   /* dark cool grey */
+  --color-slate-mid:     #3d4452;   /* mid cool grey */
+  --color-fog:           #dde3ec;   /* cool light border */
+  --color-mist:          #f0f4f8;   /* cool light bg */
+  --color-pearl:         #f8fafc;   /* page background */
+
+  /* === Radii === */
+  --radius-xl:  1rem;
+  --radius-2xl: 1.5rem;
+  --radius-3xl: 2rem;
+
+  /* === Shadows (cool-toned) === */
+  --shadow-luxe:    0 4px 24px rgba(20,30,50,0.08), 0 1px 4px rgba(20,30,50,0.04);
+  --shadow-luxe-lg: 0 8px 48px rgba(20,30,50,0.10), 0 2px 8px rgba(20,30,50,0.05);
+  --shadow-luxe-xl: 0 20px 80px rgba(20,30,50,0.14), 0 4px 16px rgba(20,30,50,0.07);
+  --shadow-blue:    0 8px 32px rgba(74,111,165,0.35);
+  --shadow-dark:    0 8px 32px rgba(26,29,35,0.30);
+
+  /* Legacy aliases mapped to new palette */
+  --color-luxe-teal:       #4a6fa5;
+  --color-luxe-teal-mid:   #4a6fa5;
+  --color-luxe-teal-light: #6b8fc4;
+  --color-luxe-teal-dark:  #2d4f7c;
+  --color-luxe-teal-deep:  #1a2f50;
+  --color-luxe-gold:       #4a6fa5;
+  --color-luxe-gold-light: #6b8fc4;
+  --color-luxe-charcoal:   #1a1d23;
+  --color-luxe-cream:      #f0f4f8;
+  --color-luxe-white:      #f8fafc;
+}
+
+/* ===========================
+   BASE STYLES
+=========================== */
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: auto; /* Lenis handles this */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  font-family: var(--font-sans);
+  background-color: var(--color-pearl);
+  color: var(--color-charcoal);
+  overflow-x: hidden;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.dark body {
+  background-color: #0d1017;
+  color: #e8edf5;
+}
+
+/* ===========================
+   DARK MODE
+=========================== */
+.dark {
+  color-scheme: dark;
+}
+
+/* ===========================
+   CUSTOM SCROLLBAR
+=========================== */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, #4a6fa5, #2d4f7c);
+  border-radius: 100px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(180deg, #6b8fc4, #4a6fa5);
+}
+
+/* ===========================
+   TYPOGRAPHY
+=========================== */
+.font-serif {
+  font-family: var(--font-serif);
+}
+
+.font-display {
+  font-family: var(--font-display);
+}
+
+/* ===========================
+   GLASSMORPHISM
+=========================== */
+.glass {
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.glass-dark {
+  background: rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+/* ===========================
+   GRADIENT TEXT
+=========================== */
+.gradient-text {
+  background: linear-gradient(135deg, #2d4f7c 0%, #6b8fc4 50%, #94a3b8 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.gradient-text-cool {
+  background: linear-gradient(135deg, #4a6fa5 0%, #94a3b8 50%, #4a6fa5 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* ===========================
+   LUXE BUTTON STYLES
+=========================== */
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.875rem 2rem;
+  background: linear-gradient(135deg, #4a6fa5, #2d4f7c);
+  color: white;
+  font-weight: 600;
+  font-size: 0.875rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  border-radius: 0.5rem;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  border: none;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-primary::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, #6b8fc4, #4a6fa5);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.btn-primary:hover::before {
+  opacity: 1;
+}
+
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-blue);
+}
+
+.btn-primary span {
+  position: relative;
+  z-index: 1;
+}
+
+.btn-outline {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.875rem 2rem;
+  border: 1.5px solid #4a6fa5;
+  color: #4a6fa5;
+  font-weight: 600;
+  font-size: 0.875rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  border-radius: 0.5rem;
+  background: transparent;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.btn-outline:hover {
+  background: #4a6fa5;
+  color: white;
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-blue);
+}
+
+.btn-accent {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.875rem 2rem;
+  background: linear-gradient(135deg, #1a2f50, #2d4f7c);
+  color: white;
+  font-weight: 600;
+  font-size: 0.875rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  border-radius: 0.5rem;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  border: none;
+  cursor: pointer;
+}
+
+.btn-accent:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-dark);
+}
+
+/* ===========================
+   CARD STYLES
+=========================== */
+.product-card {
+  border-radius: 1rem;
+  overflow: hidden;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  cursor: pointer;
+}
+
+.product-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.12);
+}
+
+.product-card:hover .card-image {
+  transform: scale(1.06);
+}
+
+.card-image {
+  transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* ===========================
+   SECTION ANIMATIONS
+=========================== */
+.reveal-up {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: opacity 0.7s cubic-bezier(0.4, 0, 0.2, 1),
+    transform 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.reveal-up.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.reveal-left {
+  opacity: 0;
+  transform: translateX(-40px);
+  transition: opacity 0.7s cubic-bezier(0.4, 0, 0.2, 1),
+    transform 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.reveal-left.visible {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+/* ===========================
+   LOADING SKELETON
+=========================== */
+.skeleton {
+  background: linear-gradient(
+    90deg,
+    rgba(0, 0, 0, 0.06) 25%,
+    rgba(0, 0, 0, 0.12) 50%,
+    rgba(0, 0, 0, 0.06) 75%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+  border-radius: 0.5rem;
+}
+
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+/* ===========================
+   SECTION DIVIDER
+=========================== */
+.section-divider {
+  height: 1px;
+  background: linear-gradient(to right, transparent, rgba(74,111,165,0.3), transparent);
+}
+
+/* ===========================
+   HERO PARALLAX
+=========================== */
+.hero-overlay {
+  background: linear-gradient(
+    135deg,
+    rgba(15, 20, 35, 0.75) 0%,
+    rgba(45, 79, 124, 0.20) 50%,
+    rgba(10, 15, 28, 0.65) 100%
+  );
+}
+
+/* ===========================
+   FLOATING BUTTON
+=========================== */
+.floating-cta {
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+  z-index: 50;
+  animation: float 3s ease-in-out infinite;
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+}
+
+/* ===========================
+   STAR RATING
+=========================== */
+.stars {
+  display: inline-flex;
+  gap: 2px;
+}
+
+/* ===========================
+   CAROUSEL
+=========================== */
+.carousel-track {
+  display: flex;
+  gap: 1.5rem;
+  transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* ===========================
+   MARQUEE
+=========================== */
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+
+.marquee-track {
+  animation: marquee 25s linear infinite;
+  display: flex;
+  width: max-content;
+}
+
+.marquee-track:hover {
+  animation-play-state: paused;
+}
+
+/* ===========================
+   BADGE
+=========================== */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.2rem 0.6rem;
+  border-radius: 100px;
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.badge-new        { background: #e8eef7; color: #2d4f7c; }
+.badge-sale       { background: #fce8e8; color: #8b2020; }
+.badge-trending   { background: #fef9c3; color: #78350f; }
+.badge-bestseller { background: #e0f2fe; color: #0369a1; }
+
+.dark .badge-new        { background: #1a2f50; color: #6b8fc4; }
+.dark .badge-sale       { background: #3a1010; color: #f87171; }
+.dark .badge-trending   { background: #3f2a00; color: #fbbf24; }
+.dark .badge-bestseller { background: #0c2844; color: #60a5fa; }
+
+/* ===========================
+   THEME TRANSITION
+=========================== */
+* {
+  transition-property: background-color, border-color, color;
+  transition-duration: 0.2s;
+  transition-timing-function: ease;
+}
+
+img, video, svg, [class*="transform"] {
+  transition-property: transform, opacity, box-shadow, filter;
+}
+
+/* ===========================
+   FOCUS STYLES
+=========================== */
+:focus-visible {
+  outline: 2px solid #4a6fa5;
+  outline-offset: 3px;
+  border-radius: 4px;
+}
