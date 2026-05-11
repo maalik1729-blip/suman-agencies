@@ -92,7 +92,7 @@ export function Footer({ theme }: FooterProps) {
             <div className="mt-6 space-y-2.5">
               {[
                 { icon: Mail, text: "hello@sumanagency.com" },
-                { icon: Phone, text: "+91 98765 43210" },
+                { icon: Phone, text: "+91 97155 90101" },
                 { icon: MapPin, text: "No.7/1-3, West Street, Chellathayarpuram, Tirunelveli – 627808" },
               ].map(({ icon: Icon, text }) => (
                 <div key={text} className="flex items-center gap-2.5 text-white/40 text-sm">

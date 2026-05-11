@@ -10,7 +10,7 @@ const contactInfo = [
   {
     icon: Phone,
     title: "Call Us",
-    details: "+91 98765 43210",
+    details: "+91 97155 90101",
     sub: "Mon–Sat, 9 AM–7 PM",
   },
   {
@@ -243,7 +243,7 @@ export default function ContactPage() {
                         type="tel"
                         value={form.phone}
                         onChange={handleChange}
-                        placeholder="+91 98765 43210"
+                        placeholder="+91 97155 90101"
                         className={inputClass}
                         autoComplete="tel"
                       />

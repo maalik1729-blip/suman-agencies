@@ -149,7 +149,7 @@ export default function CheckoutPage() {
                     </div>
                     <div className="sm:col-span-2">
                       <label className={labelCls}>Phone Number *</label>
-                      <input className={inputCls} type="tel" placeholder="+91 98765 43210" value={details.phone}
+                      <input className={inputCls} type="tel" placeholder="+91 97155 90101" value={details.phone}
                         onChange={(e) => setDetails({ ...details, phone: e.target.value })} />
                     </div>
                   </div>
