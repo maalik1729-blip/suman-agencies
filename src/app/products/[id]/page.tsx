@@ -199,7 +199,6 @@ export default function ProductDetailPage() {
                   ))}
                 </div>
                 <span className={cn("text-sm font-medium", isDark ? "text-white" : "text-[#1a1a1a]")}>{product.rating}</span>
-                <span className={cn("text-sm", isDark ? "text-white/40" : "text-black/40")}>({product.reviewCount} reviews)</span>
               </div>
 
               {/* Price */}
@@ -326,7 +325,7 @@ export default function ProductDetailPage() {
                     : "border-transparent text-black/40 hover:text-black"
                 )}
               >
-                {tab === "reviews" ? `Reviews (${product.reviewCount})` : tab}
+                {tab}
               </button>
             ))}
           </div>
@@ -390,7 +389,6 @@ export default function ProductDetailPage() {
                           <Star key={i} size={14} className={i < Math.floor(product.rating) ? "text-[#4a6fa5] fill-[#4a6fa5]" : "text-gray-300"} />
                         ))}
                       </div>
-                      <p className={cn("text-sm mt-1", isDark ? "text-white/50" : "text-black/40")}>{product.reviewCount} reviews</p>
                     </div>
                     <div className="flex-1">
                       {[5, 4, 3, 2, 1].map((n) => (

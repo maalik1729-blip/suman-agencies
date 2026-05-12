@@ -106,7 +106,7 @@ export function ProductCard({ product, theme, className }: ProductCardProps) {
             ))}
           </div>
           <span className={cn("text-xs", isDark ? "text-white/40" : "text-black/40")}>
-            {product.rating} ({product.reviewCount})
+            {product.rating}
           </span>
         </div>
 
