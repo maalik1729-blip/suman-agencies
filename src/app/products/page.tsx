@@ -228,7 +228,7 @@ export default function ProductsPage() {
             Product Badge
           </p>
           <div className="flex flex-col gap-1.5">
-            {(["all", "new", "sale", "trending", "bestseller"] as const).map((badge) => (
+            {(["all", "trending", "bestseller"] as const).map((badge) => (
               <button
                 key={badge}
                 onClick={() => setActiveBadge(badge)}

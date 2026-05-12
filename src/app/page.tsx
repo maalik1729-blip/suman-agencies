@@ -43,6 +43,8 @@ function HeroSection({ theme }: { theme?: string }) {
           src="/hero-bg.png"
           alt="Suman Agency luxury furniture showroom"
           className="w-full h-full object-cover"
+          loading="eager"
+          fetchPriority="high"
         />
         {/* Cool-toned dark overlay for text legibility */}
         <div
@@ -177,6 +179,7 @@ function MarqueeBand() {
 function FeaturedProducts({ theme }: { theme?: string }) {
   const isDark = theme === "dark";
   const ref = useScrollReveal();
+  // Limit to 8 products for faster initial load
   const featured = [
     ...products.filter((p) => p.category === "furniture").slice(0, 4),
     ...products.filter((p) => p.category === "electronics").slice(0, 4),
@@ -206,7 +209,7 @@ function FeaturedProducts({ theme }: { theme?: string }) {
               key={product.id}
               initial={{ opacity: 0, y: 40 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
+              viewport={{ once: true, margin: "0px 0px -100px 0px" }}
               transition={{ duration: 0.6, delay: i * 0.08 }}
             >
               <ProductCard product={product} theme={theme || "light"} />
@@ -303,6 +306,7 @@ function TrendingCarousel({ theme }: { theme?: string }) {
                   src={trending[current]?.images[0]}
                   alt={trending[current]?.name}
                   className="w-full h-full object-cover"
+                  loading="lazy"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent" />
               </div>
@@ -428,7 +432,7 @@ function WhyChooseUs({ theme }: { theme?: string }) {
               style={{ boxShadow: "var(--shadow-luxe)" }}
               initial={{ opacity: 0, y: 40 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
+              viewport={{ once: true, margin: "0px 0px -100px 0px" }}
               transition={{ duration: 0.6, delay: i * 0.1 }}
             >
               <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-[#4a6fa5]/20 to-[#4a6fa5]/5 flex items-center justify-center">
@@ -521,7 +525,7 @@ function TestimonialsSection({ theme }: { theme?: string }) {
           className="text-center mb-14"
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
+          viewport={{ once: true, margin: "0px 0px -100px 0px" }}
         >
           <span className="text-xs font-semibold tracking-widest uppercase text-[#4a6fa5]">
             Testimonials
@@ -545,7 +549,7 @@ function TestimonialsSection({ theme }: { theme?: string }) {
               style={{ boxShadow: "var(--shadow-luxe)" }}
               initial={{ opacity: 0, y: 40 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
+              viewport={{ once: true, margin: "0px 0px -50px 0px" }}
               transition={{ duration: 0.6, delay: i * 0.08 }}
             >
               <Quote size={24} className="text-[#4a6fa5]/30 mb-4" />

@@ -21,8 +21,6 @@ export function Footer({ theme }: FooterProps) {
     Products: [
       { label: "Furniture", href: "/products?category=furniture" },
       { label: "Electronics", href: "/products?category=electronics" },
-      { label: "New Arrivals", href: "/products?badge=new" },
-      { label: "Sale", href: "/products?badge=sale" },
     ],
     Policies: [
       { label: "Shipping Policy", href: "/shipping-policy" },
