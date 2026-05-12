@@ -132,7 +132,7 @@ function ContactBox() {
         <p>👤 Prop. RAJASINGH</p>
         <p>📍 No.7/1-3, West Street, Chellathayarpuram, Tirunelveli – 627808, Tamil Nadu</p>
         <p>📞 +91 97155 90101</p>
-        <p>📧 hello@sumanagency.com</p>
+        <p>📧 sumanagency4@gmail.com</p>
         <p>🏛️ GSTIN: 33DVIPR5548Q1ZN</p>
       </div>
     </div>

@@ -42,7 +42,7 @@ export function ClientLayout({ children }: { children: React.ReactNode }) {
 
             {/* Floating WhatsApp Button */}
             <a
-              href="https://wa.me/91+91 97155 90101"
+              href="https://wa.me/919715590101"
               target="_blank"
               rel="noopener noreferrer"
               className="floating-cta"

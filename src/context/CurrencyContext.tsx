@@ -28,7 +28,7 @@ export const CurrencyProvider: React.FC<{ children: React.ReactNode }> = ({ chil
   const [currency, setCurrency] = useState<Currency>("INR");
   const [mounted, setMounted] = useState(false);
 
-  useEffect(() => {
+  useEffect(() => {~
     setMounted(true);
     const stored = localStorage.getItem("suman-agency-currency") as Currency;
     if (stored && ["INR", "USD", "EUR"].includes(stored)) {

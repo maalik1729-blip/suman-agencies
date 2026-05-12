@@ -35,7 +35,7 @@ export function ProductCard({ product, theme, className }: ProductCardProps) {
     <Link
       href={`/products/${product.id}`}
       className={cn(
-        "product-card group relative flex flex-col cursor-pointer",
+        "product-card group relative flex flex-col h-full cursor-pointer",
         isDark ? "bg-[#1a1a1a] border border-white/8" : "bg-white border border-black/5",
         className
       )}
@@ -43,7 +43,7 @@ export function ProductCard({ product, theme, className }: ProductCardProps) {
       aria-label={`View ${product.name}`}
     >
       {/* Image Container */}
-      <div className="relative overflow-hidden aspect-[4/3] bg-gray-100 dark:bg-gray-800">
+      <div className="relative overflow-hidden h-48 bg-gray-100 dark:bg-gray-800">
         {!imageLoaded && <div className="skeleton absolute inset-0" />}
         <img
           src={product.images[0]}

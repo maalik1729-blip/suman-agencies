@@ -51,7 +51,7 @@ export default function TermsConditionsPage() {
             <ul>
               <li>We specialize in premium furniture and electronics for homes and offices.</li>
               <li>All product descriptions are provided as accurately as possible. Minor variations in colour, texture, or wood grain may occur as products use natural materials.</li>
-              <li>Prices are listed in <strong>Indian Rupees (INR ₹)</strong> and may change due to market fluctuations or business policy.</li>
+              <li>Prices are listed in the <strong>currency of your selected region</strong> and may change due to market fluctuations or business policy.</li>
               <li>We reserve the right to correct any errors in product listings or pricing, and may cancel affected orders with full refunds.</li>
             </ul>
           </NumberedSection>
@@ -67,7 +67,7 @@ export default function TermsConditionsPage() {
 
           <NumberedSection number="4" icon={<Package size={18} />} title="Shipping & Delivery">
             <ul>
-              <li>Orders are shipped within India via trusted courier/logistics partners.</li>
+              <li>Orders are shipped worldwide via trusted courier/logistics partners.</li>
               <li>Delivery timelines vary based on location and will be shared at checkout.</li>
               <li>Tracking details are provided once the order is dispatched.</li>
               <li>We are not liable for courier delays, force majeure events, or customer unavailability during delivery.</li>
@@ -112,8 +112,7 @@ export default function TermsConditionsPage() {
 
           <NumberedSection number="9" icon={<Scale size={18} />} title="Governing Law & Jurisdiction">
             <p>
-              These Terms & Conditions are governed by the laws of India. Any disputes shall fall under
-              the jurisdiction of the courts in <strong>Tirunelveli, Tamil Nadu</strong>.
+              These Terms &amp; Conditions are governed by applicable international trade laws. Any disputes relating to orders shall be resolved through mutual negotiation or appropriate legal channels in the jurisdiction of <strong>Tirunelveli, Tamil Nadu, India</strong>.
             </p>
           </NumberedSection>
 
@@ -164,7 +163,7 @@ function ContactBox() {
         <p>👤 Prop. RAJASINGH</p>
         <p>📍 No.7/1-3, West Street, Chellathayarpuram, Tirunelveli – 627808, Tamil Nadu</p>
         <p>📞 +91 97155 90101</p>
-        <p>📧 hello@sumanagency.com</p>
+        <p>📧 sumanagency4@gmail.com</p>
         <p>🏛️ GSTIN: 33DVIPR5548Q1ZN</p>
       </div>
     </div>

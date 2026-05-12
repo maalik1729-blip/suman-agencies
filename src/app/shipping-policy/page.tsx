@@ -51,18 +51,18 @@ export default function ShippingPolicyPage() {
             </ul>
           </Section>
 
-          <Section icon={<MapPin size={18} />} title="Shipping Destinations & Delivery Timelines">
-            <p className="font-semibold text-[#0d9488] mt-2">Domestic Shipping (India)</p>
+          <Section icon={<MapPin size={18} />} title="Shipping Destinations &amp; Delivery Timelines">
+            <p className="font-semibold text-[#0d9488] mt-2">Worldwide Shipping</p>
             <ul>
-              <li><strong>Metro Cities:</strong> 3–6 business days after dispatch</li>
-              <li><strong>Non-Metro Cities & Semi-Urban Areas:</strong> 5–10 business days after dispatch</li>
-              <li><strong>Remote/Rural Areas:</strong> 7–12 business days after dispatch</li>
+              <li><strong>Major Cities &amp; Urban Areas:</strong> 5–8 business days after dispatch</li>
+              <li><strong>Standard International:</strong> 8–14 business days after dispatch</li>
+              <li><strong>Remote or Island Regions:</strong> 14–21 business days after dispatch</li>
             </ul>
-            <p className="font-semibold text-[#0d9488] mt-4">International Shipping</p>
+            <p className="font-semibold text-[#0d9488] mt-4">Wholesale &amp; B2B International Orders</p>
             <ul>
-              <li>International delivery may be available for wholesale/B2B orders.</li>
+              <li>We accept bulk/wholesale orders from international buyers across all regions.</li>
               <li>Timelines depend on the destination country, customs clearance, and shipping partner schedules.</li>
-              <li>Customers will be informed of estimated timelines during order confirmation.</li>
+              <li>Customers will be informed of estimated timelines and freight costs during order confirmation.</li>
             </ul>
           </Section>
 
@@ -142,7 +142,7 @@ function ContactBox() {
         <p>👤 Prop. RAJASINGH</p>
         <p>📍 No.7/1-3, West Street, Chellathayarpuram, Tirunelveli – 627808, Tamil Nadu</p>
         <p>📞 +91 97155 90101</p>
-        <p>📧 hello@sumanagency.com</p>
+        <p>📧 sumanagency4@gmail.com</p>
         <p>🏛️ GSTIN: 33DVIPR5548Q1ZN</p>
       </div>
     </div>

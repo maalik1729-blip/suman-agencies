@@ -31,7 +31,7 @@ export default function ProductDetailPage() {
   const { formatPrice } = useCurrency();
   const [theme, setTheme] = useState("light");
   const [selectedImage, setSelectedImage] = useState(0);
-  const [selectedColor, setSelectedColor] = useState<string | undefined>(undefined);
+
   const [quantity, setQuantity] = useState(1);
   const [activeTab, setActiveTab] = useState<"description" | "specs" | "reviews">("description");
   const [addedToCart, setAddedToCart] = useState(false);
@@ -51,9 +51,7 @@ export default function ProductDetailPage() {
     return () => observer.disconnect();
   }, []);
 
-  useEffect(() => {
-    if (product?.colors?.length) setSelectedColor(product.colors[0]);
-  }, [product]);
+
 
   if (!product) return notFound();
 
@@ -67,7 +65,7 @@ export default function ProductDetailPage() {
     .slice(0, 4);
 
   const handleAddToCart = () => {
-    addItem(product, selectedColor);
+    addItem(product);
     setAddedToCart(true);
     setTimeout(() => setAddedToCart(false), 2500);
   };
@@ -226,32 +224,7 @@ export default function ProductDetailPage() {
 
               <div className="section-divider my-6" />
 
-              {/* Colors */}
-              {product.colors && product.colors.length > 0 && (
-                <div className="mb-6">
-                  <p className={cn("text-sm font-semibold mb-3", isDark ? "text-white" : "text-[#1a1a1a]")}>
-                    Color: <span className="font-normal text-[#4a6fa5]">{selectedColor}</span>
-                  </p>
-                  <div className="flex flex-wrap gap-2">
-                    {product.colors.map((color) => (
-                      <button
-                        key={color}
-                        onClick={() => setSelectedColor(color)}
-                        className={cn(
-                          "px-4 py-2 rounded-xl text-sm border transition-all duration-200",
-                          selectedColor === color
-                            ? "border-[#4a6fa5] text-[#4a6fa5] bg-[#4a6fa5]/10"
-                            : isDark
-                            ? "border-white/15 text-white/60 hover:border-[#4a6fa5]/50"
-                            : "border-black/15 text-black/60 hover:border-[#4a6fa5]/50"
-                        )}
-                      >
-                        {color}
-                      </button>
-                    ))}
-                  </div>
-                </div>
-              )}
+
 
               {/* Quantity */}
               <div className="mb-6">

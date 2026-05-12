@@ -10,10 +10,10 @@ import { cn } from "@/lib/utils";
 
 const values = [
   { icon: Award, title: "Solid Craftsmanship", desc: "Every bed, cot, sofa, and wardrobe we sell is built to last — sturdy joints, quality wood, and finishes that don't fade with time." },
-  { icon: Heart, title: "Made for Indian Homes", desc: "Our range is designed keeping Indian families in mind — the right sizes, the right materials, and the right price for every household." },
+  { icon: Heart, title: "Designed for Every Home", desc: "Our range is thoughtfully curated for homes worldwide — the right sizes, the right materials, and the right price for every household." },
   { icon: Globe, title: "Complete Home Range", desc: "From the living room sofa to the bedroom cot, dining table to decorative vessels — find everything your home needs, all in one place." },
-  { icon: Leaf, title: "Honest Pricing", desc: "No hidden costs, no inflated MRPs. You get premium quality furniture and appliances at fair, transparent prices — always." },
-  { icon: Users, title: "Doorstep Delivery", desc: "We deliver to your home and ensure safe assembly. Whether you're in Tirunelveli, Chennai, Coimbatore, or beyond — we come to you." },
+  { icon: Leaf, title: "Honest Pricing", desc: "No hidden costs, no inflated prices. You get premium quality furniture and appliances at fair, transparent prices — always." },
+  { icon: Users, title: "Worldwide Delivery", desc: "We ship globally and ensure products arrive safely at your doorstep — wherever you are in the world." },
   { icon: Target, title: "After-Sales Support", desc: "Our relationship doesn't end at delivery. We're here for warranty claims, replacements, and any questions you have after purchase." },
 ];
 
@@ -63,7 +63,7 @@ export default function AboutPage() {
           >
             Furnishing Every
             <br />
-            <span className="gradient-text italic">Indian Home</span>
+            <span className="gradient-text italic">Home Worldwide</span>
           </motion.h1>
           <motion.p
             className={cn("mt-6 text-lg max-w-2xl mx-auto leading-relaxed", isDark ? "text-white/65" : "text-black/55")}
@@ -71,7 +71,7 @@ export default function AboutPage() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.3 }}
           >
-            From a cosy bedroom cot to a grand dining set — Suman Agency is your complete destination for home furniture and smart appliances, trusted by families across India since 2009.
+            From a cosy bedroom cot to a grand dining set — Suman Agency is your complete destination for home furniture and smart appliances, trusted by families around the world since 2020.
           </motion.p>
         </div>
       </section>
@@ -93,7 +93,7 @@ export default function AboutPage() {
               At Suman Agency, we don't just sell sofas. We outfit entire homes — from the bedroom cot you sleep on every night, to the dining table where your family gathers, to the ceiling fan that keeps you cool through summer. We carry sofas, beds, cots, wardrobes (bureau), dining sets, accent chairs, decorative vessels, and much more.
             </p>
             <p className={cn("leading-relaxed mb-8", isDark ? "text-white/60" : "text-black/55")}>
-              Pair your furniture with our smart electronics range — fans, air purifiers, smart lamps, and televisions — all curated to match the aesthetic of your home. Every piece is quality-tested, backed by warranty, and delivered with care to your doorstep across India.
+              Pair your furniture with our smart electronics range — fans, air purifiers, smart lamps, and televisions — all curated to match the aesthetic of your home. Every piece is quality-tested, backed by warranty, and delivered with care to your doorstep — wherever you are in the world.
             </p>
             <Link href="/products" className="btn-primary group">
               <span>Explore Full Collection</span>

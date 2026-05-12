@@ -119,8 +119,8 @@ function HeroSection({ theme }: { theme?: string }) {
           transition={{ duration: 0.8, delay: 0.9 }}
         >
           {[
-            { value: "50K+", label: "Customers" },
-            { value: "1200+", label: "Products" },
+            { value: "10K+", label: "Customers" },
+            { value: "300+", label: "Products" },
             { value: "48", label: "Cities" },
           ].map((s) => (
             <div key={s.label} className="text-center">
@@ -173,103 +173,53 @@ function MarqueeBand() {
   );
 }
 
-// =================== FEATURED FURNITURE ===================
-function FeaturedFurniture({ theme }: { theme?: string }) {
+// =================== FEATURED PRODUCTS (COMBINED) ===================
+function FeaturedProducts({ theme }: { theme?: string }) {
   const isDark = theme === "dark";
   const ref = useScrollReveal();
-  const furniture = products.filter((p) => p.category === "furniture").slice(0, 4);
+  const featured = [
+    ...products.filter((p) => p.category === "furniture").slice(0, 4),
+    ...products.filter((p) => p.category === "electronics").slice(0, 4),
+  ];
 
   return (
-    <section className="py-24 px-4 sm:px-6" aria-labelledby="furniture-heading">
+    <section className="py-24 px-4 sm:px-6" aria-labelledby="collection-heading">
       <div className="max-w-7xl mx-auto">
         <div ref={ref} className="reveal-up text-center mb-14">
           <span className={cn("text-xs font-semibold tracking-widest uppercase", "text-[#4a6fa5]")}>
-            Furniture Collection
+            Our Collection
           </span>
           <h2
-            id="furniture-heading"
+            id="collection-heading"
             className={cn("text-4xl sm:text-5xl font-bold font-serif mt-3 mb-4", isDark ? "text-white" : "text-[#1a1a1a]")}
           >
-            Crafted for Living
+            Furniture &amp; Electronics
           </h2>
-          <p className={cn("max-w-xl mx-auto text-base", isDark ? "text-white/60" : "text-black/50")}>
-            Each piece is carefully selected for its craftsmanship, materials, and timeless aesthetic that elevates any space.
+          <p className={cn("max-w-2xl mx-auto text-base", isDark ? "text-white/60" : "text-black/50")}>
+            From handcrafted furniture pieces built for timeless living to cutting-edge electronics that power your everyday — everything you need, in one place.
           </p>
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-          {furniture.map((product, i) => (
+          {featured.map((product, i) => (
             <motion.div
               key={product.id}
               initial={{ opacity: 0, y: 40 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: i * 0.1 }}
+              transition={{ duration: 0.6, delay: i * 0.08 }}
             >
               <ProductCard product={product} theme={theme || "light"} />
             </motion.div>
           ))}
         </div>
 
-        <div className="text-center mt-12">
+        <div className="flex flex-wrap items-center justify-center gap-4 mt-12">
           <Link href="/products?category=furniture" className="btn-outline" style={isDark ? { borderColor: "#4a6fa540", color: "#4a6fa5" } : {}}>
             View All Furniture
             <ArrowRight size={14} />
           </Link>
-        </div>
-      </div>
-    </section>
-  );
-}
-
-// =================== FEATURED ELECTRONICS ===================
-function FeaturedElectronics({ theme }: { theme?: string }) {
-  const isDark = theme === "dark";
-  const electronics = products.filter((p) => p.category === "electronics").slice(0, 4);
-
-  return (
-    <section
-      className="py-24 px-4 sm:px-6"
-      style={{ background: isDark ? "#111" : "#1a1a1a" }}
-      aria-labelledby="electronics-heading"
-    >
-      <div className="max-w-7xl mx-auto">
-        <motion.div
-          className="text-center mb-14"
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-        >
-          <span className="text-xs font-semibold tracking-widest uppercase text-[#4a6fa5]">
-            Electronics
-          </span>
-          <h2
-            id="electronics-heading"
-            className="text-4xl sm:text-5xl font-bold font-serif mt-3 mb-4 text-white"
-          >
-            Smart Living
-          </h2>
-          <p className="max-w-xl mx-auto text-base text-white/50">
-            Cutting-edge technology that seamlessly integrates with your lifestyle — intuitive, powerful, and beautifully designed.
-          </p>
-        </motion.div>
-
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-          {electronics.map((product, i) => (
-            <motion.div
-              key={product.id}
-              initial={{ opacity: 0, y: 40 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: i * 0.1 }}
-            >
-              <ProductCard product={product} theme="dark" />
-            </motion.div>
-          ))}
-        </div>
-
-        <div className="text-center mt-12">
-          <Link href="/products?category=electronics" className="btn-outline" style={{ borderColor: "#4a6fa540", color: "#4a6fa5" }}>
+          <Link href="/products?category=electronics" className="btn-outline" style={isDark ? { borderColor: "#4a6fa540", color: "#4a6fa5" } : {}}>
             Explore Electronics
             <ArrowRight size={14} />
           </Link>
@@ -603,11 +553,6 @@ function TestimonialsSection({ theme }: { theme?: string }) {
                 &ldquo;{t.text}&rdquo;
               </p>
               <div className="flex items-center gap-3">
-                <img
-                  src={t.avatar}
-                  alt={t.name}
-                  className="w-10 h-10 rounded-full object-cover"
-                />
                 <div>
                   <p className={cn("font-semibold text-sm", isDark ? "text-white" : "text-[#1a1a1a]")}>
                     {t.name}
@@ -651,9 +596,7 @@ export default function HomePage() {
     <>
       <HeroSection theme={theme} />
       <MarqueeBand />
-      <FeaturedFurniture theme={theme} />
-      <FeaturedElectronics theme={theme} />
-      <TrendingCarousel theme={theme} />
+      <FeaturedProducts theme={theme} />
       <WhyChooseUs theme={theme} />
       <StatsSection theme={theme} />
       <TestimonialsSection theme={theme} />

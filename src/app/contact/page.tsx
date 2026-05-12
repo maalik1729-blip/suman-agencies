@@ -16,7 +16,7 @@ const contactInfo = [
   {
     icon: Mail,
     title: "Email Us",
-    details: "hello@sumanagency.com",
+    details: "sumanagency4@gmail.com",
     sub: "We reply within 24 hours",
   },
   {

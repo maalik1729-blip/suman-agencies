@@ -148,7 +148,7 @@ export default function OrderStatusPage() {
     <div class="footer-note">
       <div style="font-weight:700;color:#1a1d23;margin-bottom:2px">Suman Agency (Suman Tech Automation)</div>
       <div style="font-size:10px;color:#4a6fa5;font-weight:700;margin-bottom:4px">Prop. RAJASINGH &nbsp;|&nbsp; Reg. Type: Regular Taxpayer</div>
-      <div>GSTIN: 33DVIPR5548Q1ZN &nbsp;|&nbsp; hello@sumanagency.com</div>
+      <div>GSTIN: 33DVIPR5548Q1ZN &nbsp;|&nbsp; sumanagency4@gmail.com</div>
       <div style="margin-top:3px">No.7/1-3, West Street, Chellathayarpuram, Tirunelveli District, Tamil Nadu – 627808</div>
       <div style="margin-top:3px">GST Reg. Date: 10/01/2024 &nbsp;|&nbsp; Valid From: 17/02/2022</div>
       <div style="margin-top:4px;color:#94a3b8">This is a computer generated invoice. No signature required.</div>

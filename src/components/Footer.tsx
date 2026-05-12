@@ -91,7 +91,7 @@ export function Footer({ theme }: FooterProps) {
             {/* Contact Info */}
             <div className="mt-6 space-y-2.5">
               {[
-                { icon: Mail, text: "hello@sumanagency.com" },
+                { icon: Mail, text: "sumanagency4@gmail.com" },
                 { icon: Phone, text: "+91 97155 90101" },
                 { icon: MapPin, text: "No.7/1-3, West Street, Chellathayarpuram, Tirunelveli – 627808" },
               ].map(({ icon: Icon, text }) => (

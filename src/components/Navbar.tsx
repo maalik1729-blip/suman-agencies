@@ -131,24 +131,26 @@ export function Navbar({ theme, toggleTheme }: NavbarProps) {
 
           {/* Right Actions */}
           <div className="flex items-center gap-2">
-            {/* Currency Toggle */}
-            <div className={cn("hidden sm:flex items-center rounded-full p-1 border", theme === "dark" ? "border-white/10 bg-white/5" : "border-black/10 bg-white")}>
-              {(["INR", "EUR", "USD"] as const).map((c) => (
-                <button
-                  key={c}
-                  onClick={() => setCurrency(c)}
-                  className={cn(
-                    "px-3 py-1 text-xs font-semibold rounded-full transition-all duration-300",
-                    currency === c
-                      ? "bg-[#d47854] text-white shadow-sm"
-                      : theme === "dark" ? "text-white/60 hover:text-white" : "text-[#4a6fa5]/80 hover:text-[#4a6fa5]"
-                  )}
-                >
-                  {c === "INR" ? "₹ " : c === "EUR" ? "€ " : "$ "}
-                  {c}
-                </button>
-              ))}
-            </div>
+            {/* Currency Toggle — only on product detail pages */}
+            {/^\/products\/[^/]+$/.test(pathname) && (
+              <div className={cn("hidden sm:flex items-center rounded-full p-1 border", theme === "dark" ? "border-white/10 bg-white/5" : "border-black/10 bg-white")}>
+                {(["INR", "EUR", "USD"] as const).map((c) => (
+                  <button
+                    key={c}
+                    onClick={() => setCurrency(c)}
+                    className={cn(
+                      "px-3 py-1 text-xs font-semibold rounded-full transition-all duration-300",
+                      currency === c
+                        ? "bg-[#d47854] text-white shadow-sm"
+                        : theme === "dark" ? "text-white/60 hover:text-white" : "text-[#4a6fa5]/80 hover:text-[#4a6fa5]"
+                    )}
+                  >
+                    {c === "INR" ? "₹ " : c === "EUR" ? "€ " : "$ "}
+                    {c}
+                  </button>
+                ))}
+              </div>
+            )}
 
             {/* Theme Toggle */}
             <button
