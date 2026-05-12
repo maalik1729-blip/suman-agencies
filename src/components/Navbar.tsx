@@ -5,6 +5,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { ShoppingCart, Menu, X, Sun, Moon, ChevronRight } from "lucide-react";
 import { useCart } from "@/context/CartContext";
+import { useCurrency } from "@/context/CurrencyContext";
 import { cn } from "@/lib/utils";
 import { CartDrawer } from "./CartDrawer";
 
@@ -23,6 +24,7 @@ interface NavbarProps {
 export function Navbar({ theme, toggleTheme }: NavbarProps) {
   const pathname = usePathname();
   const { totalItems, setIsOpen } = useCart();
+  const { currency, setCurrency } = useCurrency();
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const mobileMenuRef = useRef<HTMLDivElement>(null);
@@ -129,6 +131,25 @@ export function Navbar({ theme, toggleTheme }: NavbarProps) {
 
           {/* Right Actions */}
           <div className="flex items-center gap-2">
+            {/* Currency Toggle */}
+            <div className={cn("hidden sm:flex items-center rounded-full p-1 border", theme === "dark" ? "border-white/10 bg-white/5" : "border-black/10 bg-white")}>
+              {(["INR", "EUR", "USD"] as const).map((c) => (
+                <button
+                  key={c}
+                  onClick={() => setCurrency(c)}
+                  className={cn(
+                    "px-3 py-1 text-xs font-semibold rounded-full transition-all duration-300",
+                    currency === c
+                      ? "bg-[#d47854] text-white shadow-sm"
+                      : theme === "dark" ? "text-white/60 hover:text-white" : "text-[#4a6fa5]/80 hover:text-[#4a6fa5]"
+                  )}
+                >
+                  {c === "INR" ? "₹ " : c === "EUR" ? "€ " : "$ "}
+                  {c}
+                </button>
+              ))}
+            </div>
+
             {/* Theme Toggle */}
             <button
               onClick={toggleTheme}

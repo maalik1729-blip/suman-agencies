@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { CartProvider } from "@/context/CartContext";
+import { CurrencyProvider } from "@/context/CurrencyContext";
 import { SmoothScroller } from "@/components/SmoothScroller";
 import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
@@ -31,33 +32,35 @@ export function ClientLayout({ children }: { children: React.ReactNode }) {
   if (!mounted) return null;
 
   return (
-    <CartProvider>
-      <SmoothScroller>
-        <div className={theme === "dark" ? "dark" : ""} style={{ background: theme === "dark" ? "#0d0d0d" : "#faf8f4", minHeight: "100vh" }}>
-          <Navbar theme={theme} toggleTheme={toggleTheme} />
-          <main>{children}</main>
-          <Footer theme={theme} />
+    <CurrencyProvider>
+      <CartProvider>
+        <SmoothScroller>
+          <div className={theme === "dark" ? "dark" : ""} style={{ background: theme === "dark" ? "#0d0d0d" : "#faf8f4", minHeight: "100vh" }}>
+            <Navbar theme={theme} toggleTheme={toggleTheme} />
+            <main>{children}</main>
+            <Footer theme={theme} />
 
-          {/* Floating WhatsApp Button */}
-          <a
-            href="https://wa.me/91+91 97155 90101"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="floating-cta"
-            aria-label="Chat with us on WhatsApp"
-          >
-            <div
-              className="w-14 h-14 rounded-full flex items-center justify-center text-white shadow-xl hover:scale-110 transition-transform duration-300"
-              style={{
-                background: "linear-gradient(135deg, #0d9488, #0f766e)",
-                boxShadow: "0 4px 20px rgba(13, 148, 136,0.5)",
-              }}
+            {/* Floating WhatsApp Button */}
+            <a
+              href="https://wa.me/91+91 97155 90101"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="floating-cta"
+              aria-label="Chat with us on WhatsApp"
             >
-              <MessageCircle size={24} />
-            </div>
-          </a>
-        </div>
-      </SmoothScroller>
-    </CartProvider>
+              <div
+                className="w-14 h-14 rounded-full flex items-center justify-center text-white shadow-xl hover:scale-110 transition-transform duration-300"
+                style={{
+                  background: "linear-gradient(135deg, #0d9488, #0f766e)",
+                  boxShadow: "0 4px 20px rgba(13, 148, 136,0.5)",
+                }}
+              >
+                <MessageCircle size={24} />
+              </div>
+            </a>
+          </div>
+        </SmoothScroller>
+      </CartProvider>
+    </CurrencyProvider>
   );
 }

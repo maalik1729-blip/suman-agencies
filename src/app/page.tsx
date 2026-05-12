@@ -19,6 +19,7 @@ import {
 import { products, testimonials, stats, categories } from "@/data/products";
 import { ProductCard } from "@/components/ProductCard";
 import { useScrollReveal, useCountUp } from "@/hooks/useScrollReveal";
+import { useCurrency } from "@/context/CurrencyContext";
 import { cn } from "@/lib/utils";
 
 // =================== HERO SECTION ===================
@@ -281,6 +282,7 @@ function FeaturedElectronics({ theme }: { theme?: string }) {
 // =================== TRENDING CAROUSEL ===================
 function TrendingCarousel({ theme }: { theme?: string }) {
   const isDark = theme === "dark";
+  const { formatPrice } = useCurrency();
   const [current, setCurrent] = useState(0);
   const trending = products.filter((p) => p.badge === "trending" || p.badge === "bestseller");
 
@@ -369,11 +371,11 @@ function TrendingCarousel({ theme }: { theme?: string }) {
 
                 <div className="flex items-center gap-3 mt-6">
                   <span className="text-3xl font-bold text-[#4a6fa5]">
-                    ₹{trending[current]?.price.toLocaleString("en-IN")}
+                    {trending[current]?.price ? formatPrice(trending[current].price) : ""}
                   </span>
                   {trending[current]?.originalPrice && (
                     <span className={cn("text-lg line-through", isDark ? "text-white/30" : "text-black/30")}>
-                      ₹{trending[current]?.originalPrice?.toLocaleString("en-IN")}
+                      {formatPrice(trending[current].originalPrice!)}
                     </span>
                   )}
                 </div>
@@ -414,6 +416,7 @@ function TrendingCarousel({ theme }: { theme?: string }) {
 // =================== WHY CHOOSE US ===================
 function WhyChooseUs({ theme }: { theme?: string }) {
   const isDark = theme === "dark";
+  const { formatPrice } = useCurrency();
   const features = [
     {
       icon: Shield,
@@ -423,7 +426,7 @@ function WhyChooseUs({ theme }: { theme?: string }) {
     {
       icon: Truck,
       title: "Free White-Glove Delivery",
-      description: "Complimentary delivery and professional in-home setup on all orders above ₹25,000. No hidden charges.",
+      description: `Complimentary delivery and professional in-home setup on all orders above ${formatPrice(25000)}. No hidden charges.`,
     },
     {
       icon: RotateCcw,

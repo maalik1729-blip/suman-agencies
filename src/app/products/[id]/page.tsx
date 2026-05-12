@@ -22,11 +22,13 @@ import {
 import { products } from "@/data/products";
 import { ProductCard } from "@/components/ProductCard";
 import { useCart } from "@/context/CartContext";
+import { useCurrency } from "@/context/CurrencyContext";
 import { cn } from "@/lib/utils";
 
 export default function ProductDetailPage() {
   const params = useParams();
   const { addItem } = useCart();
+  const { formatPrice } = useCurrency();
   const [theme, setTheme] = useState("light");
   const [selectedImage, setSelectedImage] = useState(0);
   const [selectedColor, setSelectedColor] = useState<string | undefined>(undefined);
@@ -203,10 +205,10 @@ export default function ProductDetailPage() {
 
               {/* Price */}
               <div className="flex items-baseline gap-3 mt-5">
-                <span className="text-4xl font-bold text-[#4a6fa5] font-serif">₹{product.price.toLocaleString("en-IN")}</span>
+                <span className="text-4xl font-bold text-[#4a6fa5] font-serif">{formatPrice(product.price)}</span>
                 {product.originalPrice && (
                   <span className={cn("text-xl line-through", isDark ? "text-white/30" : "text-black/30")}>
-                    ₹{product.originalPrice.toLocaleString("en-IN")}
+                    {formatPrice(product.originalPrice)}
                   </span>
                 )}
                 {discount && (

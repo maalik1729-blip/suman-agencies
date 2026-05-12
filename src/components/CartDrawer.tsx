@@ -5,6 +5,7 @@ import { X, Trash2, ShoppingBag, ChevronRight, Minus, Plus } from "lucide-react"
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useCart } from "@/context/CartContext";
+import { useCurrency } from "@/context/CurrencyContext";
 import { cn } from "@/lib/utils";
 
 interface CartDrawerProps {
@@ -13,6 +14,7 @@ interface CartDrawerProps {
 
 export function CartDrawer({ theme }: CartDrawerProps) {
   const { items, isOpen, setIsOpen, removeItem, updateQuantity, totalPrice, totalItems } = useCart();
+  const { formatPrice } = useCurrency();
   const drawerRef = useRef<HTMLDivElement>(null);
   const router = useRouter();
 
@@ -134,7 +136,7 @@ export function CartDrawer({ theme }: CartDrawerProps) {
                       </p>
                     )}
                     <p className="text-[#4a6fa5] font-bold text-sm mt-1">
-                      ₹{item.product.price.toLocaleString("en-IN")}
+                      {formatPrice(item.product.price)}
                     </p>
 
                     {/* Qty Controls */}
@@ -190,7 +192,7 @@ export function CartDrawer({ theme }: CartDrawerProps) {
             <div className="flex items-center justify-between">
               <span className={cn("text-sm", isDark ? "text-white/60" : "text-black/50")}>Subtotal</span>
               <span className={cn("font-bold text-lg", isDark ? "text-white" : "text-[#1a1a1a]")}>
-                ₹{totalPrice.toLocaleString("en-IN")}
+                {formatPrice(totalPrice)}
               </span>
             </div>
 

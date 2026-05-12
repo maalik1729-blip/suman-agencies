@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import { useCart } from "@/context/CartContext";
+import { useCurrency } from "@/context/CurrencyContext";
 import { cn } from "@/lib/utils";
 import {
   CreditCard, Banknote, Smartphone, ChevronRight,
@@ -27,6 +28,7 @@ const STEPS = ["Order Details", "Payment"];
 export default function CheckoutPage() {
   const router = useRouter();
   const { items, totalPrice, clearCart } = useCart();
+  const { formatPrice } = useCurrency();
   const [theme, setTheme] = useState("light");
   const [step, setStep] = useState(0);
   const [placing, setPlacing] = useState(false);
@@ -274,7 +276,7 @@ export default function CheckoutPage() {
                           <h3 className={cn("font-bold text-base mb-2", isDark ? "text-white" : "text-[#1a1d23]")}>Cash on Delivery</h3>
                           <p className={cn("text-sm", isDark ? "text-white/50" : "text-black/40")}>Pay in cash when your order arrives. No prepayment needed.</p>
                           <div className={cn("mt-4 p-3 rounded-xl text-xs", isDark ? "bg-white/5 text-white/40" : "bg-blue-50 text-blue-700")}>
-                            ₹50 COD handling fee may apply on orders below ₹999
+                            {formatPrice(50)} COD handling fee may apply on orders below {formatPrice(999)}
                           </div>
                         </div>
                       )}
@@ -293,7 +295,7 @@ export default function CheckoutPage() {
                       </span>
                     ) : (
                       <span className="flex items-center gap-2">
-                        <Lock size={15} /> Confirm & Pay ₹{totalPrice.toLocaleString("en-IN")} <ChevronRight size={15} />
+                        <Lock size={15} /> Confirm & Pay {formatPrice(totalPrice)} <ChevronRight size={15} />
                       </span>
                     )}
                   </button>
@@ -314,7 +316,7 @@ export default function CheckoutPage() {
                       <p className={cn("text-xs font-medium line-clamp-1", isDark ? "text-white" : "text-[#1a1d23]")}>{item.product.name}</p>
                       <p className={cn("text-xs", isDark ? "text-white/40" : "text-black/40")}>Qty: {item.quantity}</p>
                     </div>
-                    <span className="text-xs font-bold text-[#4a6fa5] flex-shrink-0">${(item.product.price * item.quantity).toLocaleString("en-IN")}</span>
+                    <span className="text-xs font-bold text-[#4a6fa5] flex-shrink-0">{formatPrice(item.product.price * item.quantity)}</span>
                   </div>
                 ))}
               </div>
@@ -331,7 +333,7 @@ export default function CheckoutPage() {
               <div className={cn("border-t pt-3 space-y-2 text-sm", isDark ? "border-white/10" : "border-black/6")}>
                 <div className="flex justify-between">
                   <span className={isDark ? "text-white/50" : "text-black/40"}>Subtotal</span>
-                  <span className={isDark ? "text-white" : "text-[#1a1d23]"}>₹{totalPrice.toLocaleString("en-IN")}</span>
+                  <span className={isDark ? "text-white" : "text-[#1a1d23]"}>{formatPrice(totalPrice)}</span>
                 </div>
                 <div className="flex justify-between">
                   <span className={isDark ? "text-white/50" : "text-black/40"}>Delivery</span>
@@ -339,7 +341,7 @@ export default function CheckoutPage() {
                 </div>
                 <div className={cn("flex justify-between font-bold text-base pt-2 border-t", isDark ? "border-white/10 text-white" : "border-black/6 text-[#1a1d23]")}>
                   <span>Total</span>
-                  <span className="text-[#4a6fa5]">₹{totalPrice.toLocaleString("en-IN")}</span>
+                  <span className="text-[#4a6fa5]">{formatPrice(totalPrice)}</span>
                 </div>
               </div>
             </div>

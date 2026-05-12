@@ -5,6 +5,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Search, X, Grid3X3, List, SlidersHorizontal, Star } from "lucide-react";
 import { products, categories } from "@/data/products";
 import { ProductCard } from "@/components/ProductCard";
+import { useCurrency } from "@/context/CurrencyContext";
 import { cn } from "@/lib/utils";
 import { useSearchParams } from "next/navigation";
 
@@ -15,6 +16,7 @@ const PRICE_MAX = 200000;
 
 export default function ProductsPage() {
   const searchParams = useSearchParams();
+  const { formatPrice } = useCurrency();
   const [theme, setTheme] = useState("light");
   const [activeCategory, setActiveCategory] = useState<"all" | "furniture" | "electronics">(
     (searchParams.get("category") as "furniture" | "electronics") || "all"
@@ -172,11 +174,11 @@ export default function ProductsPage() {
             />
             <div className="flex items-center gap-2">
               <div className={cn("flex-1 px-2.5 py-1.5 rounded-lg border text-xs font-medium", isDark ? "bg-white/6 border-white/10 text-white" : "bg-gray-50 border-gray-200 text-gray-700")}>
-                ₹{priceRange[0].toLocaleString("en-IN")}
+                {formatPrice(priceRange[0])}
               </div>
               <span className={isDark ? "text-white/30 text-xs" : "text-gray-300 text-xs"}>—</span>
               <div className={cn("flex-1 px-2.5 py-1.5 rounded-lg border text-xs font-medium", isDark ? "bg-white/6 border-white/10 text-white" : "bg-gray-50 border-gray-200 text-gray-700")}>
-                ₹{priceRange[1].toLocaleString("en-IN")}
+                {formatPrice(priceRange[1])}
               </div>
             </div>
           </div>
@@ -401,7 +403,7 @@ export default function ProductsPage() {
                             <h3 className={cn("font-bold text-base mt-1", isDark ? "text-white" : "text-[#1a1d23]")}>{product.name}</h3>
                             <p className={cn("text-sm mt-1 line-clamp-1", isDark ? "text-white/50" : "text-black/40")}>{product.description}</p>
                             <div className="flex items-center justify-between mt-3">
-                              <span className="font-bold text-[#4a6fa5] text-lg">₹{product.price.toLocaleString("en-IN")}</span>
+                              <span className="font-bold text-[#4a6fa5] text-lg">{formatPrice(product.price)}</span>
                               <a href={`/products/${product.id}`} className="text-xs font-medium text-[#4a6fa5] hover:underline">View Details →</a>
                             </div>
                           </div>
