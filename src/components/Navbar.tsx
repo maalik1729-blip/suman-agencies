@@ -81,11 +81,25 @@ export function Navbar({ theme, toggleTheme }: NavbarProps) {
         <nav className="max-w-7xl mx-auto px-4 sm:px-6 flex items-center justify-between">
           {/* Logo */}
           <Link href="/" className="flex items-center gap-2.5 group">
-            {/* Logo Icon: sofa silhouette */}
-            <div className="w-9 h-9 rounded-xl flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform duration-300 overflow-hidden" style={{ background: "linear-gradient(135deg, #1a2f52, #101d33)" }}>
-              <svg viewBox="0 0 100 100" width="26" height="26" xmlns="http://www.w3.org/2000/svg">
-                <text x="50" y="68" fontFamily="'Times New Roman', Times, serif" fontWeight="bold" fontStyle="italic" fontSize="56" letterSpacing="-2" fill="#e8c97a" textAnchor="middle">SA</text>
-                <rect x="30" y="76" width="40" height="4" rx="2" fill="#e8c97a" opacity={0.8} />
+            {/* Modern Furniture & Home Logo */}
+            <div className="w-10 h-10 rounded-xl flex items-center justify-center shadow-lg group-hover:scale-110 transition-all duration-300 overflow-hidden relative" 
+                 style={{ 
+                   background: "linear-gradient(135deg, #4a6fa5 0%, #2d4f7c 100%)",
+                   boxShadow: "0 4px 12px rgba(74, 111, 165, 0.4)"
+                 }}>
+              <svg viewBox="0 0 100 100" width="28" height="28" xmlns="http://www.w3.org/2000/svg">
+                {/* House Icon */}
+                <path d="M 50 25 L 75 42 L 75 45 L 25 45 L 25 42 Z" fill="#ffffff" opacity="0.95"/>
+                <rect x="30" y="45" width="40" height="35" rx="2" fill="#ffffff" opacity="0.95"/>
+                <rect x="44" y="60" width="12" height="20" rx="1" fill="#4a6fa5"/>
+                <circle cx="52" cy="70" r="1" fill="#ffffff"/>
+                {/* Windows */}
+                <rect x="33" y="50" width="9" height="9" rx="1" fill="#6b8fc4"/>
+                <rect x="58" y="50" width="9" height="9" rx="1" fill="#6b8fc4"/>
+                <line x1="37.5" y1="50" x2="37.5" y2="59" stroke="#ffffff" strokeWidth="0.5"/>
+                <line x1="33" y1="54.5" x2="42" y2="54.5" stroke="#ffffff" strokeWidth="0.5"/>
+                <line x1="62.5" y1="50" x2="62.5" y2="59" stroke="#ffffff" strokeWidth="0.5"/>
+                <line x1="58" y1="54.5" x2="67" y2="54.5" stroke="#ffffff" strokeWidth="0.5"/>
               </svg>
             </div>
             <div className="flex flex-col leading-none">

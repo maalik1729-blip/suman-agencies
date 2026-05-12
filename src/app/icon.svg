@@ -1,19 +1,47 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512">
+<svg width="512" height="512" viewBox="0 0 512 512" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Gradient Definitions -->
   <defs>
-    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#1a2f52" />
-      <stop offset="100%" stop-color="#101d33" />
+    <linearGradient id="bgGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#4a6fa5;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#2d4f7c;stop-opacity:1" />
     </linearGradient>
-    <linearGradient id="goldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#e8c97a" />
-      <stop offset="100%" stop-color="#c9a84c" />
+    <linearGradient id="accentGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#6b8fc4;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#4a6fa5;stop-opacity:1" />
     </linearGradient>
   </defs>
-
-  <rect width="512" height="512" rx="120" fill="url(#bgGrad)" />
-
-  <!-- SA Monogram -->
-  <text x="256" y="350" font-family="'Times New Roman', Times, serif" font-weight="bold" font-style="italic" font-size="280" letter-spacing="-15" fill="url(#goldGrad)" text-anchor="middle">SA</text>
   
-  <rect x="156" y="390" width="200" height="12" rx="6" fill="url(#goldGrad)" opacity="0.8" />
+  <!-- Background Circle -->
+  <circle cx="256" cy="256" r="256" fill="url(#bgGradient)"/>
+  
+  <!-- Modern House/Furniture Icon -->
+  <!-- Roof -->
+  <path d="M 256 140 L 380 220 L 380 240 L 132 240 L 132 220 Z" fill="#ffffff" opacity="0.95"/>
+  
+  <!-- House Body -->
+  <rect x="152" y="240" width="208" height="180" rx="8" fill="#ffffff" opacity="0.95"/>
+  
+  <!-- Door -->
+  <rect x="226" y="320" width="60" height="100" rx="4" fill="url(#bgGradient)"/>
+  <circle cx="270" cy="370" r="4" fill="#ffffff"/>
+  
+  <!-- Windows -->
+  <rect x="172" y="270" width="45" height="45" rx="4" fill="url(#accentGradient)"/>
+  <rect x="295" y="270" width="45" height="45" rx="4" fill="url(#accentGradient)"/>
+  
+  <!-- Window Dividers -->
+  <line x1="194.5" y1="270" x2="194.5" y2="315" stroke="#ffffff" strokeWidth="2"/>
+  <line x1="172" y1="292.5" x2="217" y2="292.5" stroke="#ffffff" strokeWidth="2"/>
+  <line x1="317.5" y1="270" x2="317.5" y2="315" stroke="#ffffff" strokeWidth="2"/>
+  <line x1="295" y1="292.5" x2="340" y2="292.5" stroke="#ffffff" strokeWidth="2"/>
+  
+  <!-- Sofa Icon (Bottom) -->
+  <path d="M 180 350 L 180 365 Q 180 370 185 370 L 195 370 L 195 390 L 185 390 Q 175 390 175 380 L 175 350 Z" fill="url(#accentGradient)" opacity="0.8"/>
+  <rect x="195" y="355" width="122" height="35" rx="4" fill="url(#accentGradient)" opacity="0.8"/>
+  <path d="M 317 370 L 327 370 Q 332 370 332 365 L 332 350 L 337 350 L 337 380 Q 337 390 327 390 L 317 390 Z" fill="url(#accentGradient)" opacity="0.8"/>
+  
+  <!-- Decorative Elements -->
+  <circle cx="256" cy="160" r="8" fill="#ffffff" opacity="0.3"/>
+  <circle cx="140" cy="230" r="6" fill="#ffffff" opacity="0.3"/>
+  <circle cx="372" cy="230" r="6" fill="#ffffff" opacity="0.3"/>
 </svg>
