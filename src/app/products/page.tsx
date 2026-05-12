@@ -333,16 +333,7 @@ export default function ProductsPage() {
 
 
 
-          {/* Results count */}
-          <p className={cn("text-sm ml-auto hidden sm:block", isDark ? "text-white/40" : "text-black/40")}>
-            <span className="font-semibold text-[#4a6fa5]">{filtered.length}</span> products
-          </p>
 
-          {/* View Toggle */}
-          <div className="flex gap-1 p-1 rounded-lg" style={{ background: isDark ? "rgba(255,255,255,0.06)" : "rgba(0,0,0,0.05)" }}>
-            <button onClick={() => setViewMode("grid")} className={cn("p-1.5 rounded-md transition-all", viewMode === "grid" ? "bg-[#4a6fa5] text-white" : isDark ? "text-white/40" : "text-black/40")} aria-label="Grid view"><Grid3X3 size={15} /></button>
-            <button onClick={() => setViewMode("list")} className={cn("p-1.5 rounded-md transition-all", viewMode === "list" ? "bg-[#4a6fa5] text-white" : isDark ? "text-white/40" : "text-black/40")} aria-label="List view"><List size={15} /></button>
-          </div>
         </div>
       </div>
 
