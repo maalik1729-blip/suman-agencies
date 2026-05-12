@@ -2,7 +2,7 @@
   <defs>
     <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
       <stop offset="0%" stop-color="#1a2f52" />
-      <stop offset="100%" stop-color="#2d4f7c" />
+      <stop offset="100%" stop-color="#101d33" />
     </linearGradient>
     <linearGradient id="goldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
       <stop offset="0%" stop-color="#e8c97a" />
@@ -10,27 +10,10 @@
     </linearGradient>
   </defs>
 
-  <!-- Background rounded square -->
-  <rect width="512" height="512" rx="100" fill="url(#bgGrad)" />
+  <rect width="512" height="512" rx="120" fill="url(#bgGrad)" />
 
-  <!-- Sofa silhouette: seat base -->
-  <rect x="100" y="290" width="312" height="80" rx="20" fill="url(#goldGrad)" />
-
-  <!-- Sofa back rest -->
-  <rect x="100" y="210" width="312" height="95" rx="20" fill="url(#goldGrad)" />
-
-  <!-- Left armrest -->
-  <rect x="88" y="230" width="60" height="140" rx="18" fill="url(#goldGrad)" />
-
-  <!-- Right armrest -->
-  <rect x="364" y="230" width="60" height="140" rx="18" fill="url(#goldGrad)" />
-
-  <!-- Left leg -->
-  <rect x="120" y="360" width="20" height="45" rx="8" fill="#c9a84c" />
-
-  <!-- Right leg -->
-  <rect x="372" y="360" width="20" height="45" rx="8" fill="#c9a84c" />
-
-  <!-- "SA" text under sofa -->
-  <text x="256" y="454" font-family="Georgia, 'Times New Roman', serif" font-weight="bold" font-size="58" fill="url(#goldGrad)" text-anchor="middle" letter-spacing="8">SA</text>
+  <!-- SA Monogram -->
+  <text x="256" y="350" font-family="'Times New Roman', Times, serif" font-weight="bold" font-style="italic" font-size="280" letter-spacing="-15" fill="url(#goldGrad)" text-anchor="middle">SA</text>
+  
+  <rect x="156" y="390" width="200" height="12" rx="6" fill="url(#goldGrad)" opacity="0.8" />
 </svg>

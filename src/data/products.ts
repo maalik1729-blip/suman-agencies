@@ -424,6 +424,20 @@ export const products: Product[] = [
     specs: { Type: "VGA M-M", Length: "3 metres", Resolution: "Up to 1080p", Warranty: "1 Year" },
     inStock: true,
   },
+  {
+    id: "e014",
+    name: "Computer Power Cable 1.5m",
+    category: "electronics",
+    subcategory: "Cables & Accessories",
+    price: 188,
+    rating: 4.5,
+    reviewCount: 890,
+    images: ["/products/product-32.jpeg"],
+    description: "Standard 3-pin computer power cable cord. Ideal for desktop PCs, monitors, printers, and SMPS power supplies.",
+    features: ["3-pin Indian plug", "Standard IEC C13 connector", "1.5m length", "Heavy duty PVC jacket", "ISI Certified"],
+    specs: { "Plug Type": "3-pin to IEC C13", "Length": "1.5 metres", "Voltage": "250V", "Warranty": "6 Months" },
+    inStock: true,
+  },
 
   // --- ELECTRONICS: NETWORKING ---
   {

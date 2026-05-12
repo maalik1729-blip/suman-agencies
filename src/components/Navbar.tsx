@@ -80,20 +80,10 @@ export function Navbar({ theme, toggleTheme }: NavbarProps) {
           {/* Logo */}
           <Link href="/" className="flex items-center gap-2.5 group">
             {/* Logo Icon: sofa silhouette */}
-            <div className="w-9 h-9 rounded-xl flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform duration-300 overflow-hidden" style={{ background: "linear-gradient(135deg, #1a2f52, #2d4f7c)" }}>
+            <div className="w-9 h-9 rounded-xl flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform duration-300 overflow-hidden" style={{ background: "linear-gradient(135deg, #1a2f52, #101d33)" }}>
               <svg viewBox="0 0 100 100" width="26" height="26" xmlns="http://www.w3.org/2000/svg">
-                {/* Back rest */}
-                <rect x="18" y="30" width="64" height="22" rx="6" fill="#e8c97a" />
-                {/* Seat */}
-                <rect x="18" y="50" width="64" height="18" rx="5" fill="#d4a843" />
-                {/* Left arm */}
-                <rect x="10" y="36" width="14" height="34" rx="5" fill="#e8c97a" />
-                {/* Right arm */}
-                <rect x="76" y="36" width="14" height="34" rx="5" fill="#e8c97a" />
-                {/* Left leg */}
-                <rect x="22" y="66" width="5" height="12" rx="2" fill="#c9a84c" />
-                {/* Right leg */}
-                <rect x="73" y="66" width="5" height="12" rx="2" fill="#c9a84c" />
+                <text x="50" y="68" fontFamily="'Times New Roman', Times, serif" fontWeight="bold" fontStyle="italic" fontSize="56" letterSpacing="-2" fill="#e8c97a" textAnchor="middle">SA</text>
+                <rect x="30" y="76" width="40" height="4" rx="2" fill="#e8c97a" opacity={0.8} />
               </svg>
             </div>
             <div className="flex flex-col leading-none">
