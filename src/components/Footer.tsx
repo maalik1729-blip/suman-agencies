@@ -86,7 +86,9 @@ export function Footer({ theme }: FooterProps) {
             <p className="text-white/50 text-sm leading-relaxed max-w-xs">
               Premium furniture and electronics crafted for modern living. Registered under GST — serving customers across Tamil Nadu.
             </p>
-            <p className="text-[#4a6fa5]/70 text-xs mt-2 font-mono">GSTIN: 33DVIPR5548Q1ZN</p>
+            <div className="inline-block mt-3 px-2.5 py-1 bg-[#4a6fa5]/10 text-[#4a6fa5] font-mono text-xs font-medium rounded-md border border-[#4a6fa5]/20">
+              GSTIN: 33DVIPR5548Q1ZN
+            </div>
 
             {/* Contact Info */}
             <div className="mt-6 space-y-2.5">

@@ -331,18 +331,7 @@ export default function ProductsPage() {
             {search && <button onClick={() => setSearch("")} className="absolute right-3 top-1/2 -translate-y-1/2"><X size={13} className={isDark ? "text-white/40" : "text-black/30"} /></button>}
           </div>
 
-          {/* Sort */}
-          <select
-            value={sort}
-            onChange={(e) => setSort(e.target.value as SortOption)}
-            className={cn("px-3 py-2 rounded-xl text-sm border focus:outline-none focus:border-[#4a6fa5] cursor-pointer", isDark ? "bg-white/6 border-white/10 text-white" : "bg-white border-black/8 text-[#1a1d23]")}
-          >
-            <option value="default">Sort: Default</option>
-            <option value="price-asc">Price: Low to High</option>
-            <option value="price-desc">Price: High to Low</option>
-            <option value="rating">Top Rated</option>
-            <option value="name">Name A–Z</option>
-          </select>
+
 
           {/* Results count */}
           <p className={cn("text-sm ml-auto hidden sm:block", isDark ? "text-white/40" : "text-black/40")}>

@@ -141,7 +141,7 @@ export function Navbar({ theme, toggleTheme }: NavbarProps) {
                     className={cn(
                       "px-3 py-1 text-xs font-semibold rounded-full transition-all duration-300",
                       currency === c
-                        ? "bg-[#d47854] text-white shadow-sm"
+                        ? "bg-[#4a6fa5] text-white shadow-sm"
                         : theme === "dark" ? "text-white/60 hover:text-white" : "text-[#4a6fa5]/80 hover:text-[#4a6fa5]"
                     )}
                   >
