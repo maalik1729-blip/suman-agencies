@@ -74,8 +74,8 @@ export default function ContactPage() {
   };
 
   const inputClass = cn(
-    "w-full px-4 py-3.5 rounded-xl border text-sm focus:outline-none focus:border-[#4a6fa5] transition-colors",
-    isDark ? "bg-white/5 border-white/10 text-white placeholder-white/30" : "bg-white border-black/10 text-[#1a1a1a] placeholder-black/30"
+    "w-full px-4 py-3.5 rounded-xl border text-sm focus:outline-none focus:ring-2 focus:ring-[#4a6fa5]/20 focus:border-[#4a6fa5] transition-all",
+    isDark ? "bg-white/5 border-white/10 text-white placeholder-white/40" : "bg-white border-gray-200 text-[#1a1a1a] placeholder-gray-400"
   );
 
   return (
@@ -283,11 +283,14 @@ export default function ContactPage() {
 
                   <button
                     type="submit"
-                    className="btn-primary w-full justify-center gap-2 group"
-                    style={{ background: "linear-gradient(135deg, #4a6fa5, #2d4f7c)", color: "white" }}
+                    className="w-full py-4 px-6 rounded-xl font-semibold text-white flex items-center justify-center gap-2 group transition-all duration-300 hover:scale-[1.02] hover:shadow-xl"
+                    style={{ 
+                      background: "linear-gradient(135deg, #4a6fa5, #2d4f7c)",
+                      boxShadow: "0 4px 16px rgba(74, 111, 165, 0.3)"
+                    }}
                   >
-                    <span>Send Message</span>
-                    <Send size={16} className="group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
+                    <span>SEND MESSAGE</span>
+                    <Send size={18} className="group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
                   </button>
                 </form>
               )}

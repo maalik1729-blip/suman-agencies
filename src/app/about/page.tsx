@@ -78,24 +78,25 @@ export default function AboutPage() {
 
       {/* Mission */}
       <section id="story" className="py-24 px-4 sm:px-6">
-        <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+        <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
           <motion.div
             initial={{ opacity: 0, x: -50 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.8 }}
+            className="order-2 lg:order-1"
           >
             <span className="text-xs font-semibold tracking-widest uppercase text-[#4a6fa5]">Our Mission</span>
             <h2 className={cn("text-4xl sm:text-5xl font-bold font-serif mt-3 mb-6", isDark ? "text-white" : "text-[#1a1a1a]")}>
               Everything Your Home Needs, Under One Roof
             </h2>
-            <p className={cn("leading-relaxed mb-6", isDark ? "text-white/60" : "text-black/55")}>
+            <p className={cn("leading-relaxed mb-4", isDark ? "text-white/60" : "text-black/55")}>
               At Suman Agency, we don't just sell sofas. We outfit entire homes — from the bedroom cot you sleep on every night, to the dining table where your family gathers, to the ceiling fan that keeps you cool through summer. We carry sofas, beds, cots, wardrobes (bureau), dining sets, accent chairs, decorative vessels, and much more.
             </p>
             <p className={cn("leading-relaxed mb-8", isDark ? "text-white/60" : "text-black/55")}>
               Pair your furniture with our smart electronics range — fans, air purifiers, smart lamps, and televisions — all curated to match the aesthetic of your home. Every piece is quality-tested, backed by warranty, and delivered with care to your doorstep — wherever you are in the world.
             </p>
-            <Link href="/products" className="btn-primary group">
+            <Link href="/products" className="btn-primary group inline-flex">
               <span>Explore Full Collection</span>
               <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
             </Link>
@@ -106,14 +107,17 @@ export default function AboutPage() {
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.8 }}
+            className="order-1 lg:order-2"
           >
-            <img
-              src="/showroom-collection.png"
-              alt="Suman Agency full furniture collection — sofas, beds, dining, fans and more"
-              className="rounded-3xl object-cover w-full shadow-2xl"
-              style={{ boxShadow: "var(--shadow-luxe-xl)" }}
-            />
-            <div className="grid grid-cols-3 gap-3 mt-4">
+            <div className="relative">
+              <img
+                src="/showroom-collection.png"
+                alt="Suman Agency full furniture collection — sofas, beds, dining, fans and more"
+                className="rounded-3xl object-cover w-full h-auto shadow-2xl"
+                style={{ boxShadow: "var(--shadow-luxe-xl)", aspectRatio: "4/3" }}
+              />
+            </div>
+            <div className="grid grid-cols-3 gap-3 mt-6">
               {[
                 { label: "Sofas & Chairs", emoji: "🛋️" },
                 { label: "Beds & Cots", emoji: "🛏️" },
