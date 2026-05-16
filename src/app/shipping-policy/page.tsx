@@ -35,7 +35,7 @@ export default function ShippingPolicyPage() {
         <div className="prose prose-slate max-w-none space-y-10 text-[#1a1a1a]/70 dark:text-white/60">
 
           <p className="text-base leading-relaxed">
-            At <strong className="text-[#1a1a1a] dark:text-white">Suman Agency</strong>, we are committed to ensuring
+            At <strong className="text-[#1a1a1a] dark:text-white">Suman Tech Automation</strong>, we are committed to ensuring
             that your premium furniture and electronics reach you in perfect condition. This Shipping Policy
             explains how we process orders, handle packaging, and manage deliveries for both retail and
             wholesale customers.
@@ -138,11 +138,11 @@ function ContactBox() {
       </div>
       <p className="text-white/80 text-sm mb-4">For shipping-related questions or support, please contact us:</p>
       <div className="space-y-1.5 text-sm text-white/90">
-        <p><strong>Suman Agency (Suman Tech Automation)</strong></p>
+        <p><strong>Suman Tech Automation</strong></p>
         <p>👤 Prop. RAJASINGH</p>
         <p>📍 No.7/1-3, West Street, Chellathayarpuram, Tirunelveli – 627808, Tamil Nadu</p>
         <p>📞 +91 97155 90101</p>
-        <p>📧 sumanagency4@gmail.com</p>
+        <p>📧 sumantechautomation@gmail.com | sumanagency4@gmail.com</p>
         <p>🏛️ GSTIN: 33DVIPR5548Q1ZN</p>
       </div>
     </div>

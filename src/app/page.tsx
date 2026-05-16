@@ -41,7 +41,7 @@ function HeroSection({ theme }: { theme?: string }) {
       <div className="absolute inset-0">
         <img
           src="/hero-bg.png"
-          alt="Suman Agency luxury furniture showroom"
+          alt="Suman Tech Automation luxury furniture showroom"
           className="w-full h-full object-cover"
           loading="eager"
           fetchPriority="high"
@@ -408,13 +408,13 @@ function WhyChooseUs({ theme }: { theme?: string }) {
           viewport={{ once: true }}
         >
           <span className="text-xs font-semibold tracking-widest uppercase text-[#4a6fa5]">
-            Why Suman Agency
+            Why Suman Tech Automation
           </span>
           <h2
             id="why-heading"
             className={cn("text-4xl sm:text-5xl font-bold font-serif mt-3 mb-4", isDark ? "text-white" : "text-[#1a1a1a]")}
           >
-            The Suman Agency Difference
+            The Suman Tech Automation Difference
           </h2>
           <p className={cn("max-w-xl mx-auto", isDark ? "text-white/60" : "text-black/50")}>
             We don't just sell products — we create experiences that last a lifetime.

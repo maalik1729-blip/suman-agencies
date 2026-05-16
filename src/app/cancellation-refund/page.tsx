@@ -35,7 +35,7 @@ export default function CancellationRefundPage() {
         <div className="space-y-6 text-[#1a1a1a]/70 dark:text-white/60">
 
           <p className="text-base leading-relaxed">
-            At <strong className="text-[#1a1a1a] dark:text-white">Suman Agency</strong>, we take pride in delivering
+            At <strong className="text-[#1a1a1a] dark:text-white">Suman Tech Automation</strong>, we take pride in delivering
             premium furniture and electronics with care. While we strive to ensure every order reaches you
             perfectly, we understand that cancellations or issues may occasionally arise. This policy outlines
             how we handle cancellations, returns, and refunds.
@@ -128,11 +128,11 @@ function ContactBox() {
       </div>
       <p className="text-white/80 text-sm mb-4">For cancellation or refund support, please contact us:</p>
       <div className="space-y-1.5 text-sm text-white/90">
-        <p><strong>Suman Agency (Suman Tech Automation)</strong></p>
+        <p><strong>Suman Tech Automation</strong></p>
         <p>👤 Prop. RAJASINGH</p>
         <p>📍 No.7/1-3, West Street, Chellathayarpuram, Tirunelveli – 627808, Tamil Nadu</p>
         <p>📞 +91 97155 90101</p>
-        <p>📧 sumanagency4@gmail.com</p>
+        <p>📧 sumantechautomation@gmail.com | sumanagency4@gmail.com</p>
         <p>🏛️ GSTIN: 33DVIPR5548Q1ZN</p>
       </div>
     </div>

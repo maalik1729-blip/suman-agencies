@@ -107,7 +107,7 @@ export function Navbar({ theme, toggleTheme }: NavbarProps) {
                 className="text-lg font-bold tracking-tight font-serif transition-colors duration-300"
                 style={{ color: logoColor }}
               >
-                Suman Agency
+                Suman Tech Automation
               </span>
               <span className="text-[9px] font-medium tracking-widest uppercase" style={{ color: logoColor, opacity: 0.6 }}>
                 Furniture &amp; Electronics

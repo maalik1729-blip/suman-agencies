@@ -41,7 +41,7 @@ export default function AboutPage() {
         <div className="absolute inset-0 -z-10">
           <img
             src="https://images.unsplash.com/photo-1618219908412-a29a1bb7b86e?w=1920&q=80"
-            alt="Suman Agency workshop"
+            alt="Suman Tech Automation workshop"
             className="w-full h-full object-cover"
           />
           <div className="absolute inset-0" style={{ background: isDark ? "rgba(13,13,13,0.85)" : "rgba(250,248,244,0.88)" }} />
@@ -71,7 +71,7 @@ export default function AboutPage() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.3 }}
           >
-            From a cosy bedroom cot to a grand dining set — Suman Agency is your complete destination for home furniture and smart appliances, trusted by families around the world since 2020.
+            From a cosy bedroom cot to a grand dining set — Suman Tech Automation is your complete destination for home furniture and smart appliances, trusted by families around the world since 2020.
           </motion.p>
         </div>
       </section>
@@ -91,7 +91,7 @@ export default function AboutPage() {
               Everything Your Home Needs, Under One Roof
             </h2>
             <p className={cn("leading-relaxed mb-4", isDark ? "text-white/60" : "text-black/55")}>
-              At Suman Agency, we don't just sell sofas. We outfit entire homes — from the bedroom cot you sleep on every night, to the dining table where your family gathers, to the ceiling fan that keeps you cool through summer. We carry sofas, beds, cots, wardrobes (bureau), dining sets, accent chairs, decorative vessels, and much more.
+              At Suman Tech Automation, we don't just sell sofas. We outfit entire homes — from the bedroom cot you sleep on every night, to the dining table where your family gathers, to the ceiling fan that keeps you cool through summer. We carry sofas, beds, cots, wardrobes (bureau), dining sets, accent chairs, decorative vessels, and much more.
             </p>
             <p className={cn("leading-relaxed mb-8", isDark ? "text-white/60" : "text-black/55")}>
               Pair your furniture with our smart electronics range — fans, air purifiers, smart lamps, and televisions — all curated to match the aesthetic of your home. Every piece is quality-tested, backed by warranty, and delivered with care to your doorstep — wherever you are in the world.
@@ -112,7 +112,7 @@ export default function AboutPage() {
             <div className="relative">
               <img
                 src="/showroom-collection.png"
-                alt="Suman Agency full furniture collection — sofas, beds, dining, fans and more"
+                alt="Suman Tech Automation full furniture collection — sofas, beds, dining, fans and more"
                 className="rounded-3xl object-cover w-full h-auto shadow-2xl"
                 style={{ boxShadow: "var(--shadow-luxe-xl)", aspectRatio: "4/3" }}
               />

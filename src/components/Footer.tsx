@@ -93,7 +93,7 @@ export function Footer({ theme }: FooterProps) {
                   <line x1="58" y1="54.5" x2="67" y2="54.5" stroke="#ffffff" strokeWidth="0.5"/>
                 </svg>
               </div>
-              <span className="text-white font-bold text-xl font-serif">Suman Agency</span>
+              <span className="text-white font-bold text-xl font-serif">Suman Tech Automation</span>
             </Link>
             <p className="text-[#4a6fa5] text-xs font-semibold tracking-widest uppercase mb-4">
               Prop. RAJASINGH
@@ -108,6 +108,7 @@ export function Footer({ theme }: FooterProps) {
             {/* Contact Info */}
             <div className="mt-6 space-y-2.5">
               {[
+                { icon: Mail, text: "sumantechautomation@gmail.com" },
                 { icon: Mail, text: "sumanagency4@gmail.com" },
                 { icon: Phone, text: "+91 97155 90101" },
                 { icon: MapPin, text: "No.7/1-3, West Street, Chellathayarpuram, Tirunelveli – 627808" },
@@ -162,7 +163,7 @@ export function Footer({ theme }: FooterProps) {
         {/* Bottom Bar */}
         <div className="mt-16 pt-8 border-t border-white/8 flex flex-col sm:flex-row items-center justify-between gap-4">
           <p className="text-white/30 text-xs">
-            {`© ${new Date().getFullYear()} Suman Agency. Prop. RAJASINGH. All rights reserved.`}
+            {`© ${new Date().getFullYear()} Suman Tech Automation. Prop. RAJASINGH. All rights reserved.`}
           </p>
           <div className="flex items-center gap-6">
             {["Privacy Policy", "Terms of Service", "Cookie Policy"].map((item) => (

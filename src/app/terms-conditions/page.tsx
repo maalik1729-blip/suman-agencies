@@ -33,10 +33,10 @@ export default function TermsConditionsPage() {
 
         <div className="space-y-6 text-[#1a1a1a]/70 dark:text-white/60">
           <p className="text-base leading-relaxed">
-            Welcome to <strong className="text-[#1a1a1a] dark:text-white">Suman Agency</strong>. By accessing our
+            Welcome to <strong className="text-[#1a1a1a] dark:text-white">Suman Tech Automation</strong>. By accessing our
             website, making a purchase, or engaging with our services, you agree to comply with and be bound
             by the following Terms & Conditions. These terms govern all orders, sales, and interactions with
-            Suman Agency. If you do not agree with these terms, we request you to discontinue using our services.
+            Suman Tech Automation. If you do not agree with these terms, we request you to discontinue using our services.
           </p>
 
           <NumberedSection number="1" icon={<FileText size={18} />} title="General Use of Website & Services">
@@ -60,7 +60,7 @@ export default function TermsConditionsPage() {
             <ul>
               <li>Orders are confirmed only after successful payment.</li>
               <li>We accept UPI, debit/credit cards, net banking, and wallets via secure, PCI-compliant gateways.</li>
-              <li>Suman Agency does not store your payment card details.</li>
+              <li>Suman Tech Automation does not store your payment card details.</li>
               <li>In the event of duplicate charges or transaction errors, customers should contact our support team immediately.</li>
             </ul>
           </NumberedSection>
@@ -95,13 +95,13 @@ export default function TermsConditionsPage() {
 
           <NumberedSection number="7" icon={<Shield size={18} />} title="Intellectual Property">
             <p>
-              All product images, content, designs, and branding are the intellectual property of Suman Agency.
+              All product images, content, designs, and branding are the intellectual property of Suman Tech Automation.
               Unauthorized use, reproduction, or distribution is strictly prohibited.
             </p>
           </NumberedSection>
 
           <NumberedSection number="8" icon={<Shield size={18} />} title="Limitation of Liability">
-            <p>Suman Agency shall not be liable for:</p>
+            <p>Suman Tech Automation shall not be liable for:</p>
             <ul>
               <li>Natural variations in wood grain, texture, or colour of furniture products</li>
               <li>Delays caused by courier or logistics providers</li>
@@ -119,7 +119,7 @@ export default function TermsConditionsPage() {
           <ContactBox />
 
           <p className="text-xs text-center text-black/30 dark:text-white/25">
-            © {new Date().getFullYear()} Suman Agency. All Rights Reserved.
+            © {new Date().getFullYear()} Suman Tech Automation. All Rights Reserved.
           </p>
         </div>
       </div>
@@ -159,11 +159,11 @@ function ContactBox() {
       </div>
       <p className="text-white/80 text-sm mb-4">For assistance or queries related to these terms:</p>
       <div className="space-y-1.5 text-sm text-white/90">
-        <p><strong>Suman Agency (Suman Tech Automation)</strong></p>
+        <p><strong>Suman Tech Automation</strong></p>
         <p>👤 Prop. RAJASINGH</p>
         <p>📍 No.7/1-3, West Street, Chellathayarpuram, Tirunelveli – 627808, Tamil Nadu</p>
         <p>📞 +91 97155 90101</p>
-        <p>📧 sumanagency4@gmail.com</p>
+        <p>📧 sumantechautomation@gmail.com | sumanagency4@gmail.com</p>
         <p>🏛️ GSTIN: 33DVIPR5548Q1ZN</p>
       </div>
     </div>

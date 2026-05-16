@@ -35,7 +35,7 @@ export default function PrivacyPolicyPage() {
         {/* Intro */}
         <div className="space-y-6 text-[#1a1a1a]/70 dark:text-white/60">
           <p className="text-base leading-relaxed">
-            At <strong className="text-[#1a1a1a] dark:text-white">Suman Agency</strong>, we value the trust you place
+            At <strong className="text-[#1a1a1a] dark:text-white">Suman Tech Automation</strong>, we value the trust you place
             in us when choosing our premium furniture and electronics. Protecting your personal information is
             as important to us as ensuring the quality of the products we deliver. This Privacy Policy explains
             what information we collect, how we use it, and your rights when engaging with our business.
@@ -112,7 +112,7 @@ export default function PrivacyPolicyPage() {
           <ContactBox />
 
           <p className="text-xs text-center text-black/30 dark:text-white/25">
-            © {new Date().getFullYear()} Suman Agency. All Rights Reserved.
+            © {new Date().getFullYear()} Suman Tech Automation. All Rights Reserved.
           </p>
         </div>
       </div>
@@ -146,11 +146,11 @@ function ContactBox() {
       </div>
       <p className="text-white/80 text-sm mb-4">For privacy requests or concerns, please contact us:</p>
       <div className="space-y-1.5 text-sm text-white/90">
-        <p><strong>Suman Agency (Suman Tech Automation)</strong></p>
+        <p><strong>Suman Tech Automation</strong></p>
         <p>👤 Prop. RAJASINGH</p>
         <p>📍 No.7/1-3, West Street, Chellathayarpuram, Tirunelveli – 627808, Tamil Nadu</p>
         <p>📞 +91 97155 90101</p>
-        <p>📧 sumanagency4@gmail.com</p>
+        <p>📧 sumantechautomation@gmail.com | sumanagency4@gmail.com</p>
         <p>🏛️ GSTIN: 33DVIPR5548Q1ZN</p>
       </div>
     </div>
