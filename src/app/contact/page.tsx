@@ -10,7 +10,7 @@ const contactInfo = [
   {
     icon: Phone,
     title: "Call Us",
-    details: "+91 97155 90101",
+    details: "+91 97155 90101 / +91 8838208741",
     sub: "Mon–Sat, 9 AM–7 PM",
   },
   {

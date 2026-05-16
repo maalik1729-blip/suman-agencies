@@ -110,7 +110,7 @@ export function Footer({ theme }: FooterProps) {
               {[
                 { icon: Mail, text: "sumantechautomation@gmail.com" },
                 { icon: Mail, text: "sumanagency4@gmail.com" },
-                { icon: Phone, text: "+91 97155 90101" },
+                { icon: Phone, text: "+91 97155 90101 / +91 8838208741" },
                 { icon: MapPin, text: "No.7/1-3, West Street, Chellathayarpuram, Tirunelveli – 627808" },
               ].map(({ icon: Icon, text }) => (
                 <div key={text} className="flex items-center gap-2.5 text-white/40 text-sm">

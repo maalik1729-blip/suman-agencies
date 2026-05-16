@@ -162,7 +162,7 @@ function ContactBox() {
         <p><strong>Suman Tech Automation</strong></p>
         <p>👤 Prop. RAJASINGH</p>
         <p>📍 No.7/1-3, West Street, Chellathayarpuram, Tirunelveli – 627808, Tamil Nadu</p>
-        <p>📞 +91 97155 90101</p>
+        <p>📞 +91 97155 90101 / +91 8838208741</p>
         <p>📧 sumantechautomation@gmail.com | sumanagency4@gmail.com</p>
         <p>🏛️ GSTIN: 33DVIPR5548Q1ZN</p>
       </div>
