@@ -57,7 +57,7 @@ function OrderStatusInner() {
   if (order === undefined) {
     return (
       <div className="min-h-screen pt-[calc(var(--header-height)+24px)] px-4">
-        <div className="max-w-2xl mx-auto py-20 text-center text-sm text-()">
+        <div className="max-w-2xl mx-auto py-20 text-center text-sm text-[var(--color-text-muted)]">
           Loading your order…
         </div>
       </div>
@@ -188,7 +188,7 @@ function OrderStatusInner() {
   };
 
   return (
-    <div className="min-h-screen bg-() pt-[calc(var(--header-height)+24px)] pb-16 px-4 sm:px-6">
+    <div className="min-h-screen bg-[var(--color-bg)] pt-[calc(var(--header-height)+24px)] pb-16 px-4 sm:px-6">
       <div className="max-w-2xl mx-auto">
         {/* Success header */}
         <motion.div
@@ -197,57 +197,57 @@ function OrderStatusInner() {
           transition={{ type: "spring", damping: 18, stiffness: 220 }}
           className="flex flex-col items-center text-center mb-10"
         >
-          <div className="w-16 h-16 rounded-full bg-() flex items-center justify-center mb-4">
-            <CheckCircle size={32} className="text-()" aria-hidden="true" />
+          <div className="w-16 h-16 rounded-full bg-[var(--color-success-50)] flex items-center justify-center mb-4">
+            <CheckCircle size={32} className="text-[var(--color-success-500)]" aria-hidden="true" />
           </div>
-          <h1 className="text-2xl sm:text-3xl font-semibold text-()">
+          <h1 className="text-2xl sm:text-3xl font-semibold text-[var(--color-text-strong)]">
             Order placed!
           </h1>
-          <p className="mt-2 text-sm text-() max-w-md">
+          <p className="mt-2 text-sm text-[var(--color-text-muted)] max-w-md">
             Thank you, {order.address.name.split(" ")[0]}. We've received your order and will send updates to {order.address.email}.
           </p>
         </motion.div>
 
         {/* Order metadata */}
-        <div className="rounded-lg border border-() bg-() p-5 mb-5">
+        <div className="rounded-lg border border-[var(--color-border)] bg-[var(--color-surface)] p-5 mb-5">
           <div className="grid grid-cols-2 gap-4">
             <div>
-              <p className="text-[11px] font-semibold uppercase tracking-[0.08em] text-()">Order ID</p>
-              <p className="mt-1 font-mono text-sm text-()">{order.id}</p>
+              <p className="text-[11px] font-semibold uppercase tracking-[0.08em] text-[var(--color-text-muted)]">Order ID</p>
+              <p className="mt-1 font-mono text-sm text-[var(--color-text-strong)]">{order.id}</p>
             </div>
             <div>
-              <p className="text-[11px] font-semibold uppercase tracking-[0.08em] text-()">Total paid</p>
-              <p className="mt-1 text-sm font-semibold tabular text-()">
+              <p className="text-[11px] font-semibold uppercase tracking-[0.08em] text-[var(--color-text-muted)]">Total paid</p>
+              <p className="mt-1 text-sm font-semibold tabular text-[var(--color-text-strong)]">
                 {formatPrice(order.totals.totalINR)}
               </p>
             </div>
             <div>
-              <p className="text-[11px] font-semibold uppercase tracking-[0.08em] text-()">Payment</p>
-              <p className="mt-1 text-sm text-()">{PAYMENT_LABEL[order.payment.method]}</p>
+              <p className="text-[11px] font-semibold uppercase tracking-[0.08em] text-[var(--color-text-muted)]">Payment</p>
+              <p className="mt-1 text-sm text-[var(--color-text-strong)]">{PAYMENT_LABEL[order.payment.method]}</p>
             </div>
             <div>
-              <p className="text-[11px] font-semibold uppercase tracking-[0.08em] text-()">Estimated delivery</p>
-              <p className="mt-1 text-sm text-()">{etaStr}</p>
+              <p className="text-[11px] font-semibold uppercase tracking-[0.08em] text-[var(--color-text-muted)]">Estimated delivery</p>
+              <p className="mt-1 text-sm text-[var(--color-text-strong)]">{etaStr}</p>
             </div>
-            <div className="col-span-2 pt-3 border-t border-()">
-              <p className="text-[11px] font-semibold uppercase tracking-[0.08em] text-()">Placed on</p>
-              <p className="mt-1 text-sm text-()">{orderDateStr}</p>
+            <div className="col-span-2 pt-3 border-t border-[var(--color-border)]">
+              <p className="text-[11px] font-semibold uppercase tracking-[0.08em] text-[var(--color-text-muted)]">Placed on</p>
+              <p className="mt-1 text-sm text-[var(--color-text-strong)]">{orderDateStr}</p>
             </div>
           </div>
         </div>
 
         {/* Delivery address */}
-        <div className="rounded-lg border border-() bg-() p-5 mb-5">
-          <p className="text-[11px] font-semibold uppercase tracking-[0.08em] text-() mb-2">
+        <div className="rounded-lg border border-[var(--color-border)] bg-[var(--color-surface)] p-5 mb-5">
+          <p className="text-[11px] font-semibold uppercase tracking-[0.08em] text-[var(--color-text-muted)] mb-2">
             Delivery to
           </p>
-          <p className="text-sm font-medium text-()">{order.address.name}</p>
-          <p className="text-sm text-() flex items-center gap-1.5 mt-0.5">
-            <Phone size={12} className="text-()" aria-hidden="true" />
+          <p className="text-sm font-medium text-[var(--color-text-strong)]">{order.address.name}</p>
+          <p className="text-sm text-[var(--color-text)] flex items-center gap-1.5 mt-0.5">
+            <Phone size={12} className="text-[var(--color-text-muted)]" aria-hidden="true" />
             {order.address.phone}
           </p>
-          <p className="text-sm text-() flex items-start gap-1.5 mt-0.5">
-            <MapPin size={12} className="mt-0.5 text-() shrink-0" aria-hidden="true" />
+          <p className="text-sm text-[var(--color-text)] flex items-start gap-1.5 mt-0.5">
+            <MapPin size={12} className="mt-0.5 text-[var(--color-text-muted)] shrink-0" aria-hidden="true" />
             <span>
               {order.address.line}, {order.address.city}, {order.address.state} – {order.address.pincode}
             </span>
@@ -255,11 +255,11 @@ function OrderStatusInner() {
         </div>
 
         {/* Tracking */}
-        <div className="rounded-lg border border-() bg-() p-5 mb-5">
-          <h2 className="text-base font-semibold text-() mb-5">Order tracking</h2>
+        <div className="rounded-lg border border-[var(--color-border)] bg-[var(--color-surface)] p-5 mb-5">
+          <h2 className="text-base font-semibold text-[var(--color-text-strong)] mb-5">Order tracking</h2>
           <ol className="relative space-y-5">
             <span
-              className="absolute left-[15px] top-2 bottom-2 w-px bg-()"
+              className="absolute left-[15px] top-2 bottom-2 w-px bg-[var(--color-border)]"
               aria-hidden="true"
             />
             {STEP_DEFS.map((step, i) => {
@@ -269,10 +269,10 @@ function OrderStatusInner() {
                 <li key={step.key} className="flex items-center gap-3 relative">
                   <span
                     className={cn(
-                      "w-8 h-8 rounded-full flex items-center justify-center shrink-0 z-10 border-2 bg-()",
+                      "w-8 h-8 rounded-full flex items-center justify-center shrink-0 z-10 border-2 bg-[var(--color-bg)]",
                       done
-                        ? "bg-() border-() text-white"
-                        : "border-() text-()"
+                        ? "bg-[var(--color-brand-500)] border-[var(--color-brand-500)] text-white"
+                        : "border-[var(--color-border)] text-[var(--color-text-muted)]"
                     )}
                   >
                     <Icon size={14} aria-hidden="true" />
@@ -281,12 +281,12 @@ function OrderStatusInner() {
                     <p
                       className={cn(
                         "text-sm font-medium",
-                        done ? "text-()" : "text-()"
+                        done ? "text-[var(--color-text-strong)]" : "text-[var(--color-text-muted)]"
                       )}
                     >
                       {step.label}
                     </p>
-                    <p className="text-xs text-()">
+                    <p className="text-xs text-[var(--color-text-muted)]">
                       {step.key === "confirmed" && orderDateStr}
                       {step.key === "packed" && "Within 24 hours"}
                       {step.key === "shipped" && "1–2 days"}
@@ -300,19 +300,19 @@ function OrderStatusInner() {
         </div>
 
         {/* Items */}
-        <div className="rounded-lg border border-() bg-() p-5 mb-5">
-          <h2 className="text-base font-semibold text-() mb-4">Items</h2>
+        <div className="rounded-lg border border-[var(--color-border)] bg-[var(--color-surface)] p-5 mb-5">
+          <h2 className="text-base font-semibold text-[var(--color-text-strong)] mb-4">Items</h2>
           <ul className="space-y-3">
             {order.items.map((it) => (
               <li key={it.id} className="flex gap-3 items-center">
-                <div className="relative w-12 h-12 rounded-md overflow-hidden bg-() shrink-0">
+                <div className="relative w-12 h-12 rounded-md overflow-hidden bg-[var(--color-surface-2)] shrink-0">
                   <Image src={it.image} alt="" fill sizes="48px" className="object-cover" />
                 </div>
                 <div className="flex-1 min-w-0">
-                  <p className="text-sm font-medium text-() line-clamp-1">{it.name}</p>
-                  <p className="text-xs text-()">Qty: {it.quantity}</p>
+                  <p className="text-sm font-medium text-[var(--color-text-strong)] line-clamp-1">{it.name}</p>
+                  <p className="text-xs text-[var(--color-text-muted)]">Qty: {it.quantity}</p>
                 </div>
-                <span className="text-sm font-semibold tabular text-() shrink-0">
+                <span className="text-sm font-semibold tabular text-[var(--color-text-strong)] shrink-0">
                   {formatPrice(it.unitPriceINR * it.quantity)}
                 </span>
               </li>
@@ -343,7 +343,7 @@ function OrderStatusInner() {
           </Link>
         </div>
 
-        <p className="mt-6 text-center text-xs text-()">
+        <p className="mt-6 text-center text-xs text-[var(--color-text-muted)]">
           Save this page or screenshot the order ID for your records.
         </p>
       </div>

@@ -48,23 +48,23 @@ export function CartDrawer() {
         aria-modal="true"
         aria-label="Shopping cart"
         className={cn(
-          "fixed top-0 right-0 bottom-0 z-[80] w-full max-w-[420px] flex flex-col bg-() border-l border-() shadow-() transition-transform duration-300",
+          "fixed top-0 right-0 bottom-0 z-[80] w-full max-w-[420px] flex flex-col bg-[var(--color-bg)] border-l border-[var(--color-border)] shadow-[var(--shadow-overlay)] transition-transform duration-300",
           isOpen ? "translate-x-0" : "translate-x-full"
         )}
       >
-        <header className="flex items-center justify-between px-6 py-4 border-b border-()">
+        <header className="flex items-center justify-between px-6 py-4 border-b border-[var(--color-border)]">
           <div className="flex items-center gap-2.5">
-            <ShoppingBag size={18} className="text-()" aria-hidden="true" />
-            <h2 className="text-base font-semibold text-()">Your Cart</h2>
+            <ShoppingBag size={18} className="text-[var(--color-brand-500)]" aria-hidden="true" />
+            <h2 className="text-base font-semibold text-[var(--color-text-strong)]">Your Cart</h2>
             {totalItems > 0 && (
-              <span className="px-1.5 py-0.5 rounded-sm text-[11px] font-semibold bg-() text-()">
+              <span className="px-1.5 py-0.5 rounded-sm text-[11px] font-semibold bg-[var(--color-brand-50)] text-[var(--color-brand-700)]">
                 {totalItems}
               </span>
             )}
           </div>
           <button
             onClick={() => setIsOpen(false)}
-            className="inline-flex items-center justify-center w-8 h-8 rounded-md text-() hover:text-() hover:bg-() transition-colors"
+            className="inline-flex items-center justify-center w-8 h-8 rounded-md text-[var(--color-text-muted)] hover:text-[var(--color-text-strong)] hover:bg-[var(--color-surface-2)] transition-colors"
             aria-label="Close cart"
           >
             <X size={18} />
@@ -88,9 +88,9 @@ export function CartDrawer() {
               {items.map((item) => (
                 <li
                   key={item.product.id}
-                  className="flex gap-3 p-3 rounded-md border border-() bg-()"
+                  className="flex gap-3 p-3 rounded-md border border-[var(--color-border)] bg-[var(--color-surface)]"
                 >
-                  <div className="relative w-16 h-20 rounded-md overflow-hidden bg-() shrink-0">
+                  <div className="relative w-16 h-20 rounded-md overflow-hidden bg-[var(--color-surface-2)] shrink-0">
                     <Image
                       src={item.product.images[0]}
                       alt={item.product.name}
@@ -100,31 +100,31 @@ export function CartDrawer() {
                     />
                   </div>
                   <div className="flex-1 min-w-0 flex flex-col gap-1">
-                    <p className="text-sm font-medium text-() line-clamp-2 leading-snug">
+                    <p className="text-sm font-medium text-[var(--color-text-strong)] line-clamp-2 leading-snug">
                       {item.product.name}
                     </p>
                     {item.color && (
-                      <p className="text-xs text-()">{item.color}</p>
+                      <p className="text-xs text-[var(--color-text-muted)]">{item.color}</p>
                     )}
-                    <p className="text-sm font-semibold tabular text-()">
+                    <p className="text-sm font-semibold tabular text-[var(--color-text-strong)]">
                       {formatPrice(item.product.price * item.quantity)}
                     </p>
 
                     <div className="flex items-center justify-between mt-1">
-                      <div className="inline-flex items-center rounded-md border border-() overflow-hidden">
+                      <div className="inline-flex items-center rounded-md border border-[var(--color-border)] overflow-hidden">
                         <button
                           onClick={() => updateQuantity(item.product.id, item.quantity - 1)}
-                          className="w-7 h-7 inline-flex items-center justify-center text-() hover:bg-()"
+                          className="w-7 h-7 inline-flex items-center justify-center text-[var(--color-text)] hover:bg-[var(--color-surface-2)]"
                           aria-label={`Decrease quantity of ${item.product.name}`}
                         >
                           <Minus size={12} />
                         </button>
-                        <span className="w-7 text-center text-sm font-medium text-() tabular">
+                        <span className="w-7 text-center text-sm font-medium text-[var(--color-text-strong)] tabular">
                           {item.quantity}
                         </span>
                         <button
                           onClick={() => updateQuantity(item.product.id, item.quantity + 1)}
-                          className="w-7 h-7 inline-flex items-center justify-center text-() hover:bg-()"
+                          className="w-7 h-7 inline-flex items-center justify-center text-[var(--color-text)] hover:bg-[var(--color-surface-2)]"
                           aria-label={`Increase quantity of ${item.product.name}`}
                         >
                           <Plus size={12} />
@@ -132,7 +132,7 @@ export function CartDrawer() {
                       </div>
                       <button
                         onClick={() => removeItem(item.product.id)}
-                        className="inline-flex items-center justify-center w-7 h-7 rounded-md text-() hover:bg-() transition-colors"
+                        className="inline-flex items-center justify-center w-7 h-7 rounded-md text-[var(--color-danger-500)] hover:bg-[var(--color-danger-50)] transition-colors"
                         aria-label={`Remove ${item.product.name} from cart`}
                       >
                         <Trash2 size={14} />
@@ -146,14 +146,14 @@ export function CartDrawer() {
         </div>
 
         {items.length > 0 && (
-          <footer className="px-6 py-5 border-t border-() space-y-3">
+          <footer className="px-6 py-5 border-t border-[var(--color-border)] space-y-3">
             <div className="flex items-center justify-between">
-              <span className="text-sm text-()">Subtotal</span>
-              <span className="text-lg font-semibold tabular text-()">
+              <span className="text-sm text-[var(--color-text-muted)]">Subtotal</span>
+              <span className="text-lg font-semibold tabular text-[var(--color-text-strong)]">
                 {formatPrice(totalPrice)}
               </span>
             </div>
-            <p className="text-xs text-()">
+            <p className="text-xs text-[var(--color-text-muted)]">
               Shipping and taxes calculated at checkout.
             </p>
             <Button
@@ -171,7 +171,7 @@ export function CartDrawer() {
             <Link
               href="/products"
               onClick={() => setIsOpen(false)}
-              className="block text-center text-sm text-() hover:text-() transition-colors"
+              className="block text-center text-sm text-[var(--color-text-muted)] hover:text-[var(--color-text-strong)] transition-colors"
             >
               Continue shopping
             </Link>

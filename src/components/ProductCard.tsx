@@ -32,10 +32,10 @@ const BADGE_LABEL: Record<NonNullable<Product["badge"]>, string> = {
 };
 
 const BADGE_TONE: Record<NonNullable<Product["badge"]>, string> = {
-  sale: "bg-() text-()",
-  trending: "bg-() text-()",
-  bestseller: "bg-() text-()",
-  new: "bg-() text-()",
+  sale: "bg-[var(--color-danger-50)] text-[var(--color-danger-700)]",
+  trending: "bg-[var(--color-brand-50)] text-[var(--color-brand-700)]",
+  bestseller: "bg-[var(--color-brand-50)] text-[var(--color-brand-700)]",
+  new: "bg-[var(--color-info-50)] text-[var(--color-info-700)]",
 };
 
 export function ProductCard({ product, className, layout = "grid" }: ProductCardProps) {
@@ -59,11 +59,11 @@ export function ProductCard({ product, className, layout = "grid" }: ProductCard
       <Link
         href={`/products/${product.id}`}
         className={cn(
-          "group flex gap-4 rounded-lg border border-() bg-() p-3 transition-shadow hover:shadow-() focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-()",
+          "group flex gap-4 rounded-lg border border-[var(--color-border)] bg-[var(--color-bg)] p-3 transition-shadow hover:shadow-[var(--shadow-md)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-brand-500)]",
           className
         )}
       >
-        <div className="relative w-24 h-32 sm:w-32 sm:h-40 shrink-0 overflow-hidden rounded-md bg-()">
+        <div className="relative w-24 h-32 sm:w-32 sm:h-40 shrink-0 overflow-hidden rounded-md bg-[var(--color-surface-2)]">
           <Image
             src={product.images[0]}
             alt={product.name}
@@ -72,8 +72,8 @@ export function ProductCard({ product, className, layout = "grid" }: ProductCard
             className="object-cover"
           />
           {!product.inStock && (
-            <div className="absolute inset-0 bg-()/60 flex items-center justify-center">
-              <span className={cn("badge", "bg-() text-()")}>
+            <div className="absolute inset-0 bg-[var(--color-bg)]/60 flex items-center justify-center">
+              <span className={cn("badge", "bg-[var(--color-danger-50)] text-[var(--color-danger-700)]")}>
                 Out of stock
               </span>
             </div>
@@ -82,14 +82,14 @@ export function ProductCard({ product, className, layout = "grid" }: ProductCard
 
         <div className="flex-1 min-w-0 flex flex-col justify-between">
           <div>
-            <p className="text-[11px] font-semibold uppercase tracking-[0.08em] text-()">
+            <p className="text-[11px] font-semibold uppercase tracking-[0.08em] text-[var(--color-text-muted)]">
               {product.subcategory}
             </p>
-            <h3 className="mt-1 text-base font-semibold text-() line-clamp-2">
+            <h3 className="mt-1 text-base font-semibold text-[var(--color-text-strong)] line-clamp-2">
               {product.name}
             </h3>
-            <div className="mt-1 flex items-center gap-1 text-xs text-()">
-              <Star size={12} className="fill-() text-()" aria-hidden="true" />
+            <div className="mt-1 flex items-center gap-1 text-xs text-[var(--color-text-muted)]">
+              <Star size={12} className="fill-[var(--color-warning-500)] text-[var(--color-warning-500)]" aria-hidden="true" />
               {product.rating.toFixed(1)}
               <span className="opacity-60">({product.reviewCount})</span>
             </div>
@@ -105,7 +105,7 @@ export function ProductCard({ product, className, layout = "grid" }: ProductCard
             <button
               onClick={handleAdd}
               disabled={!product.inStock}
-              className="inline-flex h-9 px-3 items-center gap-1.5 rounded-md bg-() text-white text-sm font-medium hover:bg-() disabled:opacity-50 disabled:cursor-not-allowed transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-() focus-visible:ring-offset-2"
+              className="inline-flex h-9 px-3 items-center gap-1.5 rounded-md bg-[var(--color-brand-500)] text-white text-sm font-medium hover:bg-[var(--color-brand-600)] disabled:opacity-50 disabled:cursor-not-allowed transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-brand-500)] focus-visible:ring-offset-2"
               aria-label={`Add ${product.name} to cart`}
             >
               <Plus size={14} />
@@ -121,13 +121,13 @@ export function ProductCard({ product, className, layout = "grid" }: ProductCard
     <Link
       href={`/products/${product.id}`}
       className={cn(
-        "group relative flex flex-col rounded-lg border border-() bg-() overflow-hidden transition-[transform,box-shadow] duration-200 hover:-translate-y-0.5 hover:shadow-() focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-() focus-visible:ring-offset-2",
+        "group relative flex flex-col rounded-lg border border-[var(--color-border)] bg-[var(--color-bg)] overflow-hidden transition-[transform,box-shadow] duration-200 hover:-translate-y-0.5 hover:shadow-[var(--shadow-md)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-brand-500)] focus-visible:ring-offset-2",
         className
       )}
       aria-label={`View ${product.name}`}
     >
       {/* Image (4:5 portrait) */}
-      <div className="relative aspect-4/5 bg-() overflow-hidden">
+      <div className="relative aspect-[4/5] bg-[var(--color-surface-2)] overflow-hidden">
         <Image
           src={product.images[0]}
           alt={product.name}
@@ -146,8 +146,8 @@ export function ProductCard({ product, className, layout = "grid" }: ProductCard
           </span>
         )}
         {!product.inStock && (
-          <div className="absolute inset-0 bg-()/70 flex items-center justify-center">
-            <span className="px-3 py-1.5 rounded-sm text-xs font-semibold uppercase tracking-[0.08em] bg-() text-()">
+          <div className="absolute inset-0 bg-[var(--color-bg)]/70 flex items-center justify-center">
+            <span className="px-3 py-1.5 rounded-sm text-xs font-semibold uppercase tracking-[0.08em] bg-[var(--color-danger-50)] text-[var(--color-danger-700)]">
               Out of stock
             </span>
           </div>
@@ -156,14 +156,14 @@ export function ProductCard({ product, className, layout = "grid" }: ProductCard
 
       {/* Content */}
       <div className="flex flex-col gap-1.5 p-4 flex-1">
-        <p className="text-[11px] font-semibold uppercase tracking-[0.08em] text-()">
+        <p className="text-[11px] font-semibold uppercase tracking-[0.08em] text-[var(--color-text-muted)]">
           {product.subcategory}
         </p>
-        <h3 className="text-base font-semibold text-() line-clamp-2 leading-snug">
+        <h3 className="text-base font-semibold text-[var(--color-text-strong)] line-clamp-2 leading-snug">
           {product.name}
         </h3>
-        <div className="flex items-center gap-1 text-xs text-()">
-          <Star size={12} className="fill-() text-()" aria-hidden="true" />
+        <div className="flex items-center gap-1 text-xs text-[var(--color-text-muted)]">
+          <Star size={12} className="fill-[var(--color-warning-500)] text-[var(--color-warning-500)]" aria-hidden="true" />
           {product.rating.toFixed(1)}
           <span className="opacity-60">({product.reviewCount})</span>
         </div>
@@ -178,7 +178,7 @@ export function ProductCard({ product, className, layout = "grid" }: ProductCard
           <button
             onClick={handleAdd}
             disabled={!product.inStock}
-            className="inline-flex h-8 w-8 items-center justify-center rounded-md bg-() text-white hover:bg-() disabled:opacity-50 disabled:cursor-not-allowed transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-() focus-visible:ring-offset-2"
+            className="inline-flex h-8 w-8 items-center justify-center rounded-md bg-[var(--color-brand-500)] text-white hover:bg-[var(--color-brand-600)] disabled:opacity-50 disabled:cursor-not-allowed transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-brand-500)] focus-visible:ring-offset-2"
             aria-label={`Add ${product.name} to cart`}
           >
             <Plus size={16} />
@@ -202,16 +202,16 @@ function PriceBlock({
 }) {
   return (
     <div className="flex items-baseline gap-2 flex-wrap tabular">
-      <span className="text-base sm:text-lg font-semibold text-()">
+      <span className="text-base sm:text-lg font-semibold text-[var(--color-text-strong)]">
         {formatPrice(price)}
       </span>
       {original && (
-        <span className="text-xs text-() line-through">
+        <span className="text-xs text-[var(--color-text-muted)] line-through">
           {formatPrice(original)}
         </span>
       )}
       {discount && discount > 0 && (
-        <span className="text-[10px] font-semibold px-1.5 py-0.5 rounded-sm bg-() text-()">
+        <span className="text-[10px] font-semibold px-1.5 py-0.5 rounded-sm bg-[var(--color-success-50)] text-[var(--color-success-700)]">
           -{discount}%
         </span>
       )}

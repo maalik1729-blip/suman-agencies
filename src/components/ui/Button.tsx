@@ -18,19 +18,19 @@ interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
 const base =
   "inline-flex items-center justify-center gap-2 font-medium rounded-md " +
   "transition-[background-color,border-color,color,box-shadow,transform] duration-150 " +
-  "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-() focus-visible:ring-offset-2 focus-visible:ring-offset-() " +
+  "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-brand-500)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--color-bg)] " +
   "disabled:opacity-50 disabled:cursor-not-allowed disabled:pointer-events-none " +
   "active:translate-y-px select-none";
 
 const variants: Record<Variant, string> = {
   primary:
-    "bg-() text-white hover:bg-() active:bg-() shadow-sm",
+    "bg-[var(--color-brand-500)] text-white hover:bg-[var(--color-brand-600)] active:bg-[var(--color-brand-700)] shadow-sm",
   secondary:
-    "bg-() text-() border border-() hover:border-()",
+    "bg-[var(--color-surface-2)] text-[var(--color-text-strong)] border border-[var(--color-border)] hover:border-[var(--color-border-strong)]",
   ghost:
-    "bg-transparent text-() hover:bg-()",
+    "bg-transparent text-[var(--color-text)] hover:bg-[var(--color-surface-2)]",
   destructive:
-    "bg-() text-() border border-() hover:bg-[color-mix(in_srgb,var(--color-danger-50)_80%,var(--color-danger-200))]",
+    "bg-[var(--color-danger-50)] text-[var(--color-danger-700)] border border-[var(--color-danger-200)] hover:bg-[color-mix(in_srgb,var(--color-danger-50)_80%,var(--color-danger-200))]",
 };
 
 const sizes: Record<Size, string> = {

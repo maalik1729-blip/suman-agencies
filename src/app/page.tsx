@@ -132,16 +132,16 @@ function TrustStrip() {
   return (
     <section
       aria-label="Trust strip"
-      className="bg-() border-y border-()"
+      className="bg-[var(--color-surface)] border-y border-[var(--color-border)]"
     >
       <ul className="max-w-7xl mx-auto px-4 sm:px-6 grid grid-cols-2 lg:grid-cols-4">
         {items.map(({ icon: Icon, label, href }) => (
           <li key={label}>
             <a
               href={href}
-              className="flex items-center gap-2 py-4 text-xs sm:text-sm text-() hover:text-() transition-colors"
+              className="flex items-center gap-2 py-4 text-xs sm:text-sm text-[var(--color-text)] hover:text-[var(--color-text-strong)] transition-colors"
             >
-              <Icon size={16} className="text-() shrink-0" aria-hidden="true" />
+              <Icon size={16} className="text-[var(--color-brand-500)] shrink-0" aria-hidden="true" />
               <span className="truncate">{label}</span>
             </a>
           </li>
@@ -177,14 +177,14 @@ function CategorySplit() {
   ];
 
   return (
-    <section className="bg-() py-16 sm:py-20 px-4 sm:px-6">
+    <section className="bg-[var(--color-bg)] py-16 sm:py-20 px-4 sm:px-6">
       <div className="max-w-7xl mx-auto">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {tiles.map((t) => (
             <Link
               key={t.title}
               href={t.href}
-              className="group relative aspect-5/4 sm:aspect-4/5 overflow-hidden rounded-lg border border-() focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-() focus-visible:ring-offset-2"
+              className="group relative aspect-[5/4] sm:aspect-[4/5] overflow-hidden rounded-lg border border-[var(--color-border)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-brand-500)] focus-visible:ring-offset-2"
             >
               <Image
                 src={t.image}
@@ -248,18 +248,18 @@ function TrendingCarousel() {
 
   return (
     <section
-      className="bg-() py-16 sm:py-20 px-4 sm:px-6 overflow-hidden"
+      className="bg-[var(--color-surface)] py-16 sm:py-20 px-4 sm:px-6 overflow-hidden"
       aria-labelledby="trending-heading"
     >
       <div className="max-w-7xl mx-auto">
         <div className="flex flex-col sm:flex-row items-start sm:items-end justify-between gap-4 mb-8">
           <div>
-            <p className="text-[11px] font-semibold uppercase tracking-[0.08em] text-()">
+            <p className="text-[11px] font-semibold uppercase tracking-[0.08em] text-[var(--color-text-muted)]">
               Trending now
             </p>
             <h2
               id="trending-heading"
-              className="mt-2 font-display font-semibold text-3xl sm:text-4xl tracking-tight text-()"
+              className="mt-2 font-display font-semibold text-3xl sm:text-4xl tracking-tight text-[var(--color-text-strong)]"
             >
               Most loved this month
             </h2>
@@ -267,14 +267,14 @@ function TrendingCarousel() {
           <div className="flex gap-2">
             <button
               onClick={prev}
-              className="inline-flex items-center justify-center w-10 h-10 rounded-md border border-() bg-() text-() hover:border-() hover:text-() transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-()"
+              className="inline-flex items-center justify-center w-10 h-10 rounded-md border border-[var(--color-border)] bg-[var(--color-bg)] text-[var(--color-text)] hover:border-[var(--color-border-strong)] hover:text-[var(--color-text-strong)] transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-brand-500)]"
               aria-label="Previous product"
             >
               <ChevronLeft size={16} />
             </button>
             <button
               onClick={next}
-              className="inline-flex items-center justify-center w-10 h-10 rounded-md border border-() bg-() text-() hover:border-() hover:text-() transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-()"
+              className="inline-flex items-center justify-center w-10 h-10 rounded-md border border-[var(--color-border)] bg-[var(--color-bg)] text-[var(--color-text)] hover:border-[var(--color-border-strong)] hover:text-[var(--color-text-strong)] transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-brand-500)]"
               aria-label="Next product"
             >
               <ChevronRight size={16} />
@@ -292,7 +292,7 @@ function TrendingCarousel() {
               transition={{ duration: 0.2 }}
               className="grid grid-cols-1 md:grid-cols-[3fr_2fr] gap-6 lg:gap-10 items-center"
             >
-              <div className="relative aspect-4/3 rounded-lg overflow-hidden bg-()">
+              <div className="relative aspect-[4/3] rounded-lg overflow-hidden bg-[var(--color-surface-2)]">
                 <Image
                   src={item.images[0]}
                   alt={item.name}
@@ -302,21 +302,21 @@ function TrendingCarousel() {
                 />
               </div>
               <div>
-                <p className="text-[11px] font-semibold uppercase tracking-[0.08em] text-()">
+                <p className="text-[11px] font-semibold uppercase tracking-[0.08em] text-[var(--color-text-muted)]">
                   {item.subcategory}
                 </p>
-                <h3 className="mt-2 font-display font-semibold text-2xl sm:text-3xl tracking-tight text-()">
+                <h3 className="mt-2 font-display font-semibold text-2xl sm:text-3xl tracking-tight text-[var(--color-text-strong)]">
                   {item.name}
                 </h3>
-                <p className="mt-3 text-sm text-() leading-relaxed line-clamp-3">
+                <p className="mt-3 text-sm text-[var(--color-text)] leading-relaxed line-clamp-3">
                   {item.description}
                 </p>
                 <div className="mt-5 flex items-baseline gap-3 tabular">
-                  <span className="text-2xl font-semibold text-()">
+                  <span className="text-2xl font-semibold text-[var(--color-text-strong)]">
                     {formatPrice(item.price)}
                   </span>
                   {item.originalPrice && (
-                    <span className="text-base text-() line-through">
+                    <span className="text-base text-[var(--color-text-muted)] line-through">
                       {formatPrice(item.originalPrice)}
                     </span>
                   )}
@@ -329,7 +329,7 @@ function TrendingCarousel() {
                   </Link>
                   <Link
                     href="/products"
-                    className="text-sm text-() hover:text-() transition-colors"
+                    className="text-sm text-[var(--color-text-muted)] hover:text-[var(--color-text-strong)] transition-colors"
                   >
                     Browse all →
                   </Link>
@@ -339,9 +339,9 @@ function TrendingCarousel() {
           </AnimatePresence>
 
           {/* Slim progress bar */}
-          <div className="mt-8 h-px bg-() rounded-full overflow-hidden">
+          <div className="mt-8 h-px bg-[var(--color-border)] rounded-full overflow-hidden">
             <div
-              className="h-full bg-() transition-[width] duration-300"
+              className="h-full bg-[var(--color-brand-500)] transition-[width] duration-300"
               style={{ width: `${((current + 1) / trending.length) * 100}%` }}
               aria-hidden="true"
             />
@@ -364,17 +364,17 @@ function FeaturedProducts() {
 
   return (
     <section
-      className="bg-() py-16 sm:py-20 px-4 sm:px-6"
+      className="bg-[var(--color-bg)] py-16 sm:py-20 px-4 sm:px-6"
       aria-labelledby="featured-heading"
     >
       <div className="max-w-7xl mx-auto">
         <div ref={ref} className="reveal-up mb-10">
-          <p className="text-[11px] font-semibold uppercase tracking-[0.08em] text-()">
+          <p className="text-[11px] font-semibold uppercase tracking-[0.08em] text-[var(--color-text-muted)]">
             Our collection
           </p>
           <h2
             id="featured-heading"
-            className="mt-2 font-display font-semibold text-3xl sm:text-4xl tracking-tight text-()"
+            className="mt-2 font-display font-semibold text-3xl sm:text-4xl tracking-tight text-[var(--color-text-strong)]"
           >
             Featured products
           </h2>
@@ -425,17 +425,17 @@ function WhyUs() {
 
   return (
     <section
-      className="bg-() py-16 sm:py-20 px-4 sm:px-6"
+      className="bg-[var(--color-surface)] py-16 sm:py-20 px-4 sm:px-6"
       aria-labelledby="why-heading"
     >
       <div className="max-w-7xl mx-auto">
         <div className="mb-10 max-w-2xl">
-          <p className="text-[11px] font-semibold uppercase tracking-[0.08em] text-()">
+          <p className="text-[11px] font-semibold uppercase tracking-[0.08em] text-[var(--color-text-muted)]">
             Why {site.brand}
           </p>
           <h2
             id="why-heading"
-            className="mt-2 font-display font-semibold text-3xl sm:text-4xl tracking-tight text-()"
+            className="mt-2 font-display font-semibold text-3xl sm:text-4xl tracking-tight text-[var(--color-text-strong)]"
           >
             A small store, with serious craft.
           </h2>
@@ -444,15 +444,15 @@ function WhyUs() {
           {pillars.map(({ icon: Icon, title, description }) => (
             <div
               key={title}
-              className="rounded-lg border border-() bg-() p-6"
+              className="rounded-lg border border-[var(--color-border)] bg-[var(--color-bg)] p-6"
             >
-              <span className="inline-flex items-center justify-center w-10 h-10 rounded-md bg-() text-()">
+              <span className="inline-flex items-center justify-center w-10 h-10 rounded-md bg-[var(--color-brand-50)] text-[var(--color-brand-700)]">
                 <Icon size={18} aria-hidden="true" />
               </span>
-              <h3 className="mt-4 text-lg font-semibold text-()">
+              <h3 className="mt-4 text-lg font-semibold text-[var(--color-text-strong)]">
                 {title}
               </h3>
-              <p className="mt-2 text-sm text-() leading-relaxed">
+              <p className="mt-2 text-sm text-[var(--color-text)] leading-relaxed">
                 {description}
               </p>
             </div>
@@ -470,17 +470,17 @@ function TestimonialsSection() {
   const picks = testimonials.slice(0, 3);
   return (
     <section
-      className="bg-() py-16 sm:py-20 px-4 sm:px-6"
+      className="bg-[var(--color-bg)] py-16 sm:py-20 px-4 sm:px-6"
       aria-labelledby="testimonials-heading"
     >
       <div className="max-w-7xl mx-auto">
         <div className="mb-10 max-w-2xl">
-          <p className="text-[11px] font-semibold uppercase tracking-[0.08em] text-()">
+          <p className="text-[11px] font-semibold uppercase tracking-[0.08em] text-[var(--color-text-muted)]">
             From our customers
           </p>
           <h2
             id="testimonials-heading"
-            className="mt-2 font-display font-semibold text-3xl sm:text-4xl tracking-tight text-()"
+            className="mt-2 font-display font-semibold text-3xl sm:text-4xl tracking-tight text-[var(--color-text-strong)]"
           >
             Loved by families worldwide.
           </h2>
@@ -489,32 +489,32 @@ function TestimonialsSection() {
           {picks.map((t) => (
             <li
               key={t.id}
-              className="rounded-lg border border-() bg-() p-6 flex flex-col gap-4"
+              className="rounded-lg border border-[var(--color-border)] bg-[var(--color-surface)] p-6 flex flex-col gap-4"
             >
               <div className="flex items-center gap-3">
                 <span
-                  className="inline-flex items-center justify-center w-10 h-10 rounded-full bg-() text-() font-semibold"
+                  className="inline-flex items-center justify-center w-10 h-10 rounded-full bg-[var(--color-brand-100)] text-[var(--color-brand-700)] font-semibold"
                   aria-hidden="true"
                 >
                   {t.name.charAt(0)}
                 </span>
                 <div>
-                  <p className="text-sm font-medium text-()">{t.name}</p>
-                  <p className="text-xs text-()">{t.role}</p>
+                  <p className="text-sm font-medium text-[var(--color-text-strong)]">{t.name}</p>
+                  <p className="text-xs text-[var(--color-text-muted)]">{t.role}</p>
                 </div>
               </div>
-              <div className="flex items-center gap-1 text-()">
+              <div className="flex items-center gap-1 text-[var(--color-warning-500)]">
                 {Array.from({ length: 5 }).map((_, i) => (
                   <Star
                     key={i}
                     size={12}
-                    className={i < t.rating ? "fill-current" : "text-()"}
+                    className={i < t.rating ? "fill-current" : "text-[var(--color-border)]"}
                     aria-hidden="true"
                   />
                 ))}
               </div>
-              <p className="text-sm text-() leading-relaxed">"{t.text}"</p>
-              <span className="text-[10px] font-semibold uppercase tracking-[0.08em] text-()">
+              <p className="text-sm text-[var(--color-text)] leading-relaxed">"{t.text}"</p>
+              <span className="text-[10px] font-semibold uppercase tracking-[0.08em] text-[var(--color-text-muted)]">
                 From a customer
               </span>
             </li>
@@ -531,17 +531,17 @@ function TestimonialsSection() {
 function FinalCTA() {
   return (
     <section
-      className="bg-() border-y border-() px-4 sm:px-6 py-14 sm:py-16"
+      className="bg-[var(--color-surface-2)] border-y border-[var(--color-border)] px-4 sm:px-6 py-14 sm:py-16"
       aria-labelledby="final-cta"
     >
       <div className="max-w-3xl mx-auto text-center">
         <h2
           id="final-cta"
-          className="font-display font-semibold text-2xl sm:text-3xl tracking-tight text-()"
+          className="font-display font-semibold text-2xl sm:text-3xl tracking-tight text-[var(--color-text-strong)]"
         >
           Need help choosing?
         </h2>
-        <p className="mt-3 text-sm sm:text-base text-() max-w-xl mx-auto">
+        <p className="mt-3 text-sm sm:text-base text-[var(--color-text)] max-w-xl mx-auto">
           Talk to a real person at our Tirunelveli showroom. We'll help you pick what fits your home and your budget.
         </p>
         <div className="mt-6 flex flex-col sm:flex-row gap-3 justify-center items-stretch sm:items-center">
@@ -556,7 +556,7 @@ function FinalCTA() {
             </Button>
           </Link>
         </div>
-        <p className="mt-5 text-xs text-()">
+        <p className="mt-5 text-xs text-[var(--color-text-muted)]">
           {site.contact.address.line1}, {site.contact.address.city} – {site.contact.address.pincode}
         </p>
       </div>

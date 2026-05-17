@@ -53,14 +53,14 @@ export function Navbar() {
   return (
     <>
       <header
-        className="sticky top-0 z-50 bg-() border-b border-()"
+        className="sticky top-0 z-50 bg-[var(--color-bg)] border-b border-[var(--color-border)]"
         style={{ height: "var(--header-height)" }}
       >
         <nav className="max-w-7xl mx-auto h-full px-4 sm:px-6 flex items-center justify-between gap-4">
           {/* Mobile hamburger (left) */}
           <button
             onClick={() => setMobileOpen(true)}
-            className="md:hidden inline-flex items-center justify-center w-9 h-9 rounded-md text-() hover:bg-() transition-colors"
+            className="md:hidden inline-flex items-center justify-center w-9 h-9 rounded-md text-[var(--color-text-strong)] hover:bg-[var(--color-surface-2)] transition-colors"
             aria-label="Open menu"
             aria-controls="mobile-nav"
             aria-expanded={mobileOpen}
@@ -86,14 +86,14 @@ export function Navbar() {
                     className={cn(
                       "relative inline-flex items-center px-3 py-2 text-sm font-medium rounded-md transition-colors",
                       active
-                        ? "text-()"
-                        : "text-() hover:text-()"
+                        ? "text-[var(--color-text-strong)]"
+                        : "text-[var(--color-text)] hover:text-[var(--color-text-strong)]"
                     )}
                     aria-current={active ? "page" : undefined}
                   >
                     {link.label}
                     {active && (
-                      <span className="absolute left-3 right-3 -bottom-px h-0.5 rounded-full bg-()" />
+                      <span className="absolute left-3 right-3 -bottom-px h-0.5 rounded-full bg-[var(--color-brand-500)]" />
                     )}
                   </Link>
                 </li>
@@ -102,7 +102,7 @@ export function Navbar() {
             <li>
               <Link
                 href="/contact?type=bulk"
-                className="ml-2 inline-flex items-center px-3 py-2 text-sm text-() hover:text-() transition-colors"
+                className="ml-2 inline-flex items-center px-3 py-2 text-sm text-[var(--color-text-muted)] hover:text-[var(--color-text-strong)] transition-colors"
               >
                 For Businesses →
               </Link>
@@ -117,7 +117,7 @@ export function Navbar() {
 
             <button
               onClick={toggleTheme}
-              className="inline-flex items-center justify-center w-9 h-9 rounded-md text-() hover:bg-() transition-colors"
+              className="inline-flex items-center justify-center w-9 h-9 rounded-md text-[var(--color-text-strong)] hover:bg-[var(--color-surface-2)] transition-colors"
               aria-label={`Switch to ${isDark ? "light" : "dark"} theme`}
             >
               {isDark ? <Sun size={18} /> : <Moon size={18} />}
@@ -125,13 +125,13 @@ export function Navbar() {
 
             <button
               onClick={() => setIsOpen(true)}
-              className="relative inline-flex items-center justify-center w-9 h-9 rounded-md text-() hover:bg-() transition-colors"
+              className="relative inline-flex items-center justify-center w-9 h-9 rounded-md text-[var(--color-text-strong)] hover:bg-[var(--color-surface-2)] transition-colors"
               aria-label={`Shopping cart, ${totalItems} ${totalItems === 1 ? "item" : "items"}`}
             >
               <ShoppingCart size={18} />
               {totalItems > 0 && (
                 <span
-                  className="absolute -top-1 -right-1 min-w-[18px] h-[18px] px-1 rounded-full bg-() text-white text-[11px] font-semibold inline-flex items-center justify-center"
+                  className="absolute -top-1 -right-1 min-w-[18px] h-[18px] px-1 rounded-full bg-[var(--color-brand-500)] text-white text-[11px] font-semibold inline-flex items-center justify-center"
                   aria-hidden="true"
                 >
                   {totalItems > 99 ? "99+" : totalItems}
@@ -161,15 +161,15 @@ export function Navbar() {
           aria-modal="true"
           aria-label="Site navigation"
           className={cn(
-            "relative h-full w-[88vw] max-w-sm bg-() shadow-xl flex flex-col transition-transform duration-300",
+            "relative h-full w-[88vw] max-w-sm bg-[var(--color-bg)] shadow-xl flex flex-col transition-transform duration-300",
             mobileOpen ? "translate-x-0" : "-translate-x-full"
           )}
         >
-          <div className="flex items-center justify-between p-4 border-b border-()">
+          <div className="flex items-center justify-between p-4 border-b border-[var(--color-border)]">
             <Logo variant="header" />
             <button
               onClick={() => setMobileOpen(false)}
-              className="inline-flex items-center justify-center w-9 h-9 rounded-md text-() hover:bg-()"
+              className="inline-flex items-center justify-center w-9 h-9 rounded-md text-[var(--color-text-strong)] hover:bg-[var(--color-surface-2)]"
               aria-label="Close menu"
             >
               <X size={20} />
@@ -188,8 +188,8 @@ export function Navbar() {
                   className={cn(
                     "px-3 py-3 rounded-md text-base font-medium transition-colors",
                     active
-                      ? "bg-() text-()"
-                      : "text-() hover:bg-()"
+                      ? "bg-[var(--color-brand-50)] text-[var(--color-brand-700)]"
+                      : "text-[var(--color-text)] hover:bg-[var(--color-surface-2)]"
                   )}
                 >
                   {link.label}
@@ -199,38 +199,38 @@ export function Navbar() {
 
             <Link
               href="/contact?type=bulk"
-              className="px-3 py-3 rounded-md text-base font-medium text-() hover:bg-()"
+              className="px-3 py-3 rounded-md text-base font-medium text-[var(--color-text-muted)] hover:bg-[var(--color-surface-2)]"
             >
               For Businesses
             </Link>
 
-            <hr className="my-3 border-()" />
+            <hr className="my-3 border-[var(--color-border)]" />
 
             <div className="px-3">
-              <p className="mb-2 text-xs font-semibold uppercase tracking-[0.08em] text-()">
+              <p className="mb-2 text-xs font-semibold uppercase tracking-[0.08em] text-[var(--color-text-muted)]">
                 Currency
               </p>
               <CurrencySelect variant="segmented" />
             </div>
 
             <div className="px-3 mt-4">
-              <p className="mb-2 text-xs font-semibold uppercase tracking-[0.08em] text-()">
+              <p className="mb-2 text-xs font-semibold uppercase tracking-[0.08em] text-[var(--color-text-muted)]">
                 Theme
               </p>
               <button
                 onClick={toggleTheme}
-                className="inline-flex items-center gap-2 h-9 px-3 rounded-md border border-() bg-() text-sm text-()"
+                className="inline-flex items-center gap-2 h-9 px-3 rounded-md border border-[var(--color-border)] bg-[var(--color-surface)] text-sm text-[var(--color-text-strong)]"
               >
                 {isDark ? <Sun size={16} /> : <Moon size={16} />}
                 Switch to {isDark ? "light" : "dark"}
               </button>
             </div>
 
-            <hr className="my-3 border-()" />
+            <hr className="my-3 border-[var(--color-border)]" />
 
-            <div className="px-3 text-sm text-() space-y-2">
+            <div className="px-3 text-sm text-[var(--color-text-muted)] space-y-2">
               {site.contact.phones.map((p) => (
-                <a key={p.e164} href={`tel:${p.e164}`} className="block hover:text-()">
+                <a key={p.e164} href={`tel:${p.e164}`} className="block hover:text-[var(--color-text-strong)]">
                   📞 {p.display}
                 </a>
               ))}

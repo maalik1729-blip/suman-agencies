@@ -56,7 +56,7 @@ export default function AboutPage() {
   return (
     <>
       {/* Hero */}
-      <section className="relative min-h-[60vh] flex items-center overflow-hidden pt-()">
+      <section className="relative min-h-[60vh] flex items-center overflow-hidden pt-[var(--header-height)]">
         <div className="absolute inset-0">
           <Image
             src="/hero-bg.png"
@@ -129,7 +129,7 @@ export default function AboutPage() {
       </section>
 
       {/* Trust strip */}
-      <section className="bg-() border-y border-()">
+      <section className="bg-[var(--color-surface)] border-y border-[var(--color-border)]">
         <ul className="max-w-7xl mx-auto px-4 sm:px-6 grid grid-cols-2 lg:grid-cols-4">
           {[
             { emoji: "📍", text: "Tirunelveli, Tamil Nadu" },
@@ -137,7 +137,7 @@ export default function AboutPage() {
             { emoji: "🚚", text: "Worldwide Delivery" },
             { emoji: "🔄", text: "30-day hassle-free returns" },
           ].map(({ emoji, text }) => (
-            <li key={text} className="flex items-center gap-2 py-4 text-xs sm:text-sm text-()">
+            <li key={text} className="flex items-center gap-2 py-4 text-xs sm:text-sm text-[var(--color-text)]">
               <span aria-hidden="true">{emoji}</span>
               <span className="truncate">{text}</span>
             </li>
@@ -146,7 +146,7 @@ export default function AboutPage() {
       </section>
 
       {/* Mission */}
-      <section className="bg-() py-20 px-4 sm:px-6">
+      <section className="bg-[var(--color-bg)] py-20 px-4 sm:px-6">
         <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
           <motion.div
             initial={{ opacity: 0, x: -40 }}
@@ -154,16 +154,16 @@ export default function AboutPage() {
             viewport={{ once: true }}
             transition={{ duration: 0.7 }}
           >
-            <p className="text-[11px] font-semibold uppercase tracking-[0.08em] text-()">
+            <p className="text-[11px] font-semibold uppercase tracking-[0.08em] text-[var(--color-text-muted)]">
               Our Mission
             </p>
-            <h2 className="mt-2 font-display font-semibold text-3xl sm:text-4xl tracking-tight text-()">
+            <h2 className="mt-2 font-display font-semibold text-3xl sm:text-4xl tracking-tight text-[var(--color-text-strong)]">
               Everything your home needs, under one roof.
             </h2>
-            <p className="mt-4 text-sm text-() leading-relaxed">
+            <p className="mt-4 text-sm text-[var(--color-text)] leading-relaxed">
               At {site.brand}, we don't just sell sofas. We outfit entire homes — from the bedroom cot you sleep on every night, to the dining table where your family gathers, to the study desk where you work from home.
             </p>
-            <p className="mt-3 text-sm text-() leading-relaxed">
+            <p className="mt-3 text-sm text-[var(--color-text)] leading-relaxed">
               Pair your furniture with our electronics range — cables, networking gear, and accessories — all curated to work seamlessly in a modern home. Every piece is quality-tested, backed by warranty, and delivered with care to your doorstep.
             </p>
 
@@ -171,7 +171,7 @@ export default function AboutPage() {
               {categories.map(({ label, emoji }) => (
                 <div
                   key={label}
-                  className="rounded-lg border border-() bg-() p-3 text-center text-xs font-medium text-() hover:border-() transition-colors"
+                  className="rounded-lg border border-[var(--color-border)] bg-[var(--color-surface)] p-3 text-center text-xs font-medium text-[var(--color-text)] hover:border-[var(--color-border-strong)] transition-colors"
                 >
                   <div className="text-xl mb-1" aria-hidden="true">{emoji}</div>
                   {label}
@@ -193,7 +193,7 @@ export default function AboutPage() {
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.7 }}
-            className="relative aspect-4/3 rounded-lg overflow-hidden bg-()"
+            className="relative aspect-[4/3] rounded-lg overflow-hidden bg-[var(--color-surface-2)]"
           >
             <Image
               src="/showroom-collection.png"
@@ -207,15 +207,15 @@ export default function AboutPage() {
       </section>
 
       {/* Values */}
-      <section className="bg-() py-20 px-4 sm:px-6" aria-labelledby="values-heading">
+      <section className="bg-[var(--color-surface)] py-20 px-4 sm:px-6" aria-labelledby="values-heading">
         <div className="max-w-7xl mx-auto">
           <div className="mb-12 max-w-2xl">
-            <p className="text-[11px] font-semibold uppercase tracking-[0.08em] text-()">
+            <p className="text-[11px] font-semibold uppercase tracking-[0.08em] text-[var(--color-text-muted)]">
               Our Values
             </p>
             <h2
               id="values-heading"
-              className="mt-2 font-display font-semibold text-3xl sm:text-4xl tracking-tight text-()"
+              className="mt-2 font-display font-semibold text-3xl sm:text-4xl tracking-tight text-[var(--color-text-strong)]"
             >
               What we stand for.
             </h2>
@@ -225,17 +225,17 @@ export default function AboutPage() {
             {values.map(({ icon: Icon, title, desc }, i) => (
               <motion.div
                 key={title}
-                className="rounded-lg border border-() bg-() p-6 hover:border-() transition-colors"
+                className="rounded-lg border border-[var(--color-border)] bg-[var(--color-bg)] p-6 hover:border-[var(--color-border-strong)] transition-colors"
                 initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: "0px 0px -80px 0px" }}
                 transition={{ delay: i * 0.07 }}
               >
-                <span className="inline-flex items-center justify-center w-10 h-10 rounded-md bg-() text-()">
+                <span className="inline-flex items-center justify-center w-10 h-10 rounded-md bg-[var(--color-brand-50)] text-[var(--color-brand-700)]">
                   <Icon size={18} aria-hidden="true" />
                 </span>
-                <h3 className="mt-4 text-base font-semibold text-()">{title}</h3>
-                <p className="mt-2 text-sm text-() leading-relaxed">{desc}</p>
+                <h3 className="mt-4 text-base font-semibold text-[var(--color-text-strong)]">{title}</h3>
+                <p className="mt-2 text-sm text-[var(--color-text)] leading-relaxed">{desc}</p>
               </motion.div>
             ))}
           </div>
@@ -243,20 +243,20 @@ export default function AboutPage() {
       </section>
 
       {/* Contact / CTA */}
-      <section className="bg-() py-20 px-4 sm:px-6" aria-labelledby="about-cta">
+      <section className="bg-[var(--color-bg)] py-20 px-4 sm:px-6" aria-labelledby="about-cta">
         <div className="max-w-5xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-10">
           {/* Left: CTA */}
           <div>
-            <p className="text-[11px] font-semibold uppercase tracking-[0.08em] text-()">
+            <p className="text-[11px] font-semibold uppercase tracking-[0.08em] text-[var(--color-text-muted)]">
               Ready to furnish your home?
             </p>
             <h2
               id="about-cta"
-              className="mt-2 font-display font-semibold text-3xl tracking-tight text-()"
+              className="mt-2 font-display font-semibold text-3xl tracking-tight text-[var(--color-text-strong)]"
             >
               Come visit us or browse online.
             </h2>
-            <p className="mt-3 text-sm text-() leading-relaxed">
+            <p className="mt-3 text-sm text-[var(--color-text)] leading-relaxed">
               Visit our showroom in Tirunelveli or browse our full catalog online. Our team is available Mon–Sat, 9 AM–7 PM to help you find the right piece for your home.
             </p>
             <div className="mt-6 flex flex-col sm:flex-row gap-3">
@@ -274,10 +274,10 @@ export default function AboutPage() {
           </div>
 
           {/* Right: Contact card */}
-          <div className="rounded-lg border border-() bg-() p-6 space-y-4">
-            <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md border border-() bg-()">
-              <Shield size={12} className="text-()" aria-hidden="true" />
-              <span className="text-[10px] font-semibold uppercase tracking-[0.08em] text-()">
+          <div className="rounded-lg border border-[var(--color-border)] bg-[var(--color-surface)] p-6 space-y-4">
+            <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md border border-[var(--color-border)] bg-[var(--color-bg)]">
+              <Shield size={12} className="text-[var(--color-brand-500)]" aria-hidden="true" />
+              <span className="text-[10px] font-semibold uppercase tracking-[0.08em] text-[var(--color-text-muted)]">
                 GST: {site.gstin}
               </span>
             </div>
@@ -287,21 +287,21 @@ export default function AboutPage() {
                 <a
                   key={p.e164}
                   href={`tel:${p.e164}`}
-                  className="flex items-center gap-2 text-() hover:text-() transition-colors"
+                  className="flex items-center gap-2 text-[var(--color-text)] hover:text-[var(--color-text-strong)] transition-colors"
                 >
-                  <Phone size={14} className="text-() shrink-0" aria-hidden="true" />
+                  <Phone size={14} className="text-[var(--color-text-muted)] shrink-0" aria-hidden="true" />
                   {p.display}
                 </a>
               ))}
               <a
                 href={`mailto:${site.contact.primaryEmail}`}
-                className="flex items-center gap-2 text-() hover:text-() transition-colors"
+                className="flex items-center gap-2 text-[var(--color-text)] hover:text-[var(--color-text-strong)] transition-colors"
               >
-                <Mail size={14} className="text-() shrink-0" aria-hidden="true" />
+                <Mail size={14} className="text-[var(--color-text-muted)] shrink-0" aria-hidden="true" />
                 {site.contact.primaryEmail}
               </a>
-              <address className="flex items-start gap-2 not-italic text-()">
-                <MapPin size={14} className="mt-0.5 text-() shrink-0" aria-hidden="true" />
+              <address className="flex items-start gap-2 not-italic text-[var(--color-text)]">
+                <MapPin size={14} className="mt-0.5 text-[var(--color-text-muted)] shrink-0" aria-hidden="true" />
                 <span>
                   {site.contact.address.line1},<br />
                   {site.contact.address.city} – {site.contact.address.pincode},{" "}
