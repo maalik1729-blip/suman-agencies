@@ -6,12 +6,12 @@ import { site } from "@/data/site";
 
 export default function TermsConditionsPage() {
   return (
-    <main className="min-h-screen bg-[var(--color-bg)] pt-[calc(var(--header-height)+32px)] pb-20 px-4 sm:px-6">
+    <main className="min-h-screen bg-() pt-[calc(var(--header-height)+32px)] pb-20 px-4 sm:px-6">
       <div className="max-w-3xl mx-auto">
         {/* Back */}
         <Link
           href="/"
-          className="inline-flex items-center gap-2 text-sm font-medium text-[var(--color-text-muted)] hover:text-[var(--color-text-strong)] transition-colors mb-10 group"
+          className="inline-flex items-center gap-2 text-sm font-medium text-() hover:text-() transition-colors mb-10 group"
         >
           <ArrowLeft size={16} className="group-hover:-translate-x-1 transition-transform" />
           Back to Home
@@ -19,22 +19,22 @@ export default function TermsConditionsPage() {
 
         {/* Header */}
         <div className="mb-10">
-          <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-md border border-[var(--color-border)] bg-[var(--color-surface)] text-[var(--color-brand-700)] text-xs font-semibold uppercase tracking-[0.08em] mb-4">
+          <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-md border border-() bg-() text-() text-xs font-semibold uppercase tracking-[0.08em] mb-4">
             <FileText size={12} aria-hidden="true" />
             Legal
           </div>
-          <h1 className="text-3xl sm:text-4xl font-semibold font-display tracking-tight text-[var(--color-text-strong)]">
+          <h1 className="text-3xl sm:text-4xl font-semibold font-display tracking-tight text-()">
             Terms &amp; Conditions
           </h1>
-          <p className="mt-3 text-base text-[var(--color-text)]">
+          <p className="mt-3 text-base text-()">
             Please read these terms carefully before using our services.
           </p>
-          <p className="mt-2 text-xs text-[var(--color-text-muted)]">Last Updated: May 2026</p>
+          <p className="mt-2 text-xs text-()">Last Updated: May 2026</p>
         </div>
 
         <div className="space-y-5">
-          <p className="text-sm text-[var(--color-text)] leading-relaxed">
-            Welcome to <strong className="text-[var(--color-text-strong)]">{site.brand}</strong>. By accessing our
+          <p className="text-sm text-() leading-relaxed">
+            Welcome to <strong className="text-()">{site.brand}</strong>. By accessing our
             website, making a purchase, or engaging with our services, you agree to comply with and be bound
             by the following Terms &amp; Conditions. These terms govern all orders, sales, and interactions with
             {site.brand}. If you do not agree with these terms, we request you to discontinue using our services.
@@ -81,7 +81,7 @@ export default function TermsConditionsPage() {
               <li>Orders may be cancelled within <strong>2 hours</strong> of purchase, provided they have not been packed or shipped.</li>
               <li>Custom/assembled furniture orders cannot be cancelled once production has begun.</li>
               <li>Returns are accepted within 30 days for damaged, wrong, or defective items.</li>
-              <li>For details, please refer to our <Link href="/cancellation-refund" className="text-[var(--color-brand-500)] hover:text-[var(--color-brand-700)] underline underline-offset-2">Cancellation &amp; Refund Policy</Link>.</li>
+              <li>For details, please refer to our <Link href="/cancellation-refund" className="text-() hover:text-() underline underline-offset-2">Cancellation &amp; Refund Policy</Link>.</li>
             </ul>
           </NumberedSection>
 
@@ -121,7 +121,7 @@ export default function TermsConditionsPage() {
 
           <ContactCard title="Contact us about these terms" />
 
-          <p className="text-xs text-center text-[var(--color-text-muted)]">
+          <p className="text-xs text-center text-()">
             © {new Date().getFullYear()} {site.brand}. All Rights Reserved.
           </p>
         </div>
@@ -136,16 +136,16 @@ function NumberedSection({
   number: string; icon: React.ReactNode; title: string; children: React.ReactNode;
 }) {
   return (
-    <div className="rounded-lg border border-[var(--color-border)] bg-[var(--color-surface)] p-6">
+    <div className="rounded-lg border border-() bg-() p-6">
       <div className="flex items-center gap-2.5 mb-4">
-        <span className="inline-flex items-center justify-center w-8 h-8 rounded-md bg-[var(--color-brand-50)] text-[var(--color-brand-700)]">
+        <span className="inline-flex items-center justify-center w-8 h-8 rounded-md bg-() text-()">
           {icon}
         </span>
-        <h2 className="text-base font-semibold text-[var(--color-text-strong)]">
-          <span className="text-[var(--color-brand-500)] mr-1.5">{number}.</span>{title}
+        <h2 className="text-base font-semibold text-()">
+          <span className="text-() mr-1.5">{number}.</span>{title}
         </h2>
       </div>
-      <div className="text-sm leading-relaxed space-y-2 text-[var(--color-text)] [&_ul]:list-disc [&_ul]:pl-5 [&_ul]:space-y-1.5 [&_strong]:text-[var(--color-text-strong)]">
+      <div className="text-sm leading-relaxed space-y-2 text-() [&_ul]:list-disc [&_ul]:pl-5 [&_ul]:space-y-1.5 [&_strong]:text-()">
         {children}
       </div>
     </div>
@@ -154,27 +154,27 @@ function NumberedSection({
 
 function ContactCard({ title }: { title: string }) {
   return (
-    <div className="rounded-lg border border-[var(--color-brand-100)] bg-[var(--color-brand-50)] p-6">
+    <div className="rounded-lg border border-() bg-() p-6">
       <div className="flex items-center gap-2.5 mb-4">
-        <span className="inline-flex items-center justify-center w-8 h-8 rounded-md bg-[var(--color-brand-500)] text-white">
+        <span className="inline-flex items-center justify-center w-8 h-8 rounded-md bg-() text-white">
           <Mail size={16} aria-hidden="true" />
         </span>
-        <h2 className="text-base font-semibold text-[var(--color-brand-900)]">{title}</h2>
+        <h2 className="text-base font-semibold text-()">{title}</h2>
       </div>
-      <div className="space-y-1.5 text-sm text-[var(--color-brand-700)]">
-        <p className="font-semibold text-[var(--color-brand-900)]">{site.brand}</p>
+      <div className="space-y-1.5 text-sm text-()">
+        <p className="font-semibold text-()">{site.brand}</p>
         <p>{site.proprietor}</p>
         <div className="flex items-start gap-1.5">
           <MapPin size={13} className="mt-0.5 shrink-0" aria-hidden="true" />
           <span>{site.contact.address.line1}, {site.contact.address.city} – {site.contact.address.pincode}, {site.contact.address.state}</span>
         </div>
         {site.contact.phones.map((p) => (
-          <a key={p.e164} href={`tel:${p.e164}`} className="flex items-center gap-1.5 hover:text-[var(--color-brand-900)]">
+          <a key={p.e164} href={`tel:${p.e164}`} className="flex items-center gap-1.5 hover:text-()">
             <Phone size={13} aria-hidden="true" />
             {p.display}
           </a>
         ))}
-        <a href={`mailto:${site.contact.primaryEmail}`} className="flex items-center gap-1.5 hover:text-[var(--color-brand-900)]">
+        <a href={`mailto:${site.contact.primaryEmail}`} className="flex items-center gap-1.5 hover:text-()">
           <Mail size={13} aria-hidden="true" />
           {site.contact.primaryEmail}
         </a>

@@ -99,12 +99,12 @@ function ContactPageInner() {
   return (
     <>
       {/* Hero */}
-      <section className="bg-[var(--color-bg)] pt-[calc(var(--header-height)+32px)] pb-12 px-4 sm:px-6">
+      <section className="bg-() pt-[calc(var(--header-height)+32px)] pb-12 px-4 sm:px-6">
         <div className="max-w-3xl mx-auto text-center">
           <motion.p
             initial={{ opacity: 0, y: 8 }}
             animate={{ opacity: 1, y: 0 }}
-            className="text-[11px] font-semibold uppercase tracking-[0.08em] text-[var(--color-text-muted)]"
+            className="text-[11px] font-semibold uppercase tracking-[0.08em] text-()"
           >
             Get in touch
           </motion.p>
@@ -112,7 +112,7 @@ function ContactPageInner() {
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.05 }}
-            className="mt-2 font-display font-semibold text-3xl sm:text-4xl tracking-tight text-[var(--color-text-strong)]"
+            className="mt-2 font-display font-semibold text-3xl sm:text-4xl tracking-tight text-()"
           >
             {isBulk ? "Bulk &amp; commercial enquiries" : "Let's talk"}
           </motion.h1>
@@ -120,7 +120,7 @@ function ContactPageInner() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.1 }}
-            className="mt-3 text-sm sm:text-base text-[var(--color-text)] max-w-xl mx-auto"
+            className="mt-3 text-sm sm:text-base text-() max-w-xl mx-auto"
           >
             {isBulk
               ? "Tell us what you need. We'll come back with pricing tailored to your project."
@@ -130,23 +130,23 @@ function ContactPageInner() {
       </section>
 
       {/* Cards */}
-      <section className="bg-[var(--color-bg)] px-4 sm:px-6 pb-8">
+      <section className="bg-() px-4 sm:px-6 pb-8">
         <div className="max-w-7xl mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
           {contactCards.map(({ icon: Icon, title, details, sub, href }) => {
             const inner = (
               <>
-                <span className="inline-flex items-center justify-center w-10 h-10 rounded-md bg-[var(--color-brand-50)] text-[var(--color-brand-700)]">
+                <span className="inline-flex items-center justify-center w-10 h-10 rounded-md bg-() text-()">
                   <Icon size={18} aria-hidden="true" />
                 </span>
                 <div className="mt-4">
-                  <p className="text-sm font-semibold text-[var(--color-text-strong)]">{title}</p>
-                  <p className="mt-1 text-sm text-[var(--color-text)] break-words">{details}</p>
-                  <p className="mt-0.5 text-xs text-[var(--color-text-muted)]">{sub}</p>
+                  <p className="text-sm font-semibold text-()">{title}</p>
+                  <p className="mt-1 text-sm text-() wrap-break-word">{details}</p>
+                  <p className="mt-0.5 text-xs text-()">{sub}</p>
                 </div>
               </>
             );
             const className =
-              "block p-5 rounded-lg border border-[var(--color-border)] bg-[var(--color-surface)] hover:border-[var(--color-border-strong)] transition-colors";
+              "block p-5 rounded-lg border border-() bg-() hover:border-() transition-colors";
             return href ? (
               <a key={title} href={href} className={className}>
                 {inner}
@@ -161,13 +161,13 @@ function ContactPageInner() {
       </section>
 
       {/* Form */}
-      <section className="bg-[var(--color-bg)] px-4 sm:px-6 py-12">
+      <section className="bg-() px-4 sm:px-6 py-12">
         <div className="max-w-3xl mx-auto">
-          <div className="rounded-lg border border-[var(--color-border)] bg-[var(--color-surface)] p-6 sm:p-8">
-            <h2 className="font-display font-semibold text-2xl tracking-tight text-[var(--color-text-strong)]">
+          <div className="rounded-lg border border-() bg-() p-6 sm:p-8">
+            <h2 className="font-display font-semibold text-2xl tracking-tight text-()">
               {isBulk ? "Bulk order request" : "Send us a message"}
             </h2>
-            <p className="mt-1 text-sm text-[var(--color-text-muted)]">
+            <p className="mt-1 text-sm text-()">
               We'll respond within 24 hours.
             </p>
 
@@ -178,13 +178,13 @@ function ContactPageInner() {
                 className="mt-8 flex flex-col items-center text-center gap-3 py-10"
                 role="status"
               >
-                <span className="inline-flex items-center justify-center w-14 h-14 rounded-full bg-[var(--color-success-50)] text-[var(--color-success-500)]">
+                <span className="inline-flex items-center justify-center w-14 h-14 rounded-full bg-() text-()">
                   <CheckCircle size={28} aria-hidden="true" />
                 </span>
-                <h3 className="text-lg font-semibold text-[var(--color-text-strong)]">
+                <h3 className="text-lg font-semibold text-()">
                   Message sent
                 </h3>
-                <p className="text-sm text-[var(--color-text-muted)] max-w-sm">
+                <p className="text-sm text-() max-w-sm">
                   Thank you, {form.name.split(" ")[0] || "we"}. We'll get back to {form.email} shortly.
                 </p>
               </motion.div>
@@ -273,11 +273,11 @@ function ContactPageInner() {
                   Send message
                 </Button>
 
-                <p className="text-xs text-[var(--color-text-muted)]">
+                <p className="text-xs text-()">
                   Or call us directly at{" "}
                   <a
                     href={`tel:${site.contact.phones[0].e164}`}
-                    className="text-[var(--color-brand-500)] hover:text-[var(--color-brand-700)] font-medium"
+                    className="text-() hover:text-() font-medium"
                   >
                     {site.contact.phones[0].display}
                   </a>

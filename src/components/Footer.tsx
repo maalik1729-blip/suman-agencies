@@ -26,7 +26,7 @@ const linkColumns = {
 export function Footer() {
   return (
     <footer
-      className="border-t border-[var(--color-border)]"
+      className="border-t border-()"
       style={{ background: "var(--color-surface-2)" }}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 py-14">
@@ -34,15 +34,15 @@ export function Footer() {
           {/* Brand block */}
           <div className="lg:col-span-5 space-y-4">
             <Logo variant="footer" />
-            <p className="text-sm text-[var(--color-text)] max-w-sm">
+            <p className="text-sm text-() max-w-sm">
               {site.tagline} Registered under GST, serving customers across {site.contact.address.state}.
             </p>
 
-            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-md border border-[var(--color-border)] bg-[var(--color-surface)]">
-              <span className="text-[11px] font-semibold uppercase tracking-[0.08em] text-[var(--color-text-muted)]">
+            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-md border border-() bg-()">
+              <span className="text-[11px] font-semibold uppercase tracking-[0.08em] text-()">
                 GSTIN
               </span>
-              <span className="text-xs font-mono text-[var(--color-text-strong)]">
+              <span className="text-xs font-mono text-()">
                 {site.gstin}
               </span>
             </div>
@@ -52,21 +52,21 @@ export function Footer() {
                 <a
                   key={p.e164}
                   href={`tel:${p.e164}`}
-                  className="flex items-center gap-2 text-[var(--color-text)] hover:text-[var(--color-text-strong)] transition-colors"
+                  className="flex items-center gap-2 text-() hover:text-() transition-colors"
                 >
-                  <Phone size={14} className="text-[var(--color-text-muted)]" aria-hidden="true" />
+                  <Phone size={14} className="text-()" aria-hidden="true" />
                   {p.display}
                 </a>
               ))}
               <a
                 href={`mailto:${site.contact.primaryEmail}`}
-                className="flex items-center gap-2 text-[var(--color-text)] hover:text-[var(--color-text-strong)] transition-colors"
+                className="flex items-center gap-2 text-() hover:text-() transition-colors"
               >
-                <Mail size={14} className="text-[var(--color-text-muted)]" aria-hidden="true" />
+                <Mail size={14} className="text-()" aria-hidden="true" />
                 {site.contact.primaryEmail}
               </a>
-              <address className="flex items-start gap-2 not-italic text-[var(--color-text)]">
-                <MapPin size={14} className="mt-0.5 text-[var(--color-text-muted)] shrink-0" aria-hidden="true" />
+              <address className="flex items-start gap-2 not-italic text-()">
+                <MapPin size={14} className="mt-0.5 text-() shrink-0" aria-hidden="true" />
                 <span>
                   {site.contact.address.line1}, {site.contact.address.city} – {site.contact.address.pincode}
                 </span>
@@ -77,7 +77,7 @@ export function Footer() {
           {/* Link columns */}
           {Object.entries(linkColumns).map(([title, items]) => (
             <div key={title} className="lg:col-span-2 md:col-span-1">
-              <h4 className="text-xs font-semibold uppercase tracking-[0.08em] text-[var(--color-text-muted)] mb-3">
+              <h4 className="text-xs font-semibold uppercase tracking-[0.08em] text-() mb-3">
                 {title}
               </h4>
               <ul className="space-y-2">
@@ -85,7 +85,7 @@ export function Footer() {
                   <li key={item.label}>
                     <Link
                       href={item.href}
-                      className="text-sm text-[var(--color-text)] hover:text-[var(--color-text-strong)] transition-colors"
+                      className="text-sm text-() hover:text-() transition-colors"
                     >
                       {item.label}
                     </Link>
@@ -97,14 +97,14 @@ export function Footer() {
 
           {/* Help column */}
           <div className="lg:col-span-1 md:col-span-1">
-            <h4 className="text-xs font-semibold uppercase tracking-[0.08em] text-[var(--color-text-muted)] mb-3">
+            <h4 className="text-xs font-semibold uppercase tracking-[0.08em] text-() mb-3">
               Help
             </h4>
             <ul className="space-y-2">
               <li>
                 <a
                   href={`tel:${site.contact.phones[0].e164}`}
-                  className="text-sm text-[var(--color-text)] hover:text-[var(--color-text-strong)] transition-colors"
+                  className="text-sm text-() hover:text-() transition-colors"
                 >
                   Call us
                 </a>
@@ -112,7 +112,7 @@ export function Footer() {
               <li>
                 <Link
                   href="/contact"
-                  className="text-sm text-[var(--color-text)] hover:text-[var(--color-text-strong)] transition-colors"
+                  className="text-sm text-() hover:text-() transition-colors"
                 >
                   Contact form
                 </Link>
@@ -122,23 +122,23 @@ export function Footer() {
         </div>
 
         {/* Legal strip */}
-        <div className="mt-12 pt-6 border-t border-[var(--color-border)] flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
-          <p className="text-xs text-[var(--color-text-muted)]">
+        <div className="mt-12 pt-6 border-t border-() flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+          <p className="text-xs text-()">
             © {new Date().getFullYear()} {site.brand}. {site.proprietor}. All rights reserved.
           </p>
           <ul className="flex flex-wrap items-center gap-x-5 gap-y-2 text-xs">
             <li>
-              <Link href="/privacy-policy" className="text-[var(--color-text-muted)] hover:text-[var(--color-text-strong)]">
+              <Link href="/privacy-policy" className="text-() hover:text-()">
                 Privacy Policy
               </Link>
             </li>
             <li>
-              <Link href="/terms-conditions" className="text-[var(--color-text-muted)] hover:text-[var(--color-text-strong)]">
+              <Link href="/terms-conditions" className="text-() hover:text-()">
                 Terms & Conditions
               </Link>
             </li>
             <li>
-              <Link href="/shipping-policy" className="text-[var(--color-text-muted)] hover:text-[var(--color-text-strong)]">
+              <Link href="/shipping-policy" className="text-() hover:text-()">
                 Shipping
               </Link>
             </li>

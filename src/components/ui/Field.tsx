@@ -30,18 +30,18 @@ export function FieldShell({ label, helper, error, required, id, children }: Fie
     <div className="flex flex-col gap-1.5">
       <label
         htmlFor={inputId}
-        className="text-sm font-medium text-[var(--color-text-strong)]"
+        className="text-sm font-medium text-()"
       >
         {label}
-        {required && <span aria-hidden="true" className="ml-0.5 text-[var(--color-danger-500)]">*</span>}
+        {required && <span aria-hidden="true" className="ml-0.5 text-()">*</span>}
       </label>
       {children({ inputId, describedBy })}
       {error ? (
-        <p id={errorId} role="alert" className="text-xs text-[var(--color-danger-500)]">
+        <p id={errorId} role="alert" className="text-xs text-()">
           {error}
         </p>
       ) : helper ? (
-        <p id={helperId} className="text-xs text-[var(--color-text-muted)]">
+        <p id={helperId} className="text-xs text-()">
           {helper}
         </p>
       ) : null}
@@ -50,12 +50,12 @@ export function FieldShell({ label, helper, error, required, id, children }: Fie
 }
 
 const inputBase =
-  "h-11 w-full rounded-md border bg-[var(--color-surface)] px-3.5 text-sm text-[var(--color-text-strong)] " +
-  "placeholder:text-[var(--color-text-disabled)] " +
-  "border-[var(--color-border)] hover:border-[var(--color-border-strong)] " +
-  "focus:outline-none focus:border-[var(--color-brand-500)] focus:ring-4 focus:ring-[var(--color-brand-50)] " +
-  "aria-[invalid=true]:border-[var(--color-danger-500)] aria-[invalid=true]:focus:ring-[var(--color-danger-50)] " +
-  "disabled:bg-[var(--color-surface-2)] disabled:text-[var(--color-text-disabled)] " +
+  "h-11 w-full rounded-md border bg-() px-3.5 text-sm text-() " +
+  "placeholder:text-() " +
+  "border-() hover:border-() " +
+  "focus:outline-none focus:border-() focus:ring-4 focus:ring-() " +
+  "aria-[invalid=true]:border-() aria-[invalid=true]:focus:ring-() " +
+  "disabled:bg-() disabled:text-() " +
   "transition-[border-color,box-shadow] duration-150";
 
 type InputProps = InputHTMLAttributes<HTMLInputElement> & {

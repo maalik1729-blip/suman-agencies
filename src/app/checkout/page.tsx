@@ -200,12 +200,12 @@ export default function CheckoutPage() {
   );
 
   return (
-    <div className="min-h-screen bg-[var(--color-bg)] pt-[calc(var(--header-height)+24px)] pb-16 px-4 sm:px-6">
+    <div className="min-h-screen bg-() pt-[calc(var(--header-height)+24px)] pb-16 px-4 sm:px-6">
       <div className="max-w-5xl mx-auto">
 
         <button
           onClick={() => (step === 0 ? router.back() : setStep(0))}
-          className="inline-flex items-center gap-1.5 text-sm text-[var(--color-text-muted)] hover:text-[var(--color-text-strong)] mb-8 transition-colors"
+          className="inline-flex items-center gap-1.5 text-sm text-() hover:text-() mb-8 transition-colors"
         >
           <ArrowLeft size={14} aria-hidden="true" />
           {step === 0 ? "Back to cart" : "Back to order details"}
@@ -223,10 +223,10 @@ export default function CheckoutPage() {
                   className={cn(
                     "w-8 h-8 rounded-full inline-flex items-center justify-center text-sm font-semibold border transition-colors",
                     i < step
-                      ? "bg-[var(--color-brand-500)] border-[var(--color-brand-500)] text-white"
+                      ? "bg-() border-() text-white"
                       : i === step
-                      ? "border-[var(--color-brand-500)] text-[var(--color-brand-500)] bg-[var(--color-brand-50)]"
-                      : "border-[var(--color-border)] text-[var(--color-text-muted)]"
+                      ? "border-() text-() bg-()"
+                      : "border-() text-()"
                   )}
                   aria-current={i === step ? "step" : undefined}
                 >
@@ -235,7 +235,7 @@ export default function CheckoutPage() {
                 <span
                   className={cn(
                     "text-xs whitespace-nowrap",
-                    i === step ? "text-[var(--color-text-strong)] font-medium" : "text-[var(--color-text-muted)]"
+                    i === step ? "text-() font-medium" : "text-()"
                   )}
                 >
                   {s}
@@ -245,7 +245,7 @@ export default function CheckoutPage() {
                 <div
                   className={cn(
                     "h-px flex-1 mx-2 mb-5",
-                    i < step ? "bg-[var(--color-brand-500)]" : "bg-[var(--color-border)]"
+                    i < step ? "bg-()" : "bg-()"
                   )}
                 />
               )}
@@ -264,10 +264,10 @@ export default function CheckoutPage() {
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, y: -8 }}
                   transition={{ duration: 0.15 }}
-                  className="rounded-lg border border-[var(--color-border)] bg-[var(--color-surface)] p-6 space-y-6"
+                  className="rounded-lg border border-() bg-() p-6 space-y-6"
                 >
-                  <h2 className="text-base font-semibold text-[var(--color-text-strong)] flex items-center gap-2">
-                    <User size={16} className="text-[var(--color-brand-500)]" aria-hidden="true" />
+                  <h2 className="text-base font-semibold text-() flex items-center gap-2">
+                    <User size={16} className="text-()" aria-hidden="true" />
                     Personal Information
                   </h2>
 
@@ -309,9 +309,9 @@ export default function CheckoutPage() {
                     </div>
                   </div>
 
-                  <div className="border-t border-[var(--color-border)] pt-5 space-y-4">
-                    <h3 className="text-sm font-semibold text-[var(--color-text-strong)] flex items-center gap-2">
-                      <MapPin size={14} className="text-[var(--color-brand-500)]" aria-hidden="true" />
+                  <div className="border-t border-() pt-5 space-y-4">
+                    <h3 className="text-sm font-semibold text-() flex items-center gap-2">
+                      <MapPin size={14} className="text-()" aria-hidden="true" />
                       Delivery address
                     </h3>
 
@@ -387,8 +387,8 @@ export default function CheckoutPage() {
                   className="space-y-5"
                 >
                   {/* Payment selector */}
-                  <fieldset className="rounded-lg border border-[var(--color-border)] bg-[var(--color-surface)] p-6">
-                    <legend className="text-base font-semibold text-[var(--color-text-strong)] px-1">
+                  <fieldset className="rounded-lg border border-() bg-() p-6">
+                    <legend className="text-base font-semibold text-() px-1">
                       Choose payment method
                     </legend>
                     <div className="mt-4 grid grid-cols-1 sm:grid-cols-3 gap-3">
@@ -400,8 +400,8 @@ export default function CheckoutPage() {
                             className={cn(
                               "flex flex-col gap-1.5 p-4 rounded-md border cursor-pointer transition-colors",
                               active
-                                ? "border-[var(--color-brand-500)] bg-[var(--color-brand-50)]"
-                                : "border-[var(--color-border)] bg-[var(--color-bg)] hover:border-[var(--color-border-strong)]"
+                                ? "border-() bg-()"
+                                : "border-() bg-() hover:border-()"
                             )}
                           >
                             <input
@@ -415,11 +415,11 @@ export default function CheckoutPage() {
                               }}
                               className="sr-only"
                             />
-                            <span className={cn("inline-flex items-center gap-2 text-sm font-medium", active ? "text-[var(--color-brand-700)]" : "text-[var(--color-text-strong)]")}>
+                            <span className={cn("inline-flex items-center gap-2 text-sm font-medium", active ? "text-()" : "text-()")}>
                               {m.icon}
                               {m.label}
                             </span>
-                            <span className={cn("text-xs", active ? "text-[var(--color-brand-700)]" : "text-[var(--color-text-muted)]")}>
+                            <span className={cn("text-xs", active ? "text-()" : "text-()")}>
                               {m.desc}
                             </span>
                           </label>
@@ -429,10 +429,10 @@ export default function CheckoutPage() {
                   </fieldset>
 
                   {/* Conditional payment details */}
-                  <div className="rounded-lg border border-[var(--color-border)] bg-[var(--color-surface)] p-6">
+                  <div className="rounded-lg border border-() bg-() p-6">
                     {paymentMode === "card" && (
                       <div className="space-y-4">
-                        <h3 className="text-sm font-semibold text-[var(--color-text-strong)]">Card details</h3>
+                        <h3 className="text-sm font-semibold text-()">Card details</h3>
                         <Input
                           label="Card number"
                           placeholder="1234 5678 9012 3456"
@@ -481,7 +481,7 @@ export default function CheckoutPage() {
 
                     {paymentMode === "upi" && (
                       <div className="space-y-4">
-                        <h3 className="text-sm font-semibold text-[var(--color-text-strong)]">UPI payment</h3>
+                        <h3 className="text-sm font-semibold text-()">UPI payment</h3>
                         <fieldset>
                           <legend className="sr-only">Choose UPI app</legend>
                           <div className="grid grid-cols-3 gap-2">
@@ -493,8 +493,8 @@ export default function CheckoutPage() {
                                   className={cn(
                                     "py-2.5 text-center rounded-md border text-xs font-semibold uppercase tracking-[0.06em] cursor-pointer transition-colors",
                                     active
-                                      ? "border-[var(--color-brand-500)] bg-[var(--color-brand-50)] text-[var(--color-brand-700)]"
-                                      : "border-[var(--color-border)] bg-[var(--color-bg)] text-[var(--color-text)] hover:border-[var(--color-border-strong)]"
+                                      ? "border-() bg-() text-()"
+                                      : "border-() bg-() text-() hover:border-()"
                                   )}
                                 >
                                   <input
@@ -522,11 +522,11 @@ export default function CheckoutPage() {
                     )}
 
                     {paymentMode === "cod" && (
-                      <div className="text-sm text-[var(--color-text)] space-y-3">
-                        <h3 className="text-base font-semibold text-[var(--color-text-strong)]">Cash on Delivery</h3>
+                      <div className="text-sm text-() space-y-3">
+                        <h3 className="text-base font-semibold text-()">Cash on Delivery</h3>
                         <p>Pay in cash when your order arrives. No prepayment needed.</p>
                         {codFee > 0 && (
-                          <div className="px-3 py-2 rounded-md bg-[var(--color-warning-50)] text-[var(--color-warning-700)] text-xs">
+                          <div className="px-3 py-2 rounded-md bg-() text-() text-xs">
                             COD handling fee of {formatPrice(site.cod.feeINR)} applies on orders below {formatPrice(site.cod.feeThresholdINR)}.
                           </div>
                         )}
@@ -535,7 +535,7 @@ export default function CheckoutPage() {
                   </div>
 
                   {paymentErr && (
-                    <div role="alert" className="px-4 py-3 rounded-md bg-[var(--color-danger-50)] text-[var(--color-danger-700)] text-sm">
+                    <div role="alert" className="px-4 py-3 rounded-md bg-() text-() text-sm">
                       {paymentErr}
                     </div>
                   )}
@@ -551,7 +551,7 @@ export default function CheckoutPage() {
                     Confirm &amp; Pay · {formatPrice(grandTotalINR)}
                   </Button>
 
-                  <p className="text-xs text-[var(--color-text-muted)] text-center">
+                  <p className="text-xs text-() text-center">
                     By placing this order, you agree to our{" "}
                     <Link href="/terms-conditions" className="underline">Terms</Link> and{" "}
                     <Link href="/cancellation-refund" className="underline">Refund Policy</Link>.
@@ -563,12 +563,12 @@ export default function CheckoutPage() {
 
           {/* Order summary */}
           <aside>
-            <div className="rounded-lg border border-[var(--color-border)] bg-[var(--color-surface)] p-5 sticky top-[calc(var(--header-height)+16px)]">
-              <h2 className="text-base font-semibold text-[var(--color-text-strong)] mb-4">Order Summary</h2>
+            <div className="rounded-lg border border-() bg-() p-5 sticky top-[calc(var(--header-height)+16px)]">
+              <h2 className="text-base font-semibold text-() mb-4">Order Summary</h2>
               <ul className="space-y-3 mb-4">
                 {items.map((item) => (
                   <li key={item.product.id} className="flex gap-3 items-center">
-                    <div className="relative w-12 h-12 rounded-md overflow-hidden bg-[var(--color-surface-2)] shrink-0">
+                    <div className="relative w-12 h-12 rounded-md overflow-hidden bg-() shrink-0">
                       <Image
                         src={item.product.images[0]}
                         alt=""
@@ -578,12 +578,12 @@ export default function CheckoutPage() {
                       />
                     </div>
                     <div className="flex-1 min-w-0">
-                      <p className="text-xs font-medium text-[var(--color-text-strong)] line-clamp-1">
+                      <p className="text-xs font-medium text-() line-clamp-1">
                         {item.product.name}
                       </p>
-                      <p className="text-xs text-[var(--color-text-muted)]">Qty: {item.quantity}</p>
+                      <p className="text-xs text-()">Qty: {item.quantity}</p>
                     </div>
-                    <span className="text-xs font-semibold tabular text-[var(--color-text-strong)] shrink-0">
+                    <span className="text-xs font-semibold tabular text-() shrink-0">
                       {formatPrice(item.product.price * item.quantity)}
                     </span>
                   </li>
@@ -591,46 +591,46 @@ export default function CheckoutPage() {
               </ul>
 
               {step === 1 && details.name && (
-                <div className="rounded-md bg-[var(--color-bg)] border border-[var(--color-border)] p-3 mb-4 text-xs space-y-1">
-                  <p className="font-semibold flex items-center gap-1 text-[var(--color-text-strong)]">
+                <div className="rounded-md bg-() border border-() p-3 mb-4 text-xs space-y-1">
+                  <p className="font-semibold flex items-center gap-1 text-()">
                     <MapPin size={11} aria-hidden="true" /> {details.name}
                   </p>
-                  <p className="text-[var(--color-text-muted)]">
+                  <p className="text-()">
                     {details.address}, {details.city} – {details.pincode}
                   </p>
-                  <p className="text-[var(--color-text-muted)]">
+                  <p className="text-()">
                     <Phone size={10} className="inline mr-1" aria-hidden="true" />
                     {details.phone}
                   </p>
                 </div>
               )}
 
-              <div className="border-t border-[var(--color-border)] pt-3 space-y-2 text-sm tabular">
-                <div className="flex justify-between text-[var(--color-text)]">
+              <div className="border-t border-() pt-3 space-y-2 text-sm tabular">
+                <div className="flex justify-between text-()">
                   <span>Subtotal</span>
                   <span>{formatPrice(totalPrice)}</span>
                 </div>
-                <div className="flex justify-between text-[var(--color-text)]">
+                <div className="flex justify-between text-()">
                   <span>Delivery</span>
-                  <span className="text-[var(--color-success-700)] font-medium">Free</span>
+                  <span className="text-() font-medium">Free</span>
                 </div>
                 {codFee > 0 && (
-                  <div className="flex justify-between text-[var(--color-warning-700)]">
+                  <div className="flex justify-between text-()">
                     <span>COD handling fee</span>
                     <span>{formatPrice(codFee)}</span>
                   </div>
                 )}
-                <div className="flex justify-between text-[var(--color-text-muted)] text-xs">
+                <div className="flex justify-between text-() text-xs">
                   <span>GST</span>
                   <span>Inclusive</span>
                 </div>
-                <div className="flex justify-between font-semibold text-base pt-2 border-t border-[var(--color-border)] text-[var(--color-text-strong)]">
+                <div className="flex justify-between font-semibold text-base pt-2 border-t border-() text-()">
                   <span>Total</span>
                   <span>{formatPrice(grandTotalINR)}</span>
                 </div>
               </div>
 
-              <p className="mt-4 text-[11px] text-[var(--color-text-muted)] flex items-center gap-1.5">
+              <p className="mt-4 text-[11px] text-() flex items-center gap-1.5">
                 <Lock size={11} aria-hidden="true" /> GSTIN <span className="font-mono">{site.gstin}</span>
               </p>
             </div>

@@ -6,12 +6,12 @@ import { site } from "@/data/site";
 
 export default function PrivacyPolicyPage() {
   return (
-    <main className="min-h-screen bg-[var(--color-bg)] pt-[calc(var(--header-height)+32px)] pb-20 px-4 sm:px-6">
+    <main className="min-h-screen bg-() pt-[calc(var(--header-height)+32px)] pb-20 px-4 sm:px-6">
       <div className="max-w-3xl mx-auto">
         {/* Back */}
         <Link
           href="/"
-          className="inline-flex items-center gap-2 text-sm font-medium text-[var(--color-text-muted)] hover:text-[var(--color-text-strong)] transition-colors mb-10 group"
+          className="inline-flex items-center gap-2 text-sm font-medium text-() hover:text-() transition-colors mb-10 group"
         >
           <ArrowLeft size={16} className="group-hover:-translate-x-1 transition-transform" />
           Back to Home
@@ -19,23 +19,23 @@ export default function PrivacyPolicyPage() {
 
         {/* Header */}
         <div className="mb-10">
-          <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-md border border-[var(--color-border)] bg-[var(--color-surface)] text-[var(--color-brand-700)] text-xs font-semibold uppercase tracking-[0.08em] mb-4">
+          <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-md border border-() bg-() text-() text-xs font-semibold uppercase tracking-[0.08em] mb-4">
             <Shield size={12} aria-hidden="true" />
             Policy
           </div>
-          <h1 className="text-3xl sm:text-4xl font-semibold font-display tracking-tight text-[var(--color-text-strong)]">
+          <h1 className="text-3xl sm:text-4xl font-semibold font-display tracking-tight text-()">
             Privacy Policy
           </h1>
-          <p className="mt-3 text-base text-[var(--color-text)]">
+          <p className="mt-3 text-base text-()">
             Your privacy is our priority.
           </p>
-          <p className="mt-2 text-xs text-[var(--color-text-muted)]">Last Updated: May 2026</p>
+          <p className="mt-2 text-xs text-()">Last Updated: May 2026</p>
         </div>
 
         {/* Intro */}
         <div className="space-y-5">
-          <p className="text-sm text-[var(--color-text)] leading-relaxed">
-            At <strong className="text-[var(--color-text-strong)]">{site.brand}</strong>, we value the trust you place in us when choosing our premium furniture and electronics. Protecting your personal information is as important to us as ensuring the quality of the products we deliver. This Privacy Policy explains what information we collect, how we use it, and your rights when engaging with our business.
+          <p className="text-sm text-() leading-relaxed">
+            At <strong className="text-()">{site.brand}</strong>, we value the trust you place in us when choosing our premium furniture and electronics. Protecting your personal information is as important to us as ensuring the quality of the products we deliver. This Privacy Policy explains what information we collect, how we use it, and your rights when engaging with our business.
           </p>
 
           <PolicySection icon={<Eye size={16} />} title="Information We Collect">
@@ -109,7 +109,7 @@ export default function PrivacyPolicyPage() {
           {/* Contact card */}
           <ContactCard title="Contact us about privacy" />
 
-          <p className="text-xs text-center text-[var(--color-text-muted)]">
+          <p className="text-xs text-center text-()">
             © {new Date().getFullYear()} {site.brand}. All Rights Reserved.
           </p>
         </div>
@@ -128,14 +128,14 @@ function PolicySection({
   children: React.ReactNode;
 }) {
   return (
-    <div className="rounded-lg border border-[var(--color-border)] bg-[var(--color-surface)] p-6">
+    <div className="rounded-lg border border-() bg-() p-6">
       <div className="flex items-center gap-2.5 mb-4">
-        <span className="inline-flex items-center justify-center w-8 h-8 rounded-md bg-[var(--color-brand-50)] text-[var(--color-brand-700)]">
+        <span className="inline-flex items-center justify-center w-8 h-8 rounded-md bg-() text-()">
           {icon}
         </span>
-        <h2 className="text-base font-semibold text-[var(--color-text-strong)]">{title}</h2>
+        <h2 className="text-base font-semibold text-()">{title}</h2>
       </div>
-      <div className="text-sm leading-relaxed space-y-2 text-[var(--color-text)] [&_ul]:list-disc [&_ul]:pl-5 [&_ul]:space-y-1.5 [&_strong]:text-[var(--color-text-strong)]">
+      <div className="text-sm leading-relaxed space-y-2 text-() [&_ul]:list-disc [&_ul]:pl-5 [&_ul]:space-y-1.5 [&_strong]:text-()">
         {children}
       </div>
     </div>
@@ -144,31 +144,31 @@ function PolicySection({
 
 function ContactCard({ title }: { title: string }) {
   return (
-    <div className="rounded-lg border border-[var(--color-brand-100)] bg-[var(--color-brand-50)] p-6">
+    <div className="rounded-lg border border-() bg-() p-6">
       <div className="flex items-center gap-2.5 mb-4">
-        <span className="inline-flex items-center justify-center w-8 h-8 rounded-md bg-[var(--color-brand-500)] text-white">
+        <span className="inline-flex items-center justify-center w-8 h-8 rounded-md bg-() text-white">
           <Mail size={16} aria-hidden="true" />
         </span>
-        <h2 className="text-base font-semibold text-[var(--color-brand-900)]">{title}</h2>
+        <h2 className="text-base font-semibold text-()">{title}</h2>
       </div>
-      <div className="space-y-1.5 text-sm text-[var(--color-brand-700)]">
-        <p className="font-semibold text-[var(--color-brand-900)]">{site.brand}</p>
+      <div className="space-y-1.5 text-sm text-()">
+        <p className="font-semibold text-()">{site.brand}</p>
         <p>{site.proprietor}</p>
         <div className="flex items-start gap-1.5">
           <MapPin size={13} className="mt-0.5 shrink-0" aria-hidden="true" />
           <span>{site.contact.address.line1}, {site.contact.address.city} – {site.contact.address.pincode}, {site.contact.address.state}</span>
         </div>
         {site.contact.phones.map((p) => (
-          <a key={p.e164} href={`tel:${p.e164}`} className="flex items-center gap-1.5 hover:text-[var(--color-brand-900)]">
+          <a key={p.e164} href={`tel:${p.e164}`} className="flex items-center gap-1.5 hover:text-()">
             <Phone size={13} aria-hidden="true" />
             {p.display}
           </a>
         ))}
-        <a href={`mailto:${site.contact.primaryEmail}`} className="flex items-center gap-1.5 hover:text-[var(--color-brand-900)]">
+        <a href={`mailto:${site.contact.primaryEmail}`} className="flex items-center gap-1.5 hover:text-()">
           <Mail size={13} aria-hidden="true" />
           {site.contact.primaryEmail}
         </a>
-        <p className="text-xs text-[var(--color-brand-700)] pt-1">GSTIN: <span className="font-mono">{site.gstin}</span></p>
+        <p className="text-xs text-() pt-1">GSTIN: <span className="font-mono">{site.gstin}</span></p>
       </div>
     </div>
   );

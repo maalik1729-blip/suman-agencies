@@ -116,19 +116,19 @@ function ProductsPageInner() {
   return (
     <>
       {/* Page header */}
-      <section className="bg-[var(--color-bg)] pt-[calc(var(--header-height)+24px)] pb-8 px-4 sm:px-6">
+      <section className="bg-() pt-[calc(var(--header-height)+24px)] pb-8 px-4 sm:px-6">
         <div className="max-w-7xl mx-auto">
-          <p className="text-[11px] font-semibold uppercase tracking-[0.08em] text-[var(--color-text-muted)]">
+          <p className="text-[11px] font-semibold uppercase tracking-[0.08em] text-()">
             Our Collection
           </p>
-          <h1 className="mt-2 text-3xl sm:text-4xl font-semibold font-display tracking-tight text-[var(--color-text-strong)]">
+          <h1 className="mt-2 text-3xl sm:text-4xl font-semibold font-display tracking-tight text-()">
             {filters.category === "furniture"
               ? "Furniture"
               : filters.category === "electronics"
               ? "Electronics"
               : "All products"}
           </h1>
-          <p className="mt-2 text-sm text-[var(--color-text-muted)] tabular">
+          <p className="mt-2 text-sm text-() tabular">
             Showing {filtered.length} of {totalCount}{" "}
             {filters.category === "all" ? "products" : filters.category}
           </p>
@@ -137,20 +137,20 @@ function ProductsPageInner() {
 
       {/* Sticky control bar */}
       <div
-        className="sticky z-40 bg-[var(--color-bg)]/95 backdrop-blur supports-[backdrop-filter]:bg-[var(--color-bg)]/80 border-y border-[var(--color-border)]"
+        className="sticky z-40 bg-()/95 backdrop-blur supports-[backdrop-filter]:bg-()/80 border-y border-()"
         style={{ top: "var(--header-height)" }}
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 py-3 flex items-center gap-3 flex-wrap">
           <button
             type="button"
             onClick={() => setSheetOpen(true)}
-            className="lg:hidden inline-flex items-center gap-2 h-9 px-3 rounded-md border border-[var(--color-border)] bg-[var(--color-surface)] text-sm text-[var(--color-text-strong)] hover:border-[var(--color-border-strong)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-brand-500)]"
+            className="lg:hidden inline-flex items-center gap-2 h-9 px-3 rounded-md border border-() bg-() text-sm text-() hover:border-() focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-()"
             aria-label={`Open filters${activeFilterCount > 0 ? `, ${activeFilterCount} active` : ""}`}
           >
             <SlidersHorizontal size={14} aria-hidden="true" />
             Filters
             {activeFilterCount > 0 && (
-              <span className="px-1.5 py-0.5 rounded-sm bg-[var(--color-brand-500)] text-white text-[10px] font-semibold">
+              <span className="px-1.5 py-0.5 rounded-sm bg-() text-white text-[10px] font-semibold">
                 {activeFilterCount}
               </span>
             )}
@@ -160,7 +160,7 @@ function ProductsPageInner() {
           <div className="relative flex-1 min-w-[180px] max-w-sm">
             <Search
               size={14}
-              className="absolute left-3 top-1/2 -translate-y-1/2 text-[var(--color-text-muted)] pointer-events-none"
+              className="absolute left-3 top-1/2 -translate-y-1/2 text-() pointer-events-none"
               aria-hidden="true"
             />
             <label htmlFor="plp-search" className="sr-only">
@@ -172,13 +172,13 @@ function ProductsPageInner() {
               placeholder="Search products…"
               value={search}
               onChange={(e) => setSearch(e.target.value)}
-              className="h-9 w-full pl-9 pr-9 rounded-md border border-[var(--color-border)] bg-[var(--color-surface)] text-sm text-[var(--color-text-strong)] placeholder:text-[var(--color-text-disabled)] focus:outline-none focus:border-[var(--color-brand-500)] focus:ring-4 focus:ring-[var(--color-brand-50)]"
+              className="h-9 w-full pl-9 pr-9 rounded-md border border-() bg-() text-sm text-() placeholder:text-() focus:outline-none focus:border-() focus:ring-4 focus:ring-()"
             />
             {search && (
               <button
                 type="button"
                 onClick={() => setSearch("")}
-                className="absolute right-2 top-1/2 -translate-y-1/2 inline-flex items-center justify-center w-6 h-6 rounded-md text-[var(--color-text-muted)] hover:text-[var(--color-text-strong)] hover:bg-[var(--color-surface-2)]"
+                className="absolute right-2 top-1/2 -translate-y-1/2 inline-flex items-center justify-center w-6 h-6 rounded-md text-() hover:text-() hover:bg-()"
                 aria-label="Clear search"
               >
                 <X size={13} />
@@ -187,12 +187,12 @@ function ProductsPageInner() {
           </div>
 
           {/* Sort */}
-          <label className="inline-flex items-center gap-2 text-xs text-[var(--color-text-muted)]">
+          <label className="inline-flex items-center gap-2 text-xs text-()">
             <span className="hidden sm:inline">Sort</span>
             <select
               value={sort}
               onChange={(e) => setSort(e.target.value as SortOption)}
-              className="h-9 pl-3 pr-8 rounded-md border border-[var(--color-border)] bg-[var(--color-surface)] text-sm text-[var(--color-text-strong)] appearance-none focus:outline-none focus:border-[var(--color-brand-500)] focus:ring-4 focus:ring-[var(--color-brand-50)]"
+              className="h-9 pl-3 pr-8 rounded-md border border-() bg-() text-sm text-() appearance-none focus:outline-none focus:border-() focus:ring-4 focus:ring-()"
               aria-label="Sort products"
             >
               <option value="default">Featured</option>
@@ -205,7 +205,7 @@ function ProductsPageInner() {
 
           {/* View toggle */}
           <div
-            className="hidden sm:inline-flex items-center rounded-md border border-[var(--color-border)] bg-[var(--color-surface)] p-0.5"
+            className="hidden sm:inline-flex items-center rounded-md border border-() bg-() p-0.5"
             role="radiogroup"
             aria-label="View mode"
           >
@@ -217,8 +217,8 @@ function ProductsPageInner() {
               className={cn(
                 "w-8 h-8 inline-flex items-center justify-center rounded-[5px] transition-colors",
                 viewMode === "grid"
-                  ? "bg-[var(--color-bg)] text-[var(--color-text-strong)] shadow-sm"
-                  : "text-[var(--color-text-muted)] hover:text-[var(--color-text-strong)]"
+                  ? "bg-() text-() shadow-sm"
+                  : "text-() hover:text-()"
               )}
               aria-label="Grid view"
             >
@@ -232,8 +232,8 @@ function ProductsPageInner() {
               className={cn(
                 "w-8 h-8 inline-flex items-center justify-center rounded-[5px] transition-colors",
                 viewMode === "list"
-                  ? "bg-[var(--color-bg)] text-[var(--color-text-strong)] shadow-sm"
-                  : "text-[var(--color-text-muted)] hover:text-[var(--color-text-strong)]"
+                  ? "bg-() text-() shadow-sm"
+                  : "text-() hover:text-()"
               )}
               aria-label="List view"
             >
@@ -244,7 +244,7 @@ function ProductsPageInner() {
       </div>
 
       {/* Body */}
-      <section className="bg-[var(--color-bg)] py-8 px-4 sm:px-6">
+      <section className="bg-() py-8 px-4 sm:px-6">
         <div className="max-w-7xl mx-auto flex gap-7 items-start">
           {/* Desktop sidebar */}
           <aside className="hidden lg:block w-64 shrink-0 sticky" style={{ top: "calc(var(--header-height) + 76px)" }}>
@@ -296,7 +296,7 @@ function ProductsPageInner() {
                 )}
                 <button
                   onClick={resetFilters}
-                  className="text-xs font-medium text-[var(--color-brand-500)] hover:text-[var(--color-brand-700)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-brand-500)] rounded-sm"
+                  className="text-xs font-medium text-() hover:text-() focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-() rounded-sm"
                 >
                   Clear all
                 </button>
@@ -315,7 +315,7 @@ function ProductsPageInner() {
                 secondaryCta={
                   <button
                     onClick={() => router.push("/products")}
-                    className="inline-flex items-center justify-center h-10 px-4 rounded-md bg-transparent text-sm font-medium text-[var(--color-text)] hover:bg-[var(--color-surface-2)] transition-colors"
+                    className="inline-flex items-center justify-center h-10 px-4 rounded-md bg-transparent text-sm font-medium text-() hover:bg-() transition-colors"
                   >
                     Browse bestsellers
                   </button>
@@ -366,25 +366,25 @@ function ProductsPageInner() {
           aria-modal="true"
           aria-label="Filters"
           className={cn(
-            "absolute inset-x-0 bottom-0 max-h-[85vh] flex flex-col bg-[var(--color-bg)] rounded-t-2xl shadow-[var(--shadow-overlay)] transition-transform duration-300",
+            "absolute inset-x-0 bottom-0 max-h-[85vh] flex flex-col bg-() rounded-t-2xl shadow-() transition-transform duration-300",
             sheetOpen ? "translate-y-0" : "translate-y-full"
           )}
         >
           <div className="flex flex-col items-center pt-2 pb-1">
-            <span className="block w-10 h-1 rounded-full bg-[var(--color-border)]" aria-hidden="true" />
+            <span className="block w-10 h-1 rounded-full bg-()" aria-hidden="true" />
           </div>
-          <div className="flex items-center justify-between px-5 py-3 border-b border-[var(--color-border)]">
-            <h2 className="text-base font-semibold text-[var(--color-text-strong)]">
+          <div className="flex items-center justify-between px-5 py-3 border-b border-()">
+            <h2 className="text-base font-semibold text-()">
               Filters
               {activeFilterCount > 0 && (
-                <span className="ml-2 px-1.5 py-0.5 rounded-sm bg-[var(--color-brand-500)] text-white text-[11px] font-semibold">
+                <span className="ml-2 px-1.5 py-0.5 rounded-sm bg-() text-white text-[11px] font-semibold">
                   {activeFilterCount}
                 </span>
               )}
             </h2>
             <button
               onClick={() => setSheetOpen(false)}
-              className="inline-flex items-center justify-center w-8 h-8 rounded-md text-[var(--color-text-muted)] hover:text-[var(--color-text-strong)] hover:bg-[var(--color-surface-2)]"
+              className="inline-flex items-center justify-center w-8 h-8 rounded-md text-() hover:text-() hover:bg-()"
               aria-label="Close filters"
             >
               <X size={18} />
@@ -399,10 +399,10 @@ function ProductsPageInner() {
               embedded
             />
           </div>
-          <div className="border-t border-[var(--color-border)] p-4 flex items-center gap-3">
+          <div className="border-t border-() p-4 flex items-center gap-3">
             <button
               onClick={resetFilters}
-              className="h-11 px-4 rounded-md text-sm font-medium text-[var(--color-text)] hover:bg-[var(--color-surface-2)]"
+              className="h-11 px-4 rounded-md text-sm font-medium text-() hover:bg-()"
             >
               Clear all
             </button>
@@ -423,11 +423,11 @@ function ProductsPageInner() {
 
 function Chip({ children, onRemove }: { children: React.ReactNode; onRemove: () => void }) {
   return (
-    <span className="inline-flex items-center gap-1 h-7 pl-2.5 pr-1 rounded-full border border-[var(--color-border)] bg-[var(--color-surface-2)] text-xs text-[var(--color-text)]">
+    <span className="inline-flex items-center gap-1 h-7 pl-2.5 pr-1 rounded-full border border-() bg-() text-xs text-()">
       {children}
       <button
         onClick={onRemove}
-        className="inline-flex items-center justify-center w-5 h-5 rounded-full hover:bg-[var(--color-border)] text-[var(--color-text-muted)]"
+        className="inline-flex items-center justify-center w-5 h-5 rounded-full hover:bg-() text-()"
         aria-label="Remove filter"
       >
         <X size={11} />
