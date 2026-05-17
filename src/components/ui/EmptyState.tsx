@@ -28,14 +28,14 @@ export function EmptyState({
       )}
     >
       {icon ? (
-        <div className="text-[var(--color-text-muted)]" aria-hidden="true">
+        <div className="text-(--color-text-muted)" aria-hidden="true">
           {icon}
         </div>
       ) : null}
       <div className="max-w-prose">
-        <h2 className="text-xl font-semibold text-[var(--color-text-strong)]">{title}</h2>
+        <h2 className="text-xl font-semibold text-(--color-text-strong)">{title}</h2>
         {description ? (
-          <p className="mt-2 text-sm text-[var(--color-text-muted)]">{description}</p>
+          <p className="mt-2 text-sm text-(--color-text-muted)">{description}</p>
         ) : null}
       </div>
       {(primaryCta || secondaryCta) && (

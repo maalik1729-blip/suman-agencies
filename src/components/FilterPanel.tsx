@@ -73,15 +73,15 @@ export function FilterPanel({
       className={cn(
         "flex flex-col",
         !embedded &&
-          "rounded-lg border border-[var(--color-border)] bg-[var(--color-surface)] overflow-hidden"
+          "rounded-lg border border-(--color-border) bg-(--color-surface) overflow-hidden"
       )}
     >
       {!embedded && (
-        <div className="flex items-center justify-between px-5 py-4 border-b border-[var(--color-border)]">
+        <div className="flex items-center justify-between px-5 py-4 border-b border-(--color-border)">
           <div className="flex items-center gap-2">
-            <span className="text-sm font-semibold text-[var(--color-text-strong)]">Filters</span>
+            <span className="text-sm font-semibold text-(--color-text-strong)">Filters</span>
             {activeFilterCount > 0 && (
-              <span className="px-1.5 py-0.5 rounded-sm bg-[var(--color-brand-500)] text-white text-[10px] font-semibold">
+              <span className="px-1.5 py-0.5 rounded-sm bg-(--color-brand-500) text-white text-[10px] font-semibold">
                 {activeFilterCount}
               </span>
             )}
@@ -89,7 +89,7 @@ export function FilterPanel({
           {activeFilterCount > 0 && (
             <button
               onClick={onReset}
-              className="text-xs font-medium text-[var(--color-brand-500)] hover:text-[var(--color-brand-700)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-brand-500)] rounded-sm"
+              className="text-xs font-medium text-(--color-brand-500) hover:text-(--color-brand-700) focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-(--color-brand-500) rounded-sm"
             >
               Clear all
             </button>
@@ -112,10 +112,10 @@ export function FilterPanel({
                   onClick={() => onChange({ ...value, category: cat, subcategories: [] })}
                   className={cn(
                     "w-full text-left px-3 py-2 rounded-md text-sm transition-colors",
-                    "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-brand-500)]",
+                    "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-(--color-brand-500)",
                     active
-                      ? "bg-[var(--color-brand-500)] text-white"
-                      : "text-[var(--color-text)] hover:bg-[var(--color-surface-2)]"
+                      ? "bg-(--color-brand-500) text-white"
+                      : "text-(--color-text) hover:bg-(--color-surface-2)"
                   )}
                 >
                   {cat === "all" ? "All products" : cat[0].toUpperCase() + cat.slice(1)}
@@ -139,7 +139,7 @@ export function FilterPanel({
                 value={value.priceMin}
                 onChange={(e) => setPriceMin(Number(e.target.value))}
                 aria-label="Minimum price"
-                className="absolute inset-0 w-full appearance-none bg-transparent pointer-events-none [&::-webkit-slider-thumb]:pointer-events-auto [&::-moz-range-thumb]:pointer-events-auto accent-[var(--color-brand-500)]"
+                className="absolute inset-0 w-full appearance-none bg-transparent pointer-events-none [&::-webkit-slider-thumb]:pointer-events-auto [&::-moz-range-thumb]:pointer-events-auto accent-(--color-brand-500)"
               />
               <input
                 type="range"
@@ -149,7 +149,7 @@ export function FilterPanel({
                 value={value.priceMax}
                 onChange={(e) => setPriceMax(Number(e.target.value))}
                 aria-label="Maximum price"
-                className="absolute inset-0 w-full appearance-none bg-transparent pointer-events-none [&::-webkit-slider-thumb]:pointer-events-auto [&::-moz-range-thumb]:pointer-events-auto accent-[var(--color-brand-500)]"
+                className="absolute inset-0 w-full appearance-none bg-transparent pointer-events-none [&::-webkit-slider-thumb]:pointer-events-auto [&::-moz-range-thumb]:pointer-events-auto accent-(--color-brand-500)"
               />
             </div>
             <div className="grid grid-cols-2 gap-2">
@@ -163,7 +163,7 @@ export function FilterPanel({
                   step={PRICE_STEP}
                   value={value.priceMin}
                   onChange={(e) => setPriceMin(Number(e.target.value) || 0)}
-                  className="h-9 px-2.5 rounded-md border border-[var(--color-border)] bg-[var(--color-bg)] text-xs text-[var(--color-text-strong)] tabular focus:outline-none focus:border-[var(--color-brand-500)] focus:ring-2 focus:ring-[var(--color-brand-50)]"
+                  className="h-9 px-2.5 rounded-md border border-(--color-border) bg-(--color-bg) text-xs text-(--color-text-strong) tabular focus:outline-none focus:border-(--color-brand-500) focus:ring-2 focus:ring-(--color-brand-50)"
                 />
               </label>
               <label className="flex flex-col">
@@ -176,11 +176,11 @@ export function FilterPanel({
                   step={PRICE_STEP}
                   value={value.priceMax}
                   onChange={(e) => setPriceMax(Number(e.target.value) || 0)}
-                  className="h-9 px-2.5 rounded-md border border-[var(--color-border)] bg-[var(--color-bg)] text-xs text-[var(--color-text-strong)] tabular focus:outline-none focus:border-[var(--color-brand-500)] focus:ring-2 focus:ring-[var(--color-brand-50)]"
+                  className="h-9 px-2.5 rounded-md border border-(--color-border) bg-(--color-bg) text-xs text-(--color-text-strong) tabular focus:outline-none focus:border-(--color-brand-500) focus:ring-2 focus:ring-(--color-brand-50)"
                 />
               </label>
             </div>
-            <p className="text-[11px] text-[var(--color-text-muted)] tabular">
+            <p className="text-[11px] text-(--color-text-muted) tabular">
               {formatPrice(value.priceMin)} — {formatPrice(value.priceMax)}
             </p>
           </div>
@@ -200,10 +200,10 @@ export function FilterPanel({
                   onClick={() => onChange({ ...value, minRating: r })}
                   className={cn(
                     "inline-flex items-center gap-1 h-8 px-2.5 rounded-md text-xs font-medium border transition-colors",
-                    "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-brand-500)]",
+                    "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-(--color-brand-500)",
                     active
-                      ? "border-[var(--color-brand-500)] bg-[var(--color-brand-50)] text-[var(--color-brand-700)]"
-                      : "border-[var(--color-border)] text-[var(--color-text)] hover:border-[var(--color-border-strong)]"
+                      ? "border-(--color-brand-500) bg-(--color-brand-50) text-(--color-brand-700)"
+                      : "border-(--color-border) text-(--color-text) hover:border-(--color-border-strong)"
                   )}
                   aria-pressed={active}
                 >
@@ -213,7 +213,7 @@ export function FilterPanel({
                     <>
                       <Star
                         size={11}
-                        className="fill-[var(--color-warning-500)] text-[var(--color-warning-500)]"
+                        className="fill-(--color-warning-500) text-(--color-warning-500)"
                         aria-hidden="true"
                       />
                       {r}+
@@ -236,14 +236,14 @@ export function FilterPanel({
                 const checked = value.subcategories.includes(sub);
                 return (
                   <li key={sub}>
-                    <label className="flex items-center gap-2.5 cursor-pointer py-1 text-sm text-[var(--color-text)] hover:text-[var(--color-text-strong)]">
+                    <label className="flex items-center gap-2.5 cursor-pointer py-1 text-sm text-(--color-text) hover:text-(--color-text-strong)">
                       <input
                         type="checkbox"
                         checked={checked}
                         onChange={() => toggleSubcategory(sub)}
-                        className="h-4 w-4 accent-[var(--color-brand-500)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-brand-500)] focus-visible:ring-offset-2"
+                        className="h-4 w-4 accent-(--color-brand-500) focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-(--color-brand-500) focus-visible:ring-offset-2"
                       />
-                      <span className={checked ? "text-[var(--color-text-strong)] font-medium" : undefined}>
+                      <span className={checked ? "text-(--color-text-strong) font-medium" : undefined}>
                         {sub}
                       </span>
                     </label>
@@ -260,7 +260,7 @@ export function FilterPanel({
 function Group({ label, children }: { label: string; children: React.ReactNode }) {
   return (
     <div>
-      <p className="text-[11px] font-semibold uppercase tracking-[0.08em] text-[var(--color-text-muted)] mb-2.5">
+      <p className="text-[11px] font-semibold uppercase tracking-[0.08em] text-(--color-text-muted) mb-2.5">
         {label}
       </p>
       {children}
@@ -269,5 +269,5 @@ function Group({ label, children }: { label: string; children: React.ReactNode }
 }
 
 function Divider() {
-  return <div className="border-t border-[var(--color-border)]" />;
+  return <div className="border-t border-(--color-border)" />;
 }

@@ -22,7 +22,7 @@ export function Logo({ variant = "header", href = "/", className }: LogoProps) {
       href={href}
       aria-label={`${site.brand} — Furniture & Electronics`}
       className={cn(
-        "inline-flex items-center gap-2.5 group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-brand-500)] focus-visible:ring-offset-2 rounded-md",
+        "inline-flex items-center gap-2.5 group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-(--color-brand-500) focus-visible:ring-offset-2 rounded-md",
         className
       )}
     >
@@ -44,7 +44,7 @@ export function Logo({ variant = "header", href = "/", className }: LogoProps) {
         </svg>
       </span>
       <span
-        className="font-semibold leading-tight tracking-tight text-[var(--color-text-strong)]"
+        className="font-semibold leading-tight tracking-tight text-(--color-text-strong)"
         style={{ fontSize: variant === "header" ? "1rem" : "1.0625rem" }}
       >
         {site.brand}

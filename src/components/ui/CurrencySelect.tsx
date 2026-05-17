@@ -24,7 +24,7 @@ export function CurrencySelect({ variant = "compact", className }: CurrencySelec
         role="radiogroup"
         aria-label="Currency"
         className={cn(
-          "inline-flex items-center rounded-md border border-[var(--color-border)] bg-[var(--color-surface)] p-0.5",
+          "inline-flex items-center rounded-md border border-(--color-border) bg-(--color-surface) p-0.5",
           className
         )}
       >
@@ -39,10 +39,10 @@ export function CurrencySelect({ variant = "compact", className }: CurrencySelec
               onClick={() => setCurrency(o.value)}
               className={cn(
                 "h-8 px-3 text-xs font-medium rounded-[5px] transition-colors",
-                "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-brand-500)]",
+                "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-(--color-brand-500)",
                 active
-                  ? "bg-[var(--color-brand-500)] text-white"
-                  : "text-[var(--color-text)] hover:bg-[var(--color-surface-2)]"
+                  ? "bg-(--color-brand-500) text-white"
+                  : "text-(--color-text) hover:bg-(--color-surface-2)"
               )}
             >
               {o.label}
@@ -60,8 +60,8 @@ export function CurrencySelect({ variant = "compact", className }: CurrencySelec
         value={currency}
         onChange={(e) => setCurrency(e.target.value as "INR" | "USD" | "EUR")}
         className={cn(
-          "h-9 pl-3 pr-8 rounded-md border border-[var(--color-border)] bg-[var(--color-surface)] text-sm text-[var(--color-text-strong)]",
-          "hover:border-[var(--color-border-strong)] focus:outline-none focus:border-[var(--color-brand-500)] focus:ring-4 focus:ring-[var(--color-brand-50)]",
+          "h-9 pl-3 pr-8 rounded-md border border-(--color-border) bg-(--color-surface) text-sm text-(--color-text-strong)",
+          "hover:border-(--color-border-strong) focus:outline-none focus:border-(--color-brand-500) focus:ring-4 focus:ring-(--color-brand-50)",
           "appearance-none cursor-pointer transition-[border-color,box-shadow] duration-150"
         )}
         aria-label="Select currency"
@@ -74,7 +74,7 @@ export function CurrencySelect({ variant = "compact", className }: CurrencySelec
         viewBox="0 0 24 24"
         width="14"
         height="14"
-        className="absolute right-2.5 text-[var(--color-text-muted)] pointer-events-none"
+        className="absolute right-2.5 text-(--color-text-muted) pointer-events-none"
         aria-hidden="true"
       >
         <polyline points="6 9 12 15 18 9" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />

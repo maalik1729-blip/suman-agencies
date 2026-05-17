@@ -83,11 +83,11 @@ export default function ProductDetailPage() {
     <>
       {/* Breadcrumb */}
       <nav
-        className="bg-[var(--color-bg)] pt-[calc(var(--header-height)+24px)] pb-4 px-4 sm:px-6"
+        className="bg-(--color-bg) pt-[calc(var(--header-height)+24px)] pb-4 px-4 sm:px-6"
         aria-label="Breadcrumb"
       >
         <div className="max-w-7xl mx-auto">
-          <ol className="flex items-center gap-2 text-xs text-[var(--color-text-muted)]">
+          <ol className="flex items-center gap-2 text-xs text-(--color-text-muted)">
             {[
               { label: "Home", href: "/" },
               { label: "Products", href: "/products" },
@@ -101,7 +101,7 @@ export default function ProductDetailPage() {
                 {i > 0 && <ChevronRight size={12} aria-hidden="true" />}
                 {i === arr.length - 1 ? (
                   <span
-                    className="text-[var(--color-text-strong)] font-medium truncate max-w-[180px]"
+                    className="text-(--color-text-strong) font-medium truncate max-w-[180px]"
                     title={crumb.label}
                   >
                     {crumb.label}
@@ -109,7 +109,7 @@ export default function ProductDetailPage() {
                 ) : (
                   <Link
                     href={crumb.href!}
-                    className="hover:text-[var(--color-text-strong)] transition-colors"
+                    className="hover:text-(--color-text-strong) transition-colors"
                   >
                     {crumb.label}
                   </Link>
@@ -121,11 +121,11 @@ export default function ProductDetailPage() {
       </nav>
 
       {/* Main */}
-      <section className="bg-[var(--color-bg)] px-4 sm:px-6 pb-20">
+      <section className="bg-(--color-bg) px-4 sm:px-6 pb-20">
         <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-5 gap-10">
           {/* Gallery (3 / 5 columns = 60%) */}
           <div className="lg:col-span-3">
-            <div className="relative aspect-square overflow-hidden rounded-lg bg-[var(--color-surface-2)]">
+            <div className="relative aspect-square overflow-hidden rounded-lg bg-(--color-surface-2)">
               <AnimatePresence mode="wait">
                 <motion.div
                   key={selectedImage}
@@ -150,8 +150,8 @@ export default function ProductDetailPage() {
                   className={cn(
                     "absolute top-4 left-4 inline-flex items-center px-2 py-0.5 rounded-sm text-[10px] font-semibold uppercase tracking-[0.06em]",
                     product.badge === "sale"
-                      ? "bg-[var(--color-danger-50)] text-[var(--color-danger-700)]"
-                      : "bg-[var(--color-brand-50)] text-[var(--color-brand-700)]"
+                      ? "bg-(--color-danger-50) text-(--color-danger-700)"
+                      : "bg-(--color-brand-50) text-(--color-brand-700)"
                   )}
                 >
                   {product.badge}
@@ -166,10 +166,10 @@ export default function ProductDetailPage() {
                     key={i}
                     onClick={() => setSelectedImage(i)}
                     className={cn(
-                      "relative w-16 h-16 rounded-md overflow-hidden border-2 shrink-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-brand-500)] focus-visible:ring-offset-2 transition-colors",
+                      "relative w-16 h-16 rounded-md overflow-hidden border-2 shrink-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-(--color-brand-500) focus-visible:ring-offset-2 transition-colors",
                       selectedImage === i
-                        ? "border-[var(--color-brand-500)]"
-                        : "border-[var(--color-border)] hover:border-[var(--color-border-strong)]"
+                        ? "border-(--color-brand-500)"
+                        : "border-(--color-border) hover:border-(--color-border-strong)"
                     )}
                     aria-label={`View image ${i + 1} of ${product.images.length}`}
                     aria-pressed={selectedImage === i}
@@ -185,16 +185,16 @@ export default function ProductDetailPage() {
           <div className="lg:col-span-2">
             <div className="flex items-start justify-between gap-3">
               <div className="min-w-0">
-                <p className="text-[11px] font-semibold uppercase tracking-[0.08em] text-[var(--color-text-muted)]">
+                <p className="text-[11px] font-semibold uppercase tracking-[0.08em] text-(--color-text-muted)">
                   {product.subcategory}
                 </p>
-                <h1 className="mt-2 text-2xl sm:text-3xl font-semibold font-display tracking-tight text-[var(--color-text-strong)]">
+                <h1 className="mt-2 text-2xl sm:text-3xl font-semibold font-display tracking-tight text-(--color-text-strong)">
                   {product.name}
                 </h1>
               </div>
               <button
                 onClick={handleShare}
-                className="shrink-0 inline-flex items-center justify-center w-10 h-10 rounded-md border border-[var(--color-border)] text-[var(--color-text)] hover:border-[var(--color-border-strong)] hover:text-[var(--color-text-strong)] transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-brand-500)] focus-visible:ring-offset-2"
+                className="shrink-0 inline-flex items-center justify-center w-10 h-10 rounded-md border border-(--color-border) text-(--color-text) hover:border-(--color-border-strong) hover:text-(--color-text-strong) transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-(--color-brand-500) focus-visible:ring-offset-2"
                 aria-label="Share product"
               >
                 {shared ? <Check size={16} /> : <Share2 size={16} />}
@@ -203,7 +203,7 @@ export default function ProductDetailPage() {
 
             {/* Rating */}
             <div className="mt-3 flex items-center gap-2 text-sm">
-              <span className="inline-flex items-center gap-1 text-[var(--color-warning-500)]">
+              <span className="inline-flex items-center gap-1 text-(--color-warning-500)">
                 {Array.from({ length: 5 }).map((_, i) => (
                   <Star
                     key={i}
@@ -211,51 +211,51 @@ export default function ProductDetailPage() {
                     className={
                       i < Math.floor(product.rating)
                         ? "fill-current"
-                        : "text-[var(--color-border)]"
+                        : "text-(--color-border)"
                     }
                     aria-hidden="true"
                   />
                 ))}
               </span>
-              <span className="font-medium text-[var(--color-text-strong)]">
+              <span className="font-medium text-(--color-text-strong)">
                 {product.rating.toFixed(1)}
               </span>
-              <span className="text-[var(--color-text-muted)]">
+              <span className="text-(--color-text-muted)">
                 · {product.reviewCount} {product.reviewCount === 1 ? "rating" : "ratings"}
               </span>
             </div>
 
             {/* Price block */}
             <div className="mt-5 flex items-baseline gap-3 flex-wrap tabular">
-              <span className="text-3xl sm:text-4xl font-semibold text-[var(--color-text-strong)]">
+              <span className="text-3xl sm:text-4xl font-semibold text-(--color-text-strong)">
                 {formatPrice(product.price)}
               </span>
               {product.originalPrice && (
-                <span className="text-lg text-[var(--color-text-muted)] line-through">
+                <span className="text-lg text-(--color-text-muted) line-through">
                   {formatPrice(product.originalPrice)}
                 </span>
               )}
               {discount && (
-                <span className="text-xs font-semibold px-2 py-0.5 rounded-sm bg-[var(--color-success-50)] text-[var(--color-success-700)] uppercase tracking-[0.06em]">
+                <span className="text-xs font-semibold px-2 py-0.5 rounded-sm bg-(--color-success-50) text-(--color-success-700) uppercase tracking-[0.06em]">
                   Save {discount}%
                 </span>
               )}
             </div>
-            <p className="mt-1 text-xs text-[var(--color-text-muted)]">Inclusive of all taxes</p>
+            <p className="mt-1 text-xs text-(--color-text-muted)">Inclusive of all taxes</p>
 
             {/* Stock */}
             <p
               className={cn(
                 "mt-3 inline-flex items-center gap-1.5 text-sm font-medium",
                 product.inStock
-                  ? "text-[var(--color-success-700)]"
-                  : "text-[var(--color-danger-700)]"
+                  ? "text-(--color-success-700)"
+                  : "text-(--color-danger-700)"
               )}
             >
               <span
                 className={cn(
                   "w-1.5 h-1.5 rounded-full",
-                  product.inStock ? "bg-[var(--color-success-500)]" : "bg-[var(--color-danger-500)]"
+                  product.inStock ? "bg-(--color-success-500)" : "bg-(--color-danger-500)"
                 )}
                 aria-hidden="true"
               />
@@ -263,7 +263,7 @@ export default function ProductDetailPage() {
             </p>
 
             {/* Trust pills card */}
-            <div className="mt-5 grid grid-cols-3 gap-2 rounded-lg border border-[var(--color-border)] bg-[var(--color-surface)] p-3">
+            <div className="mt-5 grid grid-cols-3 gap-2 rounded-lg border border-(--color-border) bg-(--color-surface) p-3">
               {[
                 { icon: Truck, label: "Free delivery" },
                 {
@@ -278,10 +278,10 @@ export default function ProductDetailPage() {
                 >
                   <Icon
                     size={18}
-                    className="text-[var(--color-brand-500)]"
+                    className="text-(--color-brand-500)"
                     aria-hidden="true"
                   />
-                  <span className="text-[11px] leading-tight text-[var(--color-text)]">
+                  <span className="text-[11px] leading-tight text-(--color-text)">
                     {label}
                   </span>
                 </div>
@@ -291,8 +291,8 @@ export default function ProductDetailPage() {
             {/* Color variants (only if defined) */}
             {product.colors && product.colors.length > 0 && (
               <div className="mt-5">
-                <p className="text-xs font-medium text-[var(--color-text-strong)] mb-2">
-                  Color · <span className="font-normal text-[var(--color-text-muted)]">{product.colors[0]}</span>
+                <p className="text-xs font-medium text-(--color-text-strong) mb-2">
+                  Color · <span className="font-normal text-(--color-text-muted)">{product.colors[0]}</span>
                 </p>
                 <div className="flex flex-wrap gap-2">
                   {product.colors.map((c, i) => (
@@ -300,10 +300,10 @@ export default function ProductDetailPage() {
                       key={c}
                       className={cn(
                         "h-9 px-3 rounded-md border text-xs font-medium transition-colors",
-                        "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-brand-500)]",
+                        "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-(--color-brand-500)",
                         i === 0
-                          ? "border-[var(--color-brand-500)] bg-[var(--color-brand-50)] text-[var(--color-brand-700)]"
-                          : "border-[var(--color-border)] text-[var(--color-text)] hover:border-[var(--color-border-strong)]"
+                          ? "border-(--color-brand-500) bg-(--color-brand-50) text-(--color-brand-700)"
+                          : "border-(--color-border) text-(--color-text) hover:border-(--color-border-strong)"
                       )}
                     >
                       {c}
@@ -315,22 +315,22 @@ export default function ProductDetailPage() {
 
             {/* Quantity */}
             <div className="mt-5">
-              <p className="text-xs font-medium text-[var(--color-text-strong)] mb-2">Quantity</p>
-              <div className="inline-flex items-center rounded-md border border-[var(--color-border)] overflow-hidden">
+              <p className="text-xs font-medium text-(--color-text-strong) mb-2">Quantity</p>
+              <div className="inline-flex items-center rounded-md border border-(--color-border) overflow-hidden">
                 <button
                   onClick={() => setQuantity((q) => Math.max(1, q - 1))}
-                  className="w-10 h-10 inline-flex items-center justify-center text-[var(--color-text)] hover:bg-[var(--color-surface-2)] disabled:opacity-40"
+                  className="w-10 h-10 inline-flex items-center justify-center text-(--color-text) hover:bg-(--color-surface-2) disabled:opacity-40"
                   disabled={quantity <= 1}
                   aria-label="Decrease quantity"
                 >
                   <Minus size={14} />
                 </button>
-                <span className="w-10 text-center text-sm font-medium tabular text-[var(--color-text-strong)]">
+                <span className="w-10 text-center text-sm font-medium tabular text-(--color-text-strong)">
                   {quantity}
                 </span>
                 <button
                   onClick={() => setQuantity((q) => Math.min(maxQty, q + 1))}
-                  className="w-10 h-10 inline-flex items-center justify-center text-[var(--color-text)] hover:bg-[var(--color-surface-2)] disabled:opacity-40"
+                  className="w-10 h-10 inline-flex items-center justify-center text-(--color-text) hover:bg-(--color-surface-2) disabled:opacity-40"
                   disabled={quantity >= maxQty}
                   aria-label="Increase quantity"
                 >
@@ -350,11 +350,11 @@ export default function ProductDetailPage() {
               >
                 Add to Cart · {formatPrice(lineTotal)}
               </Button>
-              <p className="mt-2 text-sm text-[var(--color-text-muted)]">
+              <p className="mt-2 text-sm text-(--color-text-muted)">
                 Buying for a project?{" "}
                 <Link
                   href="/contact?type=bulk"
-                  className="text-[var(--color-brand-500)] hover:text-[var(--color-brand-700)] font-medium underline-offset-2 hover:underline"
+                  className="text-(--color-brand-500) hover:text-(--color-brand-700) font-medium underline-offset-2 hover:underline"
                 >
                   Get a bulk quote →
                 </Link>
@@ -362,10 +362,10 @@ export default function ProductDetailPage() {
             </div>
 
             {/* Phone + GSTIN trust strip */}
-            <div className="mt-6 pt-5 border-t border-[var(--color-border)] flex flex-wrap items-center gap-x-5 gap-y-2 text-xs text-[var(--color-text-muted)]">
+            <div className="mt-6 pt-5 border-t border-(--color-border) flex flex-wrap items-center gap-x-5 gap-y-2 text-xs text-(--color-text-muted)">
               <a
                 href={`tel:${site.contact.phones[0].e164}`}
-                className="inline-flex items-center gap-1.5 hover:text-[var(--color-text-strong)]"
+                className="inline-flex items-center gap-1.5 hover:text-(--color-text-strong)"
               >
                 <Phone size={12} aria-hidden="true" /> {site.contact.phones[0].display}
               </a>
@@ -381,7 +381,7 @@ export default function ProductDetailPage() {
           <div
             role="tablist"
             aria-label="Product details"
-            className="flex gap-1 border-b border-[var(--color-border)]"
+            className="flex gap-1 border-b border-(--color-border)"
           >
             {(
               [
@@ -400,10 +400,10 @@ export default function ProductDetailPage() {
                   onClick={() => setActiveTab(t.id)}
                   className={cn(
                     "px-4 py-3 text-sm font-medium border-b-2 -mb-px transition-colors",
-                    "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-brand-500)] focus-visible:ring-offset-2",
+                    "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-(--color-brand-500) focus-visible:ring-offset-2",
                     active
-                      ? "border-[var(--color-brand-500)] text-[var(--color-text-strong)]"
-                      : "border-transparent text-[var(--color-text-muted)] hover:text-[var(--color-text-strong)]"
+                      ? "border-(--color-brand-500) text-(--color-text-strong)"
+                      : "border-transparent text-(--color-text-muted) hover:text-(--color-text-strong)"
                   )}
                 >
                   {t.label}
@@ -426,16 +426,16 @@ export default function ProductDetailPage() {
             >
               {activeTab === "description" && (
                 <div className="max-w-prose">
-                  <p className="text-base leading-relaxed text-[var(--color-text)]">
+                  <p className="text-base leading-relaxed text-(--color-text)">
                     {product.description}
                   </p>
                   <ul className="mt-6 space-y-2.5">
                     {product.features.map((f) => (
                       <li key={f} className="flex items-start gap-2.5">
-                        <span className="mt-0.5 inline-flex items-center justify-center w-4 h-4 rounded-full bg-[var(--color-brand-50)] text-[var(--color-brand-700)] shrink-0">
+                        <span className="mt-0.5 inline-flex items-center justify-center w-4 h-4 rounded-full bg-(--color-brand-50) text-(--color-brand-700) shrink-0">
                           <Check size={10} />
                         </span>
-                        <span className="text-sm text-[var(--color-text)]">{f}</span>
+                        <span className="text-sm text-(--color-text)">{f}</span>
                       </li>
                     ))}
                   </ul>
@@ -443,17 +443,17 @@ export default function ProductDetailPage() {
               )}
 
               {activeTab === "specs" && (
-                <div className="max-w-2xl rounded-lg border border-[var(--color-border)] overflow-hidden">
+                <div className="max-w-2xl rounded-lg border border-(--color-border) overflow-hidden">
                   <dl>
                     {Object.entries(product.specs).map(([key, val]) => (
                       <div
                         key={key}
-                        className="flex items-start gap-4 px-4 py-3 border-t border-[var(--color-border)] first:border-t-0 hover:bg-[var(--color-surface-2)]"
+                        className="flex items-start gap-4 px-4 py-3 border-t border-(--color-border) first:border-t-0 hover:bg-(--color-surface-2)"
                       >
-                        <dt className="w-40 text-sm font-medium text-[var(--color-text-strong)] shrink-0">
+                        <dt className="w-40 text-sm font-medium text-(--color-text-strong) shrink-0">
                           {key}
                         </dt>
-                        <dd className="text-sm text-[var(--color-text)]">{val}</dd>
+                        <dd className="text-sm text-(--color-text)">{val}</dd>
                       </div>
                     ))}
                   </dl>
@@ -466,7 +466,7 @@ export default function ProductDetailPage() {
         {/* Related */}
         {related.length > 0 && (
           <div className="max-w-7xl mx-auto mt-14">
-            <h2 className="text-2xl font-semibold font-display tracking-tight text-[var(--color-text-strong)] mb-6">
+            <h2 className="text-2xl font-semibold font-display tracking-tight text-(--color-text-strong) mb-6">
               You might also like
             </h2>
             <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
@@ -481,20 +481,20 @@ export default function ProductDetailPage() {
       {/* Sticky mobile ATC */}
       <div
         className={cn(
-          "lg:hidden fixed inset-x-0 bottom-0 z-40 bg-[var(--color-bg)] border-t border-[var(--color-border)] shadow-[var(--shadow-overlay)] transition-transform duration-200",
+          "lg:hidden fixed inset-x-0 bottom-0 z-40 bg-(--color-bg) border-t border-(--color-border) shadow-(--shadow-overlay) transition-transform duration-200",
           stickyVisible ? "translate-y-0" : "translate-y-full"
         )}
         aria-hidden={!stickyVisible}
       >
         <div className="flex items-center gap-3 px-4 py-3">
-          <div className="relative w-10 h-10 rounded-md overflow-hidden bg-[var(--color-surface-2)] shrink-0">
+          <div className="relative w-10 h-10 rounded-md overflow-hidden bg-(--color-surface-2) shrink-0">
             <Image src={product.images[0]} alt="" fill sizes="40px" className="object-cover" />
           </div>
           <div className="flex-1 min-w-0">
-            <p className="text-xs text-[var(--color-text-strong)] font-medium line-clamp-1">
+            <p className="text-xs text-(--color-text-strong) font-medium line-clamp-1">
               {product.name}
             </p>
-            <p className="text-sm font-semibold tabular text-[var(--color-text-strong)]">
+            <p className="text-sm font-semibold tabular text-(--color-text-strong)">
               {formatPrice(lineTotal)}
             </p>
           </div>
