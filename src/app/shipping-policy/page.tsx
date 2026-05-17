@@ -1,16 +1,17 @@
 "use client";
 
 import Link from "next/link";
-import { ArrowLeft, Truck, Package, MapPin, Clock, AlertCircle, Mail } from "lucide-react";
+import { ArrowLeft, Truck, Package, MapPin, Clock, AlertCircle, Mail, Phone } from "lucide-react";
+import { site } from "@/data/site";
 
 export default function ShippingPolicyPage() {
   return (
-    <main className="min-h-screen bg-[#faf8f4] dark:bg-[#0d0d0d] pt-24 pb-20 px-4 sm:px-6">
+    <main className="min-h-screen bg-[var(--color-bg)] pt-[calc(var(--header-height)+32px)] pb-20 px-4 sm:px-6">
       <div className="max-w-3xl mx-auto">
-        {/* Back Button */}
+        {/* Back */}
         <Link
           href="/"
-          className="inline-flex items-center gap-2 text-sm font-medium text-[#0d9488] hover:text-[#0f766e] transition-colors mb-10 group"
+          className="inline-flex items-center gap-2 text-sm font-medium text-[var(--color-text-muted)] hover:text-[var(--color-text-strong)] transition-colors mb-10 group"
         >
           <ArrowLeft size={16} className="group-hover:-translate-x-1 transition-transform" />
           Back to Home
@@ -18,132 +19,144 @@ export default function ShippingPolicyPage() {
 
         {/* Header */}
         <div className="mb-10">
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#0d9488]/10 text-[#0d9488] text-xs font-bold tracking-widest uppercase mb-4">
-            <Truck size={14} />
+          <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-md border border-[var(--color-border)] bg-[var(--color-surface)] text-[var(--color-brand-700)] text-xs font-semibold uppercase tracking-[0.08em] mb-4">
+            <Truck size={12} aria-hidden="true" />
             Policy
           </div>
-          <h1 className="text-4xl sm:text-5xl font-bold font-serif text-[#1a1a1a] dark:text-white">
+          <h1 className="text-3xl sm:text-4xl font-semibold font-display tracking-tight text-[var(--color-text-strong)]">
             Shipping Policy
           </h1>
-          <p className="mt-4 text-lg text-black/50 dark:text-white/50">
-            Quality Delivered with Care
+          <p className="mt-3 text-base text-[var(--color-text)]">
+            Quality delivered with care, worldwide.
           </p>
-          <div className="mt-4 h-1 w-16 rounded-full bg-gradient-to-r from-[#0d9488] to-[#0f766e]" />
+          <p className="mt-2 text-xs text-[var(--color-text-muted)]">Last Updated: May 2026</p>
         </div>
 
         {/* Content */}
-        <div className="prose prose-slate max-w-none space-y-10 text-[#1a1a1a]/70 dark:text-white/60">
-
-          <p className="text-base leading-relaxed">
-            At <strong className="text-[#1a1a1a] dark:text-white">Suman Tech Automation</strong>, we are committed to ensuring
+        <div className="space-y-5">
+          <p className="text-sm text-[var(--color-text)] leading-relaxed">
+            At <strong className="text-[var(--color-text-strong)]">{site.brand}</strong>, we are committed to ensuring
             that your premium furniture and electronics reach you in perfect condition. This Shipping Policy
-            explains how we process orders, handle packaging, and manage deliveries for both retail and
-            wholesale customers.
+            explains how we process orders, handle packaging, and manage deliveries.
           </p>
 
-          {/* Section */}
-          <Section icon={<Clock size={18} />} title="Order Processing Time">
+          <PolicySection icon={<Clock size={16} />} title="Order Processing Time">
             <ul>
               <li>Orders are processed within <strong>2–4 business days</strong> of payment confirmation.</li>
               <li>Orders placed on Sundays or public holidays will be processed on the next working day.</li>
               <li>Bulk/wholesale orders may require longer preparation time depending on quantity and product availability. Customers will be informed in advance.</li>
               <li>Furniture items with customisation requests may take 7–14 additional business days.</li>
             </ul>
-          </Section>
+          </PolicySection>
 
-          <Section icon={<MapPin size={18} />} title="Shipping Destinations &amp; Delivery Timelines">
-            <p className="font-semibold text-[#0d9488] mt-2">Worldwide Shipping</p>
+          <PolicySection icon={<MapPin size={16} />} title="Delivery Destinations &amp; Timelines">
+            <p className="font-semibold text-[var(--color-brand-700)]">Worldwide Delivery</p>
             <ul>
               <li><strong>Major Cities &amp; Urban Areas:</strong> 5–8 business days after dispatch</li>
               <li><strong>Standard International:</strong> 8–14 business days after dispatch</li>
               <li><strong>Remote or Island Regions:</strong> 14–21 business days after dispatch</li>
             </ul>
-            <p className="font-semibold text-[#0d9488] mt-4">Wholesale &amp; B2B International Orders</p>
-            <ul>
-              <li>We accept bulk/wholesale orders from international buyers across all regions.</li>
-              <li>Timelines depend on the destination country, customs clearance, and shipping partner schedules.</li>
-              <li>Customers will be informed of estimated timelines and freight costs during order confirmation.</li>
-            </ul>
-          </Section>
+            <p className="mt-3 text-[var(--color-text-muted)] text-xs">
+              Note: We ship worldwide. Shipping costs and delivery times for wholesale orders depend on the destination country.
+            </p>
+          </PolicySection>
 
-          <Section icon={<Package size={18} />} title="Shipping Charges">
+          <PolicySection icon={<Package size={16} />} title="Shipping Charges">
             <ul>
-              <li>Charges are calculated based on order weight, dimensions, packaging type, and delivery location.</li>
-              <li>Shipping costs will be displayed clearly at checkout before payment.</li>
-              <li>Free shipping offers may apply during promotions or for orders above a certain value.</li>
-              <li>Large furniture items (beds, wardrobes, sofas) may carry additional handling charges.</li>
+              <li><strong>Free delivery</strong> on eligible orders based on your region.</li>
+              <li>Shipping costs will be displayed clearly at checkout based on location and weight.</li>
+              <li>Large furniture items (beds, wardrobes, sofas) may require scheduled delivery — our team will coordinate a convenient time.</li>
             </ul>
-          </Section>
+          </PolicySection>
 
-          <Section icon={<Package size={18} />} title="Packaging & Handling">
+          <PolicySection icon={<Package size={16} />} title="Packaging &amp; Handling">
             <ul>
               <li>All products are packed in protective, tamper-proof packaging to prevent damage in transit.</li>
               <li>Furniture items are bubble-wrapped, foam-padded, and secured in sturdy cardboard or wooden crates.</li>
-              <li>Electronics are packed in original manufacturer packaging with additional outer protection.</li>
-              <li>Bulk/wholesale orders are carefully palletized and secured for safe long-distance transit.</li>
+              <li>Electronics and accessories are packed in original manufacturer packaging with additional outer protection.</li>
             </ul>
-          </Section>
+          </PolicySection>
 
-          <Section icon={<Truck size={18} />} title="Tracking Your Order">
-            <p>Once dispatched, customers will receive:</p>
+          <PolicySection icon={<Truck size={16} />} title="Tracking Your Order">
+            <p>Once dispatched, you will receive:</p>
             <ul>
               <li>A tracking ID via SMS/email</li>
-              <li>A real-time tracking link to monitor shipment progress</li>
+              <li>A contact from our delivery partner to schedule delivery</li>
             </ul>
             <p>Please allow 24–48 hours for tracking details to update after dispatch.</p>
-          </Section>
+          </PolicySection>
 
-          <Section icon={<AlertCircle size={18} />} title="Delays & Exceptions">
+          <PolicySection icon={<AlertCircle size={16} />} title="Delays &amp; Exceptions">
             <p>While we strive for timely delivery, certain factors may cause delays, including:</p>
             <ul>
               <li>Courier or logistics partner disruptions</li>
               <li>Extreme weather conditions</li>
               <li>Regional holidays or strikes</li>
-              <li>Customs delays for international orders</li>
             </ul>
             <p>In such cases, our support team will provide updates and assistance promptly.</p>
-          </Section>
+          </PolicySection>
 
-          {/* Contact */}
-          <ContactBox />
+          <ContactCard title="Shipping queries?" />
+
+          <p className="text-xs text-center text-[var(--color-text-muted)]">
+            © {new Date().getFullYear()} {site.brand}. All Rights Reserved.
+          </p>
         </div>
       </div>
     </main>
   );
 }
 
-function Section({ icon, title, children }: { icon: React.ReactNode; title: string; children: React.ReactNode }) {
+function PolicySection({
+  icon,
+  title,
+  children,
+}: {
+  icon: React.ReactNode;
+  title: string;
+  children: React.ReactNode;
+}) {
   return (
-    <div className="bg-white dark:bg-[#1a1a1a] rounded-2xl border border-black/5 dark:border-white/8 p-7"
-      style={{ boxShadow: "0 2px 20px rgba(0,0,0,0.05)" }}>
-      <div className="flex items-center gap-3 mb-4">
-        <div className="w-9 h-9 rounded-xl bg-[#0d9488]/10 flex items-center justify-center text-[#0d9488]">
+    <div className="rounded-lg border border-[var(--color-border)] bg-[var(--color-surface)] p-6">
+      <div className="flex items-center gap-2.5 mb-4">
+        <span className="inline-flex items-center justify-center w-8 h-8 rounded-md bg-[var(--color-brand-50)] text-[var(--color-brand-700)]">
           {icon}
-        </div>
-        <h2 className="text-lg font-bold text-[#1a1a1a] dark:text-white">{title}</h2>
+        </span>
+        <h2 className="text-base font-semibold text-[var(--color-text-strong)]">{title}</h2>
       </div>
-      <div className="text-sm leading-relaxed space-y-2 text-black/60 dark:text-white/55 [&_ul]:list-disc [&_ul]:pl-5 [&_ul]:space-y-1.5 [&_strong]:text-[#1a1a1a] dark:[&_strong]:text-white">
+      <div className="text-sm leading-relaxed space-y-2 text-[var(--color-text)] [&_ul]:list-disc [&_ul]:pl-5 [&_ul]:space-y-1.5 [&_strong]:text-[var(--color-text-strong)]">
         {children}
       </div>
     </div>
   );
 }
 
-function ContactBox() {
+function ContactCard({ title }: { title: string }) {
   return (
-    <div className="rounded-2xl p-7 text-white" style={{ background: "linear-gradient(135deg, #0d9488, #0f766e)" }}>
-      <div className="flex items-center gap-3 mb-4">
-        <Mail size={20} />
-        <h2 className="text-lg font-bold">Need Help?</h2>
+    <div className="rounded-lg border border-[var(--color-brand-100)] bg-[var(--color-brand-50)] p-6">
+      <div className="flex items-center gap-2.5 mb-4">
+        <span className="inline-flex items-center justify-center w-8 h-8 rounded-md bg-[var(--color-brand-500)] text-white">
+          <Mail size={16} aria-hidden="true" />
+        </span>
+        <h2 className="text-base font-semibold text-[var(--color-brand-900)]">{title}</h2>
       </div>
-      <p className="text-white/80 text-sm mb-4">For shipping-related questions or support, please contact us:</p>
-      <div className="space-y-1.5 text-sm text-white/90">
-        <p><strong>Suman Tech Automation</strong></p>
-        <p>👤 Prop. RAJASINGH</p>
-        <p>📍 No.7/1-3, West Street, Chellathayarpuram, Tirunelveli – 627808, Tamil Nadu</p>
-        <p>📞 +91 97155 90101 / +91 8838208741</p>
-        <p>📧 sumantechautomation@gmail.com | sumanagency4@gmail.com</p>
-        <p>🏛️ GSTIN: 33DVIPR5548Q1ZN</p>
+      <div className="space-y-1.5 text-sm text-[var(--color-brand-700)]">
+        <p className="font-semibold text-[var(--color-brand-900)]">{site.brand}</p>
+        <p>{site.proprietor}</p>
+        <div className="flex items-start gap-1.5">
+          <MapPin size={13} className="mt-0.5 shrink-0" aria-hidden="true" />
+          <span>{site.contact.address.line1}, {site.contact.address.city} – {site.contact.address.pincode}, {site.contact.address.state}</span>
+        </div>
+        {site.contact.phones.map((p) => (
+          <a key={p.e164} href={`tel:${p.e164}`} className="flex items-center gap-1.5 hover:text-[var(--color-brand-900)]">
+            <Phone size={13} aria-hidden="true" />
+            {p.display}
+          </a>
+        ))}
+        <a href={`mailto:${site.contact.primaryEmail}`} className="flex items-center gap-1.5 hover:text-[var(--color-brand-900)]">
+          <Mail size={13} aria-hidden="true" />
+          {site.contact.primaryEmail}
+        </a>
       </div>
     </div>
   );

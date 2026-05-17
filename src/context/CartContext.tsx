@@ -1,7 +1,9 @@
 "use client";
 
-import { createContext, useContext, useState, useEffect, ReactNode } from "react";
+import { createContext, useContext, useState, useEffect, useMemo, useCallback, ReactNode } from "react";
 import { Product } from "@/data/products";
+import { site } from "@/data/site";
+import { readJSON, writeJSON } from "@/lib/storage";
 
 interface CartItem {
   product: Product;
@@ -22,67 +24,87 @@ interface CartContextType {
 }
 
 const CartContext = createContext<CartContextType | undefined>(undefined);
+const MAX_QTY = 10; // Audit PD-8: cap retail qty; bulk uses the bulk-order flow.
 
 export function CartProvider({ children }: { children: ReactNode }) {
   const [items, setItems] = useState<CartItem[]>([]);
+  const [hydrated, setHydrated] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
 
-  const addItem = (product: Product, color?: string) => {
+  // Hydrate from localStorage on mount.
+  useEffect(() => {
+    const stored = readJSON<CartItem[]>(site.storage.cart, []);
+    if (Array.isArray(stored)) setItems(stored);
+    setHydrated(true);
+  }, []);
+
+  // Persist on change (after hydration to avoid wiping storage on first paint).
+  useEffect(() => {
+    if (!hydrated) return;
+    writeJSON(site.storage.cart, items);
+  }, [items, hydrated]);
+
+  const addItem = useCallback((product: Product, color?: string) => {
     setItems((prev) => {
       const existing = prev.find((item) => item.product.id === product.id);
       if (existing) {
         return prev.map((item) =>
           item.product.id === product.id
-            ? { ...item, quantity: item.quantity + 1 }
+            ? { ...item, quantity: Math.min(item.quantity + 1, MAX_QTY) }
             : item
         );
       }
       return [...prev, { product, quantity: 1, color }];
     });
     setIsOpen(true);
-  };
+  }, []);
 
-  const removeItem = (productId: string) => {
+  const removeItem = useCallback((productId: string) => {
     setItems((prev) => prev.filter((item) => item.product.id !== productId));
-  };
+  }, []);
 
-  const updateQuantity = (productId: string, quantity: number) => {
+  const updateQuantity = useCallback((productId: string, quantity: number) => {
     if (quantity <= 0) {
-      removeItem(productId);
+      setItems((prev) => prev.filter((item) => item.product.id !== productId));
       return;
     }
     setItems((prev) =>
       prev.map((item) =>
-        item.product.id === productId ? { ...item, quantity } : item
+        item.product.id === productId
+          ? { ...item, quantity: Math.min(quantity, MAX_QTY) }
+          : item
       )
     );
-  };
+  }, []);
 
-  const clearCart = () => setItems([]);
+  const clearCart = useCallback(() => setItems([]), []);
 
-  const totalItems = items.reduce((sum, item) => sum + item.quantity, 0);
-  const totalPrice = items.reduce(
-    (sum, item) => sum + item.product.price * item.quantity,
-    0
+  const { totalItems, totalPrice } = useMemo(() => {
+    let count = 0;
+    let sum = 0;
+    for (const i of items) {
+      count += i.quantity;
+      sum += i.product.price * i.quantity;
+    }
+    return { totalItems: count, totalPrice: sum };
+  }, [items]);
+
+  const value = useMemo<CartContextType>(
+    () => ({
+      items,
+      addItem,
+      removeItem,
+      updateQuantity,
+      clearCart,
+      totalItems,
+      totalPrice,
+      isOpen,
+      setIsOpen,
+    }),
+    [items, addItem, removeItem, updateQuantity, clearCart, totalItems, totalPrice, isOpen]
   );
 
-  return (
-    <CartContext.Provider
-      value={{
-        items,
-        addItem,
-        removeItem,
-        updateQuantity,
-        clearCart,
-        totalItems,
-        totalPrice,
-        isOpen,
-        setIsOpen,
-      }}
-    >
-      {children}
-    </CartContext.Provider>
-  );
+  return <CartContext.Provider value={value}>{children}</CartContext.Provider>;
 }
 
 export function useCart() {

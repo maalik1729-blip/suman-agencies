@@ -3,119 +3,77 @@
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { ShoppingCart, Menu, X, Sun, Moon, ChevronRight } from "lucide-react";
+import { ShoppingCart, Menu, X, Sun, Moon } from "lucide-react";
 import { useCart } from "@/context/CartContext";
-import { useCurrency } from "@/context/CurrencyContext";
+import { useTheme } from "@/context/ThemeContext";
+import { site } from "@/data/site";
 import { cn } from "@/lib/utils";
-import { CartDrawer } from "./CartDrawer";
+import { Logo } from "./Logo";
+import { CurrencySelect } from "./ui/CurrencySelect";
 
 const navLinks = [
   { href: "/", label: "Home" },
+  { href: "/products", label: "Shop" },
   { href: "/about", label: "About" },
-  { href: "/products", label: "Products" },
   { href: "/contact", label: "Contact" },
 ];
 
-interface NavbarProps {
-  theme: string;
-  toggleTheme: () => void;
-}
-
-export function Navbar({ theme, toggleTheme }: NavbarProps) {
+export function Navbar() {
   const pathname = usePathname();
   const { totalItems, setIsOpen } = useCart();
-  const { currency, setCurrency } = useCurrency();
-  const [scrolled, setScrolled] = useState(false);
+  const { resolvedTheme, setTheme } = useTheme();
   const [mobileOpen, setMobileOpen] = useState(false);
-  const mobileMenuRef = useRef<HTMLDivElement>(null);
+  const drawerRef = useRef<HTMLDivElement>(null);
 
-  useEffect(() => {
-    const handleScroll = () => setScrolled(window.scrollY > 60);
-    window.addEventListener("scroll", handleScroll, { passive: true });
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
-
+  // Close mobile drawer on route change.
   useEffect(() => {
     setMobileOpen(false);
   }, [pathname]);
 
-  // The Home page has a dark image hero, so it needs white text when at the top.
-  // Other pages have a standard light/dark background, so they should always use theme colors.
-  const isDarkHero = pathname === "/" && !scrolled;
+  // Esc to close + scroll lock.
+  useEffect(() => {
+    if (!mobileOpen) {
+      document.body.style.overflow = "";
+      return;
+    }
+    document.body.style.overflow = "hidden";
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setMobileOpen(false);
+    };
+    window.addEventListener("keydown", onKey);
+    return () => {
+      window.removeEventListener("keydown", onKey);
+      document.body.style.overflow = "";
+    };
+  }, [mobileOpen]);
 
-  const linkColor = !isDarkHero
-    ? theme === "dark"
-      ? "text-[#e8edf5]/80 hover:text-[#e8edf5]"
-      : "text-[#1a1d23]/75 hover:text-[#1a1d23]"
-    : "text-white/85 hover:text-white";
-
-  const iconColor = !isDarkHero
-    ? theme === "dark"
-      ? "text-[#e8edf5]/80 hover:bg-white/10"
-      : "text-[#1a1d23]/70 hover:bg-black/5"
-    : "text-white/85 hover:bg-white/10";
-
-  const logoColor = !isDarkHero
-    ? theme === "dark" ? "#e8edf5" : "#1a1d23"
-    : "#ffffff";
+  const isDark = resolvedTheme === "dark";
+  const toggleTheme = () => setTheme(isDark ? "light" : "dark");
 
   return (
     <>
       <header
-        className={cn(
-          "fixed top-0 left-0 right-0 z-50 transition-all duration-500",
-          scrolled
-            ? "border-b border-white/10 shadow-luxe py-3"
-            : "bg-transparent py-5"
-        )}
-        style={{
-          backdropFilter: scrolled ? "blur(24px)" : "none",
-          WebkitBackdropFilter: scrolled ? "blur(24px)" : "none",
-          background: scrolled
-            ? theme === "dark"
-              ? "rgba(13,16,23,0.90)"
-              : "rgba(248,250,252,0.92)"
-            : "transparent",
-        }}
+        className="sticky top-0 z-50 bg-[var(--color-bg)] border-b border-[var(--color-border)]"
+        style={{ height: "var(--header-height)" }}
       >
-        <nav className="max-w-7xl mx-auto px-4 sm:px-6 flex items-center justify-between">
-          {/* Logo */}
-          <Link href="/" className="flex items-center gap-2.5 group">
-            {/* Modern Furniture & Home Logo */}
-            <div className="w-10 h-10 rounded-xl flex items-center justify-center shadow-lg group-hover:scale-110 transition-all duration-300 overflow-hidden relative" 
-                 style={{ 
-                   background: "linear-gradient(135deg, #4a6fa5 0%, #2d4f7c 100%)",
-                   boxShadow: "0 4px 12px rgba(74, 111, 165, 0.4)"
-                 }}>
-              <svg viewBox="0 0 100 100" width="28" height="28" xmlns="http://www.w3.org/2000/svg">
-                {/* House Icon */}
-                <path d="M 50 25 L 75 42 L 75 45 L 25 45 L 25 42 Z" fill="#ffffff" opacity="0.95"/>
-                <rect x="30" y="45" width="40" height="35" rx="2" fill="#ffffff" opacity="0.95"/>
-                <rect x="44" y="60" width="12" height="20" rx="1" fill="#4a6fa5"/>
-                <circle cx="52" cy="70" r="1" fill="#ffffff"/>
-                {/* Windows */}
-                <rect x="33" y="50" width="9" height="9" rx="1" fill="#6b8fc4"/>
-                <rect x="58" y="50" width="9" height="9" rx="1" fill="#6b8fc4"/>
-                <line x1="37.5" y1="50" x2="37.5" y2="59" stroke="#ffffff" strokeWidth="0.5"/>
-                <line x1="33" y1="54.5" x2="42" y2="54.5" stroke="#ffffff" strokeWidth="0.5"/>
-                <line x1="62.5" y1="50" x2="62.5" y2="59" stroke="#ffffff" strokeWidth="0.5"/>
-                <line x1="58" y1="54.5" x2="67" y2="54.5" stroke="#ffffff" strokeWidth="0.5"/>
-              </svg>
-            </div>
-            <div className="flex flex-col leading-none">
-              <span
-                className="text-lg font-bold tracking-tight font-serif transition-colors duration-300"
-                style={{ color: logoColor }}
-              >
-                Suman Tech Automation
-              </span>
-              <span className="text-[9px] font-medium tracking-widest uppercase" style={{ color: logoColor, opacity: 0.6 }}>
-                Furniture &amp; Electronics
-              </span>
-            </div>
-          </Link>
+        <nav className="max-w-7xl mx-auto h-full px-4 sm:px-6 flex items-center justify-between gap-4">
+          {/* Mobile hamburger (left) */}
+          <button
+            onClick={() => setMobileOpen(true)}
+            className="md:hidden inline-flex items-center justify-center w-9 h-9 rounded-md text-[var(--color-text-strong)] hover:bg-[var(--color-surface-2)] transition-colors"
+            aria-label="Open menu"
+            aria-controls="mobile-nav"
+            aria-expanded={mobileOpen}
+          >
+            <Menu size={20} />
+          </button>
 
-          {/* Desktop Nav Links */}
+          {/* Logo (left desktop, centered mobile) */}
+          <div className="md:flex-none flex-1 flex md:justify-start justify-center">
+            <Logo variant="header" />
+          </div>
+
+          {/* Desktop nav */}
           <ul className="hidden md:flex items-center gap-1">
             {navLinks.map((link) => {
               const active =
@@ -126,145 +84,17 @@ export function Navbar({ theme, toggleTheme }: NavbarProps) {
                   <Link
                     href={link.href}
                     className={cn(
-                      "relative px-6 py-2.5 text-sm font-medium rounded-lg transition-all duration-200",
+                      "relative inline-flex items-center px-3 py-2 text-sm font-medium rounded-md transition-colors",
                       active
-                        ? isDarkHero ? "text-white" : "text-[#4a6fa5]"
-                        : linkColor
+                        ? "text-[var(--color-text-strong)]"
+                        : "text-[var(--color-text)] hover:text-[var(--color-text-strong)]"
                     )}
                     aria-current={active ? "page" : undefined}
                   >
                     {link.label}
                     {active && (
-                      <span className={cn("absolute bottom-1 left-4 right-4 h-0.5 rounded-full", isDarkHero ? "bg-white/50" : "bg-[#4a6fa5]")} />
+                      <span className="absolute left-3 right-3 -bottom-px h-0.5 rounded-full bg-[var(--color-brand-500)]" />
                     )}
-                  </Link>
-                </li>
-              );
-            })}
-          </ul>
-
-          {/* Right Actions */}
-          <div className="flex items-center gap-2">
-            {/* Currency Toggle — only on product detail pages */}
-            {/^\/products\/[^/]+$/.test(pathname) && (
-              <div className={cn("hidden sm:flex items-center rounded-full p-1 border", theme === "dark" ? "border-white/10 bg-white/5" : "border-black/10 bg-white")}>
-                {(["INR", "EUR", "USD"] as const).map((c) => (
-                  <button
-                    key={c}
-                    onClick={() => setCurrency(c)}
-                    className={cn(
-                      "px-3 py-1 text-xs font-semibold rounded-full transition-all duration-300",
-                      currency === c
-                        ? "bg-[#4a6fa5] text-white shadow-sm"
-                        : theme === "dark" ? "text-white/60 hover:text-white" : "text-[#4a6fa5]/80 hover:text-[#4a6fa5]"
-                    )}
-                  >
-                    {c === "INR" ? "₹ " : c === "EUR" ? "€ " : "$ "}
-                    {c}
-                  </button>
-                ))}
-              </div>
-            )}
-
-            {/* Theme Toggle */}
-            <button
-              onClick={toggleTheme}
-              className={cn(
-                "w-9 h-9 rounded-lg flex items-center justify-center transition-all duration-200 hover:scale-110",
-                !isDarkHero
-                  ? theme === "dark"
-                    ? "text-[#6b8fc4] hover:bg-white/10"
-                    : "text-[#1a1d23]/70 hover:bg-black/5"
-                  : "text-white/85 hover:bg-white/10"
-              )}
-              aria-label="Toggle theme"
-            >
-              {theme === "dark" ? <Sun size={18} /> : <Moon size={18} />}
-            </button>
-
-            {/* Cart */}
-            <button
-              onClick={() => setIsOpen(true)}
-              className={cn(
-                "relative w-9 h-9 rounded-lg flex items-center justify-center transition-all duration-200 hover:scale-110",
-                iconColor
-              )}
-              aria-label={`Shopping cart, ${totalItems} items`}
-            >
-              <ShoppingCart size={18} />
-              {totalItems > 0 && (
-                <span className="absolute -top-1 -right-1 w-4 h-4 rounded-full bg-[#4a6fa5] text-white text-[10px] font-bold flex items-center justify-center">
-                  {totalItems > 9 ? "9+" : totalItems}
-                </span>
-              )}
-            </button>
-
-            {/* Bulk Enquiries CTA */}
-            <Link
-              href="/contact?type=bulk"
-              className="hidden md:inline-flex items-center gap-1.5 px-4 py-2 rounded-lg text-sm font-semibold text-white transition-all duration-300 hover:scale-105 hover:shadow-lg"
-              style={{
-                background: "linear-gradient(135deg, #4a6fa5, #2d4f7c)",
-                boxShadow: "0 2px 12px rgba(74, 111, 165, 0.35)",
-              }}
-            >
-              Bulk Enquiries
-              <ChevronRight size={14} />
-            </Link>
-
-            {/* Hamburger */}
-            <button
-              onClick={() => setMobileOpen(!mobileOpen)}
-              className={cn(
-                "md:hidden w-9 h-9 rounded-lg flex items-center justify-center transition-all duration-200",
-                !isDarkHero
-                  ? theme === "dark"
-                    ? "text-[#f0ece6] hover:bg-white/10"
-                    : "text-[#1a1a1a] hover:bg-black/5"
-                  : "text-white hover:bg-white/10"
-              )}
-              aria-label="Toggle navigation menu"
-              aria-expanded={mobileOpen}
-            >
-              {mobileOpen ? <X size={20} /> : <Menu size={20} />}
-            </button>
-          </div>
-        </nav>
-
-        {/* Mobile Menu */}
-        <div
-          ref={mobileMenuRef}
-          className={cn(
-            "md:hidden overflow-hidden transition-all duration-400",
-            mobileOpen ? "max-h-96 opacity-100" : "max-h-0 opacity-0"
-          )}
-          style={{
-            background:
-              theme === "dark"
-                ? "rgba(13,16,23,0.97)"
-                : "rgba(248,250,252,0.97)",
-            backdropFilter: "blur(24px)",
-          }}
-        >
-          <ul className="px-4 pb-4 pt-2 flex flex-col gap-1">
-            {navLinks.map((link) => {
-              const active =
-                pathname === link.href ||
-                (link.href !== "/" && pathname.startsWith(link.href));
-              return (
-                <li key={link.href}>
-                  <Link
-                    href={link.href}
-                    className={cn(
-                      "block px-4 py-3 rounded-lg text-sm font-medium transition-all duration-200",
-                      active
-                        ? "bg-[#4a6fa5]/10 text-[#4a6fa5]"
-                        : theme === "dark"
-                        ? "text-[#e8edf5]/80 hover:bg-white/5 hover:text-[#e8edf5]"
-                        : "text-[#1a1d23]/70 hover:bg-black/5 hover:text-[#1a1d23]"
-                    )}
-                  >
-                    {link.label}
                   </Link>
                 </li>
               );
@@ -272,18 +102,145 @@ export function Navbar({ theme, toggleTheme }: NavbarProps) {
             <li>
               <Link
                 href="/contact?type=bulk"
-                className="flex items-center justify-center gap-2 mt-2 px-4 py-3 rounded-lg text-sm font-semibold text-white"
-                style={{ background: "linear-gradient(135deg, #4a6fa5, #2d4f7c)" }}
+                className="ml-2 inline-flex items-center px-3 py-2 text-sm text-[var(--color-text-muted)] hover:text-[var(--color-text-strong)] transition-colors"
               >
-                Bulk Enquiries
-                <ChevronRight size={14} />
+                For Businesses →
               </Link>
             </li>
           </ul>
-        </div>
+
+          {/* Right cluster (always visible) */}
+          <div className="flex items-center gap-1.5">
+            <div className="hidden sm:block">
+              <CurrencySelect />
+            </div>
+
+            <button
+              onClick={toggleTheme}
+              className="inline-flex items-center justify-center w-9 h-9 rounded-md text-[var(--color-text-strong)] hover:bg-[var(--color-surface-2)] transition-colors"
+              aria-label={`Switch to ${isDark ? "light" : "dark"} theme`}
+            >
+              {isDark ? <Sun size={18} /> : <Moon size={18} />}
+            </button>
+
+            <button
+              onClick={() => setIsOpen(true)}
+              className="relative inline-flex items-center justify-center w-9 h-9 rounded-md text-[var(--color-text-strong)] hover:bg-[var(--color-surface-2)] transition-colors"
+              aria-label={`Shopping cart, ${totalItems} ${totalItems === 1 ? "item" : "items"}`}
+            >
+              <ShoppingCart size={18} />
+              {totalItems > 0 && (
+                <span
+                  className="absolute -top-1 -right-1 min-w-[18px] h-[18px] px-1 rounded-full bg-[var(--color-brand-500)] text-white text-[11px] font-semibold inline-flex items-center justify-center"
+                  aria-hidden="true"
+                >
+                  {totalItems > 99 ? "99+" : totalItems}
+                </span>
+              )}
+            </button>
+          </div>
+        </nav>
       </header>
 
-      <CartDrawer theme={theme} />
+      {/* Mobile drawer */}
+      <div
+        className={cn(
+          "md:hidden fixed inset-0 z-[60] transition-opacity duration-200",
+          mobileOpen ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"
+        )}
+        aria-hidden={!mobileOpen}
+      >
+        <div
+          className="absolute inset-0 bg-black/40"
+          onClick={() => setMobileOpen(false)}
+        />
+        <div
+          ref={drawerRef}
+          id="mobile-nav"
+          role="dialog"
+          aria-modal="true"
+          aria-label="Site navigation"
+          className={cn(
+            "relative h-full w-[88vw] max-w-sm bg-[var(--color-bg)] shadow-xl flex flex-col transition-transform duration-300",
+            mobileOpen ? "translate-x-0" : "-translate-x-full"
+          )}
+        >
+          <div className="flex items-center justify-between p-4 border-b border-[var(--color-border)]">
+            <Logo variant="header" />
+            <button
+              onClick={() => setMobileOpen(false)}
+              className="inline-flex items-center justify-center w-9 h-9 rounded-md text-[var(--color-text-strong)] hover:bg-[var(--color-surface-2)]"
+              aria-label="Close menu"
+            >
+              <X size={20} />
+            </button>
+          </div>
+
+          <nav className="flex-1 overflow-y-auto p-4 flex flex-col gap-1">
+            {navLinks.map((link) => {
+              const active =
+                pathname === link.href ||
+                (link.href !== "/" && pathname.startsWith(link.href));
+              return (
+                <Link
+                  key={link.href}
+                  href={link.href}
+                  className={cn(
+                    "px-3 py-3 rounded-md text-base font-medium transition-colors",
+                    active
+                      ? "bg-[var(--color-brand-50)] text-[var(--color-brand-700)]"
+                      : "text-[var(--color-text)] hover:bg-[var(--color-surface-2)]"
+                  )}
+                >
+                  {link.label}
+                </Link>
+              );
+            })}
+
+            <Link
+              href="/contact?type=bulk"
+              className="px-3 py-3 rounded-md text-base font-medium text-[var(--color-text-muted)] hover:bg-[var(--color-surface-2)]"
+            >
+              For Businesses
+            </Link>
+
+            <hr className="my-3 border-[var(--color-border)]" />
+
+            <div className="px-3">
+              <p className="mb-2 text-xs font-semibold uppercase tracking-[0.08em] text-[var(--color-text-muted)]">
+                Currency
+              </p>
+              <CurrencySelect variant="segmented" />
+            </div>
+
+            <div className="px-3 mt-4">
+              <p className="mb-2 text-xs font-semibold uppercase tracking-[0.08em] text-[var(--color-text-muted)]">
+                Theme
+              </p>
+              <button
+                onClick={toggleTheme}
+                className="inline-flex items-center gap-2 h-9 px-3 rounded-md border border-[var(--color-border)] bg-[var(--color-surface)] text-sm text-[var(--color-text-strong)]"
+              >
+                {isDark ? <Sun size={16} /> : <Moon size={16} />}
+                Switch to {isDark ? "light" : "dark"}
+              </button>
+            </div>
+
+            <hr className="my-3 border-[var(--color-border)]" />
+
+            <div className="px-3 text-sm text-[var(--color-text-muted)] space-y-2">
+              {site.contact.phones.map((p) => (
+                <a key={p.e164} href={`tel:${p.e164}`} className="block hover:text-[var(--color-text-strong)]">
+                  📞 {p.display}
+                </a>
+              ))}
+              <p className="text-xs">
+                GSTIN <span className="font-mono">{site.gstin}</span>
+              </p>
+            </div>
+          </nav>
+        </div>
+      </div>
     </>
   );
 }

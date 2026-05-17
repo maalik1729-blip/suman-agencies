@@ -1,303 +1,301 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { Suspense, useState } from "react";
+import { useSearchParams } from "next/navigation";
 import { motion } from "framer-motion";
 import { Mail, Phone, MapPin, Clock, Send, CheckCircle } from "lucide-react";
-import { cn } from "@/lib/utils";
-import { useSearchParams } from "next/navigation";
+import { Button } from "@/components/ui/Button";
+import { Input, Textarea, Select } from "@/components/ui/Field";
+import { site } from "@/data/site";
 
-const contactInfo = [
-  {
-    icon: Phone,
-    title: "Call Us",
-    details: "+91 97155 90101 / +91 8838208741",
-    sub: "Mon–Sat, 9 AM–7 PM",
-  },
-  {
-    icon: Mail,
-    title: "Email Us",
-    details: "sumantechautomation@gmail.com | sumanagency4@gmail.com",
-    sub: "We reply within 24 hours",
-  },
-  {
-    icon: MapPin,
-    title: "Our Address",
-    details: "No.7/1-3, West Street",
-    sub: "Chellathayarpuram, Tirunelveli – 627808",
-  },
-  {
-    icon: Clock,
-    title: "Business Hours",
-    details: "Mon–Sat: 9 AM–7 PM",
-    sub: "Sunday: Closed",
-  },
-];
+interface ContactForm {
+  name: string;
+  email: string;
+  phone: string;
+  subject: string;
+  message: string;
+  enquiryType: "general" | "bulk" | "support" | "design" | "returns";
+}
 
+interface ContactErrors {
+  name?: string;
+  email?: string;
+  subject?: string;
+  message?: string;
+}
 
-export default function ContactPage() {
+function validate(f: ContactForm): ContactErrors {
+  const e: ContactErrors = {};
+  if (!f.name.trim()) e.name = "Required";
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(f.email)) e.email = "Enter a valid email";
+  if (!f.subject.trim()) e.subject = "Required";
+  if (f.message.trim().length < 10) e.message = "At least 10 characters";
+  return e;
+}
+
+function ContactPageInner() {
   const searchParams = useSearchParams();
   const isBulk = searchParams.get("type") === "bulk";
-  const [theme, setTheme] = useState("light");
-  const [submitted, setSubmitted] = useState(false);
 
-  const [form, setForm] = useState({
+  const [form, setForm] = useState<ContactForm>({
     name: "",
     email: "",
     phone: "",
-    subject: isBulk ? "Bulk Enquiry" : "",
-    message: isBulk ? "I would like to inquire about bulk pricing for..." : "",
+    subject: isBulk ? "Bulk enquiry" : "",
+    message: isBulk ? "I would like to inquire about bulk pricing for…" : "",
     enquiryType: isBulk ? "bulk" : "general",
   });
+  const [touched, setTouched] = useState<Record<string, boolean>>({});
+  const [submitAttempted, setSubmitAttempted] = useState(false);
+  const [submitted, setSubmitted] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
 
-  useEffect(() => {
-    const stored = localStorage.getItem("suman-agency-theme");
-    const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
-    setTheme(stored || (prefersDark ? "dark" : "light"));
+  const errors = validate(form);
+  const isValid = Object.keys(errors).length === 0;
 
-    const observer = new MutationObserver(() => {
-      setTheme(document.documentElement.classList.contains("dark") ? "dark" : "light");
-    });
-    observer.observe(document.documentElement, { attributes: true, attributeFilter: ["class"] });
-    return () => observer.disconnect();
-  }, []);
+  const showErr = (k: keyof ContactErrors) =>
+    (submitAttempted || touched[k]) ? errors[k] : undefined;
 
-  const isDark = theme === "dark";
-
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    setSubmitAttempted(true);
+    if (!isValid) return;
+    setSubmitting(true);
+    // No backend yet — simulate, then show confirmation. Replace with real API.
+    await new Promise((r) => setTimeout(r, 600));
+    setSubmitting(false);
     setSubmitted(true);
-    setTimeout(() => setSubmitted(false), 5000);
   };
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
-    setForm((prev) => ({ ...prev, [e.target.name]: e.target.value }));
-  };
-
-  const inputClass = cn(
-    "w-full px-4 py-3.5 rounded-xl border text-sm focus:outline-none focus:ring-2 focus:ring-[#4a6fa5]/20 focus:border-[#4a6fa5] transition-all",
-    isDark ? "bg-white/5 border-white/10 text-white placeholder-white/40" : "bg-white border-gray-200 text-[#1a1a1a] placeholder-gray-400"
-  );
+  const contactCards = [
+    {
+      icon: Phone,
+      title: "Call us",
+      details: site.contact.phones.map((p) => p.display).join(" · "),
+      sub: "Mon–Sat, 9 AM–7 PM",
+      href: `tel:${site.contact.phones[0].e164}`,
+    },
+    {
+      icon: Mail,
+      title: "Email us",
+      details: site.contact.primaryEmail,
+      sub: "Replies within 24 hours",
+      href: `mailto:${site.contact.primaryEmail}`,
+    },
+    {
+      icon: MapPin,
+      title: "Showroom",
+      details: site.contact.address.line1,
+      sub: `${site.contact.address.city} – ${site.contact.address.pincode}`,
+    },
+    {
+      icon: Clock,
+      title: "Open hours",
+      details: "Mon–Sat: 9 AM–7 PM",
+      sub: "Sunday: closed",
+    },
+  ];
 
   return (
     <>
       {/* Hero */}
-      <section className="relative pt-36 pb-16 px-4 sm:px-6 overflow-hidden">
-        <div
-          className="absolute inset-0 -z-10"
-          style={{
-            background: isDark
-              ? "radial-gradient(ellipse at 70% 30%, rgba(74, 111, 165,0.08) 0%, transparent 60%)"
-              : "radial-gradient(ellipse at 70% 30%, rgba(74, 111, 165,0.15) 0%, transparent 60%)",
-          }}
-        />
-        <div className="max-w-4xl mx-auto text-center">
-          <motion.span
-            className="inline-block text-xs font-semibold tracking-widest uppercase text-[#4a6fa5] mb-4"
-            initial={{ opacity: 0, y: 20 }}
+      <section className="bg-[var(--color-bg)] pt-[calc(var(--header-height)+32px)] pb-12 px-4 sm:px-6">
+        <div className="max-w-3xl mx-auto text-center">
+          <motion.p
+            initial={{ opacity: 0, y: 8 }}
             animate={{ opacity: 1, y: 0 }}
+            className="text-[11px] font-semibold uppercase tracking-[0.08em] text-[var(--color-text-muted)]"
           >
-            Get In Touch
-          </motion.span>
+            Get in touch
+          </motion.p>
           <motion.h1
-            className={cn("text-5xl sm:text-7xl font-bold font-serif", isDark ? "text-white" : "text-[#1a1a1a]")}
-            initial={{ opacity: 0, y: 40 }}
+            initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.15 }}
+            transition={{ delay: 0.05 }}
+            className="mt-2 font-display font-semibold text-3xl sm:text-4xl tracking-tight text-[var(--color-text-strong)]"
           >
-            {isBulk ? "Bulk Enquiries" : "Let's Talk"}
+            {isBulk ? "Bulk &amp; commercial enquiries" : "Let's talk"}
           </motion.h1>
           <motion.p
-            className={cn("mt-5 text-lg max-w-xl mx-auto", isDark ? "text-white/60" : "text-black/50")}
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            transition={{ delay: 0.3 }}
+            transition={{ delay: 0.1 }}
+            className="mt-3 text-sm sm:text-base text-[var(--color-text)] max-w-xl mx-auto"
           >
             {isBulk
-              ? "Get exclusive pricing and tailored packages for your commercial or bulk requirements."
-              : "Have a question, need design advice, or want to discuss a special order? We'd love to hear from you."}
+              ? "Tell us what you need. We'll come back with pricing tailored to your project."
+              : "Questions, design advice, or a special order — we're here for it."}
           </motion.p>
         </div>
       </section>
 
-      {/* Contact Info Cards */}
-      <section className="px-4 sm:px-6 pb-8">
+      {/* Cards */}
+      <section className="bg-[var(--color-bg)] px-4 sm:px-6 pb-8">
         <div className="max-w-7xl mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-          {contactInfo.map(({ icon: Icon, title, details, sub }, i) => (
-            <motion.div
-              key={title}
-              className={cn("p-6 rounded-2xl border flex flex-col gap-4", isDark ? "bg-[#1a1a1a] border-white/8" : "bg-white border-black/5")}
-              style={{ boxShadow: "var(--shadow-luxe)" }}
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: i * 0.1 }}
-            >
-              <div className="w-11 h-11 rounded-xl bg-[#4a6fa5]/10 flex items-center justify-center">
-                <Icon size={22} className="text-[#4a6fa5]" />
+          {contactCards.map(({ icon: Icon, title, details, sub, href }) => {
+            const inner = (
+              <>
+                <span className="inline-flex items-center justify-center w-10 h-10 rounded-md bg-[var(--color-brand-50)] text-[var(--color-brand-700)]">
+                  <Icon size={18} aria-hidden="true" />
+                </span>
+                <div className="mt-4">
+                  <p className="text-sm font-semibold text-[var(--color-text-strong)]">{title}</p>
+                  <p className="mt-1 text-sm text-[var(--color-text)] break-words">{details}</p>
+                  <p className="mt-0.5 text-xs text-[var(--color-text-muted)]">{sub}</p>
+                </div>
+              </>
+            );
+            const className =
+              "block p-5 rounded-lg border border-[var(--color-border)] bg-[var(--color-surface)] hover:border-[var(--color-border-strong)] transition-colors";
+            return href ? (
+              <a key={title} href={href} className={className}>
+                {inner}
+              </a>
+            ) : (
+              <div key={title} className={className}>
+                {inner}
               </div>
-              <div>
-                <p className={cn("font-semibold text-sm mb-1", isDark ? "text-white" : "text-[#1a1a1a]")}>{title}</p>
-                <p className={cn("text-sm font-medium", isDark ? "text-white/80" : "text-[#1a1a1a]/80")}>{details}</p>
-                <p className={cn("text-xs mt-0.5", isDark ? "text-white/40" : "text-black/40")}>{sub}</p>
-              </div>
-            </motion.div>
-          ))}
+            );
+          })}
         </div>
       </section>
 
       {/* Form */}
-      <section className="px-4 sm:px-6 py-12">
-        <div className="max-w-4xl mx-auto">
-          {/* Form */}
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-          >
-            <div className={cn("p-8 rounded-3xl border", isDark ? "bg-[#1a1a1a] border-white/8" : "bg-white border-black/5")} style={{ boxShadow: "var(--shadow-luxe-lg)" }}>
-              <h2 className={cn("text-2xl font-bold font-serif mb-2", isDark ? "text-white" : "text-[#1a1a1a]")}>
-                {isBulk ? "Bulk Order Request" : "Send Us a Message"}
-              </h2>
-              <p className={cn("text-sm mb-8", isDark ? "text-white/50" : "text-black/40")}>
-                Fill in the form below and our team will get back to you within 24 hours.
-              </p>
+      <section className="bg-[var(--color-bg)] px-4 sm:px-6 py-12">
+        <div className="max-w-3xl mx-auto">
+          <div className="rounded-lg border border-[var(--color-border)] bg-[var(--color-surface)] p-6 sm:p-8">
+            <h2 className="font-display font-semibold text-2xl tracking-tight text-[var(--color-text-strong)]">
+              {isBulk ? "Bulk order request" : "Send us a message"}
+            </h2>
+            <p className="mt-1 text-sm text-[var(--color-text-muted)]">
+              We'll respond within 24 hours.
+            </p>
 
-              {submitted ? (
-                <motion.div
-                  className="flex flex-col items-center justify-center py-16 text-center gap-4"
-                  initial={{ scale: 0.8, opacity: 0 }}
-                  animate={{ scale: 1, opacity: 1 }}
+            {submitted ? (
+              <motion.div
+                initial={{ opacity: 0, y: 8 }}
+                animate={{ opacity: 1, y: 0 }}
+                className="mt-8 flex flex-col items-center text-center gap-3 py-10"
+                role="status"
+              >
+                <span className="inline-flex items-center justify-center w-14 h-14 rounded-full bg-[var(--color-success-50)] text-[var(--color-success-500)]">
+                  <CheckCircle size={28} aria-hidden="true" />
+                </span>
+                <h3 className="text-lg font-semibold text-[var(--color-text-strong)]">
+                  Message sent
+                </h3>
+                <p className="text-sm text-[var(--color-text-muted)] max-w-sm">
+                  Thank you, {form.name.split(" ")[0] || "we"}. We'll get back to {form.email} shortly.
+                </p>
+              </motion.div>
+            ) : (
+              <form noValidate onSubmit={handleSubmit} className="mt-6 space-y-5">
+                <Select
+                  label="Enquiry type"
+                  value={form.enquiryType}
+                  onChange={(e) =>
+                    setForm({ ...form, enquiryType: e.target.value as ContactForm["enquiryType"] })
+                  }
+                  options={[
+                    { value: "general", label: "General enquiry" },
+                    { value: "bulk", label: "Bulk / commercial order" },
+                    { value: "support", label: "Product support" },
+                    { value: "design", label: "Design consultation" },
+                    { value: "returns", label: "Returns & warranty" },
+                  ]}
+                />
+
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                  <Input
+                    label="Full name"
+                    required
+                    placeholder="Your full name"
+                    value={form.name}
+                    onChange={(e) => setForm({ ...form, name: e.target.value })}
+                    onBlur={() => setTouched((t) => ({ ...t, name: true }))}
+                    error={showErr("name")}
+                    autoComplete="name"
+                  />
+                  <Input
+                    label="Email"
+                    type="email"
+                    required
+                    placeholder="you@example.com"
+                    value={form.email}
+                    onChange={(e) => setForm({ ...form, email: e.target.value })}
+                    onBlur={() => setTouched((t) => ({ ...t, email: true }))}
+                    error={showErr("email")}
+                    autoComplete="email"
+                  />
+                </div>
+
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                  <Input
+                    label="Phone"
+                    type="tel"
+                    placeholder="+91 97155 90101"
+                    value={form.phone}
+                    onChange={(e) => setForm({ ...form, phone: e.target.value })}
+                    autoComplete="tel"
+                    helper="Optional"
+                  />
+                  <Input
+                    label="Subject"
+                    required
+                    placeholder="How can we help?"
+                    value={form.subject}
+                    onChange={(e) => setForm({ ...form, subject: e.target.value })}
+                    onBlur={() => setTouched((t) => ({ ...t, subject: true }))}
+                    error={showErr("subject")}
+                  />
+                </div>
+
+                <Textarea
+                  label="Message"
+                  required
+                  rows={5}
+                  placeholder="Tell us about your requirements…"
+                  value={form.message}
+                  onChange={(e) => setForm({ ...form, message: e.target.value })}
+                  onBlur={() => setTouched((t) => ({ ...t, message: true }))}
+                  error={showErr("message")}
+                  helper={`${form.message.trim().length} characters · minimum 10`}
+                />
+
+                <Button
+                  type="submit"
+                  variant="primary"
+                  size="lg"
+                  fullWidth
+                  loading={submitting}
+                  rightIcon={!submitting && <Send size={15} />}
                 >
-                  <div className="w-16 h-16 rounded-full bg-green-100 flex items-center justify-center">
-                    <CheckCircle size={32} className="text-green-500" />
-                  </div>
-                  <h3 className={cn("text-xl font-bold", isDark ? "text-white" : "text-[#1a1a1a]")}>Message Sent!</h3>
-                  <p className={cn("text-sm", isDark ? "text-white/50" : "text-black/40")}>
-                    Thank you for reaching out. We'll respond within 24 hours.
-                  </p>
-                </motion.div>
-              ) : (
-                <form onSubmit={handleSubmit} className="space-y-5" noValidate>
-                  {/* Enquiry Type */}
-                  <div>
-                    <label htmlFor="enquiryType" className={cn("block text-sm font-medium mb-2", isDark ? "text-white/80" : "text-[#1a1a1a]/80")}>
-                      Enquiry Type
-                    </label>
-                    <select
-                      id="enquiryType"
-                      name="enquiryType"
-                      value={form.enquiryType}
-                      onChange={handleChange}
-                      className={inputClass}
-                    >
-                      <option value="general">General Enquiry</option>
-                      <option value="bulk">Bulk / Commercial Order</option>
-                      <option value="support">Product Support</option>
-                      <option value="design">Design Consultation</option>
-                      <option value="returns">Returns & Warranty</option>
-                    </select>
-                  </div>
+                  Send message
+                </Button>
 
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
-                    <div>
-                      <label htmlFor="name" className={cn("block text-sm font-medium mb-2", isDark ? "text-white/80" : "text-[#1a1a1a]/80")}>
-                        Full Name *
-                      </label>
-                      <input
-                        id="name"
-                        name="name"
-                        type="text"
-                        required
-                        value={form.name}
-                        onChange={handleChange}
-                        placeholder="Your full name"
-                        className={inputClass}
-                        autoComplete="name"
-                      />
-                    </div>
-                    <div>
-                      <label htmlFor="email" className={cn("block text-sm font-medium mb-2", isDark ? "text-white/80" : "text-[#1a1a1a]/80")}>
-                        Email Address *
-                      </label>
-                      <input
-                        id="email"
-                        name="email"
-                        type="email"
-                        required
-                        value={form.email}
-                        onChange={handleChange}
-                        placeholder="you@example.com"
-                        className={inputClass}
-                        autoComplete="email"
-                      />
-                    </div>
-                  </div>
-
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
-                    <div>
-                      <label htmlFor="phone" className={cn("block text-sm font-medium mb-2", isDark ? "text-white/80" : "text-[#1a1a1a]/80")}>
-                        Phone Number
-                      </label>
-                      <input
-                        id="phone"
-                        name="phone"
-                        type="tel"
-                        value={form.phone}
-                        onChange={handleChange}
-                        placeholder="+91 97155 90101"
-                        className={inputClass}
-                        autoComplete="tel"
-                      />
-                    </div>
-                    <div>
-                      <label htmlFor="subject" className={cn("block text-sm font-medium mb-2", isDark ? "text-white/80" : "text-[#1a1a1a]/80")}>
-                        Subject *
-                      </label>
-                      <input
-                        id="subject"
-                        name="subject"
-                        type="text"
-                        required
-                        value={form.subject}
-                        onChange={handleChange}
-                        placeholder="How can we help?"
-                        className={inputClass}
-                      />
-                    </div>
-                  </div>
-
-                  <div>
-                    <label htmlFor="message" className={cn("block text-sm font-medium mb-2", isDark ? "text-white/80" : "text-[#1a1a1a]/80")}>
-                      Message *
-                    </label>
-                    <textarea
-                      id="message"
-                      name="message"
-                      rows={5}
-                      required
-                      value={form.message}
-                      onChange={handleChange}
-                      placeholder="Tell us more about your requirements..."
-                      className={cn(inputClass, "resize-none")}
-                    />
-                  </div>
-
-                  <button
-                    type="submit"
-                    className="w-full py-4 px-6 rounded-xl font-semibold text-white flex items-center justify-center gap-2 group transition-all duration-300 hover:scale-[1.02] hover:shadow-xl"
-                    style={{ 
-                      background: "linear-gradient(135deg, #4a6fa5, #2d4f7c)",
-                      boxShadow: "0 4px 16px rgba(74, 111, 165, 0.3)"
-                    }}
+                <p className="text-xs text-[var(--color-text-muted)]">
+                  Or call us directly at{" "}
+                  <a
+                    href={`tel:${site.contact.phones[0].e164}`}
+                    className="text-[var(--color-brand-500)] hover:text-[var(--color-brand-700)] font-medium"
                   >
-                    <span>SEND MESSAGE</span>
-                    <Send size={18} className="group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
-                  </button>
-                </form>
-              )}
-            </div>
-          </motion.div>
+                    {site.contact.phones[0].display}
+                  </a>
+                  .
+                </p>
+              </form>
+            )}
+          </div>
         </div>
       </section>
     </>
+  );
+}
+
+export default function ContactPage() {
+  return (
+    <Suspense fallback={null}>
+      <ContactPageInner />
+    </Suspense>
   );
 }

@@ -1,16 +1,17 @@
 "use client";
 
 import Link from "next/link";
-import { ArrowLeft, RefreshCcw, AlertCircle, XCircle, CheckCircle, Mail } from "lucide-react";
+import { ArrowLeft, RefreshCcw, AlertCircle, XCircle, CheckCircle, Mail, Phone, MapPin } from "lucide-react";
+import { site } from "@/data/site";
 
 export default function CancellationRefundPage() {
   return (
-    <main className="min-h-screen bg-[#faf8f4] dark:bg-[#0d0d0d] pt-24 pb-20 px-4 sm:px-6">
+    <main className="min-h-screen bg-[var(--color-bg)] pt-[calc(var(--header-height)+32px)] pb-20 px-4 sm:px-6">
       <div className="max-w-3xl mx-auto">
-        {/* Back Button */}
+        {/* Back */}
         <Link
           href="/"
-          className="inline-flex items-center gap-2 text-sm font-medium text-[#0d9488] hover:text-[#0f766e] transition-colors mb-10 group"
+          className="inline-flex items-center gap-2 text-sm font-medium text-[var(--color-text-muted)] hover:text-[var(--color-text-strong)] transition-colors mb-10 group"
         >
           <ArrowLeft size={16} className="group-hover:-translate-x-1 transition-transform" />
           Back to Home
@@ -18,54 +19,53 @@ export default function CancellationRefundPage() {
 
         {/* Header */}
         <div className="mb-10">
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#0d9488]/10 text-[#0d9488] text-xs font-bold tracking-widest uppercase mb-4">
-            <RefreshCcw size={14} />
+          <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-md border border-[var(--color-border)] bg-[var(--color-surface)] text-[var(--color-brand-700)] text-xs font-semibold uppercase tracking-[0.08em] mb-4">
+            <RefreshCcw size={12} aria-hidden="true" />
             Policy
           </div>
-          <h1 className="text-4xl sm:text-5xl font-bold font-serif text-[#1a1a1a] dark:text-white">
-            Cancellation & Refund
+          <h1 className="text-3xl sm:text-4xl font-semibold font-display tracking-tight text-[var(--color-text-strong)]">
+            Cancellation &amp; Refund
           </h1>
-          <p className="mt-4 text-lg text-black/50 dark:text-white/50">
-            Simple, Fair & Transparent
+          <p className="mt-3 text-base text-[var(--color-text)]">
+            Simple, fair &amp; transparent — just as it should be.
           </p>
-          <div className="mt-4 h-1 w-16 rounded-full bg-gradient-to-r from-[#0d9488] to-[#0f766e]" />
+          <p className="mt-2 text-xs text-[var(--color-text-muted)]">Last Updated: May 2026</p>
         </div>
 
         {/* Content */}
-        <div className="space-y-6 text-[#1a1a1a]/70 dark:text-white/60">
-
-          <p className="text-base leading-relaxed">
-            At <strong className="text-[#1a1a1a] dark:text-white">Suman Tech Automation</strong>, we take pride in delivering
+        <div className="space-y-5">
+          <p className="text-sm text-[var(--color-text)] leading-relaxed">
+            At <strong className="text-[var(--color-text-strong)]">{site.brand}</strong>, we take pride in delivering
             premium furniture and electronics with care. While we strive to ensure every order reaches you
             perfectly, we understand that cancellations or issues may occasionally arise. This policy outlines
             how we handle cancellations, returns, and refunds.
           </p>
 
-          <Section icon={<XCircle size={18} />} title="Order Cancellations">
+          <PolicySection icon={<XCircle size={16} />} title="Order Cancellations">
             <ul>
               <li><strong>Cancellation Window:</strong> Orders may be cancelled within <strong>2 hours</strong> of purchase, provided they have not yet been packed or dispatched.</li>
               <li>Once an order is processed or handed over to the courier, cancellations are no longer possible.</li>
               <li>Custom-made or assembled furniture orders cannot be cancelled once production has begun.</li>
-              <li>Customers must share their <strong>Order ID</strong> when requesting cancellation.</li>
+              <li>To cancel, contact us with your <strong>Order ID</strong> via phone or email.</li>
             </ul>
-          </Section>
+          </PolicySection>
 
-          <Section icon={<RefreshCcw size={18} />} title="Returns & Replacements">
-            <p>Returns are accepted only in the following cases:</p>
+          <PolicySection icon={<RefreshCcw size={16} />} title="Returns &amp; Replacements">
+            <p>Returns are accepted within <strong>30 days</strong> of delivery in the following cases:</p>
             <ul>
               <li>Products are damaged or tampered during delivery.</li>
               <li>The wrong product was delivered.</li>
               <li>There is a verified quality or manufacturing defect.</li>
             </ul>
-            <p className="font-semibold text-[#0d9488] mt-3">Conditions:</p>
+            <p className="font-semibold text-[var(--color-brand-700)] mt-2">Conditions:</p>
             <ul>
-              <li>Return requests must be raised within <strong>48 hours</strong> of delivery.</li>
+              <li>Return requests must be raised within <strong>48 hours</strong> of delivery for damage claims.</li>
               <li>The product must be unused and in original packaging.</li>
               <li>Customers must share clear photos/videos of the issue for verification.</li>
             </ul>
-          </Section>
+          </PolicySection>
 
-          <Section icon={<AlertCircle size={18} />} title="Non-Returnable Items">
+          <PolicySection icon={<AlertCircle size={16} />} title="Non-Returnable Items">
             <p>For quality assurance, we cannot accept returns for:</p>
             <ul>
               <li>Products that have been assembled, used, or installed.</li>
@@ -74,18 +74,18 @@ export default function CancellationRefundPage() {
               <li>Bulk/wholesale orders, unless a verified defect is confirmed.</li>
               <li>Custom-made or personalised furniture items.</li>
             </ul>
-          </Section>
+          </PolicySection>
 
-          <Section icon={<CheckCircle size={18} />} title="Refunds">
+          <PolicySection icon={<CheckCircle size={16} />} title="Refunds">
             <ul>
               <li>Once a claim is verified and approved, refunds are initiated within <strong>3–5 business days</strong>.</li>
-              <li>Refunds are processed via the original payment method (UPI, card, bank transfer, etc.).</li>
+              <li>Refunds are processed via the original payment method (UPI, card, or bank transfer).</li>
               <li>Depending on the payment provider, refunds may take <strong>5–10 business days</strong> to reflect in your account.</li>
               <li>Customers may also choose store credit or product replacement instead of a refund.</li>
             </ul>
-          </Section>
+          </PolicySection>
 
-          <Section icon={<AlertCircle size={18} />} title="Exceptions">
+          <PolicySection icon={<AlertCircle size={16} />} title="Exceptions">
             <p>Refunds and cancellations will not apply in cases where:</p>
             <ul>
               <li>Delivery is delayed due to courier or logistics issues beyond our control.</li>
@@ -93,47 +93,66 @@ export default function CancellationRefundPage() {
               <li>Natural variations in wood grain, texture, or colour occur (as furniture is made from natural materials).</li>
               <li>Minor cosmetic differences from product images due to screen display variations.</li>
             </ul>
-          </Section>
+          </PolicySection>
 
-          <ContactBox />
+          <ContactCard title="Need help with a return or refund?" />
+
+          <p className="text-xs text-center text-[var(--color-text-muted)]">
+            © {new Date().getFullYear()} {site.brand}. All Rights Reserved.
+          </p>
         </div>
       </div>
     </main>
   );
 }
 
-function Section({ icon, title, children }: { icon: React.ReactNode; title: string; children: React.ReactNode }) {
+function PolicySection({
+  icon, title, children,
+}: {
+  icon: React.ReactNode; title: string; children: React.ReactNode;
+}) {
   return (
-    <div className="bg-white dark:bg-[#1a1a1a] rounded-2xl border border-black/5 dark:border-white/8 p-7"
-      style={{ boxShadow: "0 2px 20px rgba(0,0,0,0.05)" }}>
-      <div className="flex items-center gap-3 mb-4">
-        <div className="w-9 h-9 rounded-xl bg-[#0d9488]/10 flex items-center justify-center text-[#0d9488]">
+    <div className="rounded-lg border border-[var(--color-border)] bg-[var(--color-surface)] p-6">
+      <div className="flex items-center gap-2.5 mb-4">
+        <span className="inline-flex items-center justify-center w-8 h-8 rounded-md bg-[var(--color-brand-50)] text-[var(--color-brand-700)]">
           {icon}
-        </div>
-        <h2 className="text-lg font-bold text-[#1a1a1a] dark:text-white">{title}</h2>
+        </span>
+        <h2 className="text-base font-semibold text-[var(--color-text-strong)]">{title}</h2>
       </div>
-      <div className="text-sm leading-relaxed space-y-2 text-black/60 dark:text-white/55 [&_ul]:list-disc [&_ul]:pl-5 [&_ul]:space-y-1.5 [&_strong]:text-[#1a1a1a] dark:[&_strong]:text-white">
+      <div className="text-sm leading-relaxed space-y-2 text-[var(--color-text)] [&_ul]:list-disc [&_ul]:pl-5 [&_ul]:space-y-1.5 [&_strong]:text-[var(--color-text-strong)]">
         {children}
       </div>
     </div>
   );
 }
 
-function ContactBox() {
+function ContactCard({ title }: { title: string }) {
   return (
-    <div className="rounded-2xl p-7 text-white" style={{ background: "linear-gradient(135deg, #0d9488, #0f766e)" }}>
-      <div className="flex items-center gap-3 mb-4">
-        <Mail size={20} />
-        <h2 className="text-lg font-bold">Need Help?</h2>
+    <div className="rounded-lg border border-[var(--color-brand-100)] bg-[var(--color-brand-50)] p-6">
+      <div className="flex items-center gap-2.5 mb-4">
+        <span className="inline-flex items-center justify-center w-8 h-8 rounded-md bg-[var(--color-brand-500)] text-white">
+          <Mail size={16} aria-hidden="true" />
+        </span>
+        <h2 className="text-base font-semibold text-[var(--color-brand-900)]">{title}</h2>
       </div>
-      <p className="text-white/80 text-sm mb-4">For cancellation or refund support, please contact us:</p>
-      <div className="space-y-1.5 text-sm text-white/90">
-        <p><strong>Suman Tech Automation</strong></p>
-        <p>👤 Prop. RAJASINGH</p>
-        <p>📍 No.7/1-3, West Street, Chellathayarpuram, Tirunelveli – 627808, Tamil Nadu</p>
-        <p>📞 +91 97155 90101 / +91 8838208741</p>
-        <p>📧 sumantechautomation@gmail.com | sumanagency4@gmail.com</p>
-        <p>🏛️ GSTIN: 33DVIPR5548Q1ZN</p>
+      <div className="space-y-1.5 text-sm text-[var(--color-brand-700)]">
+        <p className="font-semibold text-[var(--color-brand-900)]">{site.brand}</p>
+        <p>{site.proprietor}</p>
+        <div className="flex items-start gap-1.5">
+          <MapPin size={13} className="mt-0.5 shrink-0" aria-hidden="true" />
+          <span>{site.contact.address.line1}, {site.contact.address.city} – {site.contact.address.pincode}, {site.contact.address.state}</span>
+        </div>
+        {site.contact.phones.map((p) => (
+          <a key={p.e164} href={`tel:${p.e164}`} className="flex items-center gap-1.5 hover:text-[var(--color-brand-900)]">
+            <Phone size={13} aria-hidden="true" />
+            {p.display}
+          </a>
+        ))}
+        <a href={`mailto:${site.contact.primaryEmail}`} className="flex items-center gap-1.5 hover:text-[var(--color-brand-900)]">
+          <Mail size={13} aria-hidden="true" />
+          {site.contact.primaryEmail}
+        </a>
+        <p className="text-xs pt-1">GSTIN: <span className="font-mono">{site.gstin}</span></p>
       </div>
     </div>
   );

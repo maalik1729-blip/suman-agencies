@@ -1,19 +1,27 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useMemo } from "react";
 import { useRouter } from "next/navigation";
+import Image from "next/image";
+import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
+import {
+  CreditCard, Banknote, Smartphone, ChevronRight,
+  Lock, ArrowLeft, CheckCircle, User, MapPin, Phone,
+} from "lucide-react";
 import { useCart } from "@/context/CartContext";
 import { useCurrency } from "@/context/CurrencyContext";
 import { cn } from "@/lib/utils";
-import {
-  CreditCard, Banknote, Smartphone, ChevronRight,
-  Lock, ArrowLeft, CheckCircle, User, MapPin, Phone, Mail,
-} from "lucide-react";
+import { Button } from "@/components/ui/Button";
+import { Input } from "@/components/ui/Field";
+import { EmptyState } from "@/components/ui/EmptyState";
+import { site } from "@/data/site";
+import { orderId as generateOrderId } from "@/lib/id";
+import { calcCodFeeINR, saveOrder, type Order, type OrderPayment } from "@/lib/orders";
 
-type PaymentMode = "cash" | "card" | "upi";
+type PaymentMode = "cod" | "card" | "upi";
 
-interface OrderDetails {
+interface DetailsForm {
   name: string;
   email: string;
   phone: string;
@@ -23,329 +31,610 @@ interface OrderDetails {
   pincode: string;
 }
 
+interface DetailsErrors {
+  name?: string;
+  email?: string;
+  phone?: string;
+  address?: string;
+  city?: string;
+  state?: string;
+  pincode?: string;
+}
+
 const STEPS = ["Order Details", "Payment"];
+
+function validateDetails(d: DetailsForm): DetailsErrors {
+  const errors: DetailsErrors = {};
+  if (!d.name.trim()) errors.name = "Required";
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(d.email)) errors.email = "Enter a valid email";
+  if (!/^\+?[\d\s-]{10,15}$/.test(d.phone)) errors.phone = "Enter a valid 10-digit phone";
+  if (!d.address.trim()) errors.address = "Required";
+  if (!d.city.trim()) errors.city = "Required";
+  if (!d.state.trim()) errors.state = "Required";
+  if (!/^\d{6}$/.test(d.pincode)) errors.pincode = "Enter a 6-digit pincode";
+  return errors;
+}
 
 export default function CheckoutPage() {
   const router = useRouter();
   const { items, totalPrice, clearCart } = useCart();
-  const { formatPrice } = useCurrency();
-  const [theme, setTheme] = useState("light");
+  const { formatPrice, currency } = useCurrency();
   const [step, setStep] = useState(0);
   const [placing, setPlacing] = useState(false);
 
-  /* Step 1 state */
-  const [details, setDetails] = useState<OrderDetails>({
-    name: "", email: "", phone: "", address: "", city: "", state: "", pincode: "",
+  // Step 1
+  const [details, setDetails] = useState<DetailsForm>({
+    name: "", email: "", phone: "",
+    address: "", city: "", state: "", pincode: "",
   });
+  const [detailsTouched, setDetailsTouched] = useState<Record<keyof DetailsForm, boolean>>({
+    name: false, email: false, phone: false, address: false, city: false, state: false, pincode: false,
+  });
+  const [submitAttempted, setSubmitAttempted] = useState(false);
 
-  /* Step 2 state */
+  // Step 2
   const [paymentMode, setPaymentMode] = useState<PaymentMode>("upi");
   const [cardNumber, setCardNumber] = useState("");
   const [cardName, setCardName] = useState("");
   const [expiry, setExpiry] = useState("");
   const [cvv, setCvv] = useState("");
   const [upiId, setUpiId] = useState("");
+  const [upiApp, setUpiApp] = useState<"gpay" | "phonepe" | "paytm" | "other">("gpay");
+  const [paymentErr, setPaymentErr] = useState<string | null>(null);
 
-  useEffect(() => {
-    const stored = localStorage.getItem("suman-agency-theme");
-    setTheme(stored || "light");
-    const obs = new MutationObserver(() =>
-      setTheme(document.documentElement.classList.contains("dark") ? "dark" : "light")
-    );
-    obs.observe(document.documentElement, { attributes: true, attributeFilter: ["class"] });
-    return () => obs.disconnect();
-  }, []);
+  const detailErrors = validateDetails(details);
+  const isStep1Valid = Object.keys(detailErrors).length === 0;
 
-  const isDark = theme === "dark";
+  // Audit C-3: COD fee actually added to totals.
+  const codFee = paymentMode === "cod" ? calcCodFeeINR(totalPrice) : 0;
+  const grandTotalINR = totalPrice + codFee;
 
+  const showErr = (k: keyof DetailsForm) =>
+    (submitAttempted || detailsTouched[k]) && detailErrors[k];
+
+  // Empty cart guard
   if (items.length === 0) {
     return (
-      <div className="min-h-screen flex flex-col items-center justify-center gap-4 px-4">
-        <p className="text-5xl">🛒</p>
-        <h2 className={cn("text-2xl font-bold", isDark ? "text-white" : "text-[#1a1d23]")}>Your cart is empty</h2>
-        <button onClick={() => router.push("/products")} className="btn-primary mt-2"><span>Browse Products</span></button>
+      <div className="min-h-screen pt-16">
+        <div className="max-w-xl mx-auto py-20 px-4">
+          <EmptyState
+            title="Your cart is empty"
+            description="Add some products to your cart before checking out."
+            primaryCta={
+              <Link href="/products">
+                <Button variant="primary" size="md">Browse products</Button>
+              </Link>
+            }
+          />
+        </div>
       </div>
     );
   }
 
-  const isStep1Valid = details.name && details.email && details.phone && details.address && details.city && details.pincode;
+  function paymentIsValid(): string | null {
+    if (paymentMode === "cod") return null;
+    if (paymentMode === "card") {
+      const digits = cardNumber.replace(/\s/g, "");
+      if (digits.length < 13 || digits.length > 19) return "Enter a valid card number";
+      if (!cardName.trim()) return "Enter the name on card";
+      if (!/^\d{2}\s\/\s\d{2}$/.test(expiry)) return "Enter expiry as MM / YY";
+      if (cvv.length !== 3) return "Enter a 3-digit CVV";
+      return null;
+    }
+    if (paymentMode === "upi") {
+      if (!/^[\w.\-]{3,}@[a-z]{3,}$/i.test(upiId)) return "Enter a valid UPI ID, e.g. yourname@upi";
+      return null;
+    }
+    return null;
+  }
 
   const handleConfirm = async () => {
+    const err = paymentIsValid();
+    if (err) {
+      setPaymentErr(err);
+      return;
+    }
+    setPaymentErr(null);
     setPlacing(true);
-    await new Promise((r) => setTimeout(r, 1800));
-    const orderId = `LUX-${Date.now().toString().slice(-6)}`;
-    clearCart();
-    router.push(`/order-status?id=${orderId}&method=${paymentMode}&amount=${totalPrice}`);
+    // Simulated processing — in production replace with real gateway.
+    await new Promise((r) => setTimeout(r, 800));
+
+    const payment: OrderPayment =
+      paymentMode === "upi"
+        ? { method: "upi", upiId, app: upiApp }
+        : paymentMode === "card"
+        ? { method: "card", cardLast4: cardNumber.replace(/\s/g, "").slice(-4) }
+        : { method: "cod" };
+
+    const id = generateOrderId();
+    const order: Order = {
+      id,
+      placedAt: new Date().toISOString(),
+      status: "confirmed",
+      items: items.map((i) => ({
+        id: i.product.id,
+        name: i.product.name,
+        image: i.product.images[0],
+        unitPriceINR: i.product.price,
+        quantity: i.quantity,
+        variant: i.color,
+      })),
+      address: {
+        name: details.name,
+        email: details.email,
+        phone: details.phone,
+        line: details.address,
+        city: details.city,
+        state: details.state,
+        pincode: details.pincode,
+      },
+      payment,
+      totals: {
+        subtotalINR: totalPrice,
+        shippingINR: 0,
+        codFeeINR: codFee,
+        totalINR: grandTotalINR,
+      },
+      currency,
+    };
+
+    // Persist BEFORE navigation. clearCart runs on the order-status page once it has loaded.
+    saveOrder(order);
+    router.push(`/order-status?id=${id}`);
   };
 
-  const inputCls = cn(
-    "w-full px-4 py-3 rounded-xl border text-sm focus:outline-none focus:border-[#4a6fa5] transition-colors",
-    isDark ? "bg-white/6 border-white/10 text-white placeholder-white/30" : "bg-gray-50 border-black/10 text-[#1a1d23] placeholder-black/30"
+  const paymentModes: { id: PaymentMode; label: string; icon: React.ReactNode; desc: string }[] = useMemo(
+    () => [
+      { id: "upi", label: "UPI", icon: <Smartphone size={20} />, desc: "GPay, PhonePe, Paytm" },
+      { id: "card", label: "Card", icon: <CreditCard size={20} />, desc: "Credit / Debit card" },
+      {
+        id: "cod",
+        label: "Cash on Delivery",
+        icon: <Banknote size={20} />,
+        desc: totalPrice < site.cod.feeThresholdINR
+          ? `+${formatPrice(site.cod.feeINR)} handling fee`
+          : "No extra fee",
+      },
+    ],
+    [totalPrice, formatPrice]
   );
-  const labelCls = cn("block text-xs font-semibold uppercase tracking-wider mb-1.5", isDark ? "text-white/50" : "text-black/40");
-
-  const paymentModes: { id: PaymentMode; label: string; icon: React.ReactNode; desc: string }[] = [
-    { id: "upi", label: "UPI", icon: <Smartphone size={22} />, desc: "GPay, PhonePe, Paytm" },
-    { id: "card", label: "Card", icon: <CreditCard size={22} />, desc: "Credit / Debit card" },
-    { id: "cash", label: "Cash on Delivery", icon: <Banknote size={22} />, desc: "Pay when delivered" },
-  ];
 
   return (
-    <div className={cn("min-h-screen pt-24 pb-16 px-4 sm:px-6", isDark ? "bg-[#0d1017]" : "bg-[#f8fafc]")}>
+    <div className="min-h-screen bg-[var(--color-bg)] pt-[calc(var(--header-height)+24px)] pb-16 px-4 sm:px-6">
       <div className="max-w-5xl mx-auto">
 
-        {/* Back */}
-        <button onClick={() => step === 0 ? router.back() : setStep(0)}
-          className={cn("flex items-center gap-2 text-sm mb-8 hover:text-[#4a6fa5] transition-colors", isDark ? "text-white/50" : "text-black/40")}>
-          <ArrowLeft size={16} /> {step === 0 ? "Back to Cart" : "Back to Order Details"}
+        <button
+          onClick={() => (step === 0 ? router.back() : setStep(0))}
+          className="inline-flex items-center gap-1.5 text-sm text-[var(--color-text-muted)] hover:text-[var(--color-text-strong)] mb-8 transition-colors"
+        >
+          <ArrowLeft size={14} aria-hidden="true" />
+          {step === 0 ? "Back to cart" : "Back to order details"}
         </button>
 
         {/* Stepper */}
-        <div className="flex items-center gap-0 mb-10 max-w-xs">
+        <div
+          className="flex items-center gap-0 mb-10 max-w-sm"
+          aria-label={`Step ${step + 1} of ${STEPS.length}: ${STEPS[step]}`}
+        >
           {STEPS.map((s, i) => (
             <div key={s} className="flex items-center flex-1">
-              <div className="flex flex-col items-center">
-                <div className={cn(
-                  "w-9 h-9 rounded-full flex items-center justify-center font-bold text-sm border-2 transition-all duration-300",
-                  i < step ? "bg-[#4a6fa5] border-[#4a6fa5] text-white"
-                    : i === step ? "border-[#4a6fa5] text-[#4a6fa5] bg-transparent"
-                    : isDark ? "border-white/20 text-white/30" : "border-black/15 text-black/30"
-                )}>
-                  {i < step ? <CheckCircle size={16} /> : i + 1}
+              <div className="flex flex-col items-center gap-1.5">
+                <div
+                  className={cn(
+                    "w-8 h-8 rounded-full inline-flex items-center justify-center text-sm font-semibold border transition-colors",
+                    i < step
+                      ? "bg-[var(--color-brand-500)] border-[var(--color-brand-500)] text-white"
+                      : i === step
+                      ? "border-[var(--color-brand-500)] text-[var(--color-brand-500)] bg-[var(--color-brand-50)]"
+                      : "border-[var(--color-border)] text-[var(--color-text-muted)]"
+                  )}
+                  aria-current={i === step ? "step" : undefined}
+                >
+                  {i < step ? <CheckCircle size={14} /> : i + 1}
                 </div>
-                <span className={cn("text-xs mt-1.5 font-medium whitespace-nowrap", i === step ? "text-[#4a6fa5]" : isDark ? "text-white/40" : "text-black/40")}>{s}</span>
+                <span
+                  className={cn(
+                    "text-xs whitespace-nowrap",
+                    i === step ? "text-[var(--color-text-strong)] font-medium" : "text-[var(--color-text-muted)]"
+                  )}
+                >
+                  {s}
+                </span>
               </div>
               {i < STEPS.length - 1 && (
-                <div className={cn("h-0.5 flex-1 mx-2 mb-5 rounded-full transition-all duration-300", i < step ? "bg-[#4a6fa5]" : isDark ? "bg-white/10" : "bg-black/10")} />
+                <div
+                  className={cn(
+                    "h-px flex-1 mx-2 mb-5",
+                    i < step ? "bg-[var(--color-brand-500)]" : "bg-[var(--color-border)]"
+                  )}
+                />
               )}
             </div>
           ))}
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-          {/* Left — Steps */}
+          {/* Form column */}
           <div className="lg:col-span-2">
             <AnimatePresence mode="wait">
               {step === 0 ? (
-                /* ── STEP 1: Order Details ── */
-                <motion.div key="step1"
-                  initial={{ opacity: 0, x: -24 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: 24 }}
-                  transition={{ duration: 0.28 }}
-                  className={cn("rounded-2xl border p-6 space-y-5", isDark ? "bg-[#141820] border-white/8" : "bg-white border-black/6")}
-                  style={{ boxShadow: "var(--shadow-luxe)" }}
+                <motion.div
+                  key="step1"
+                  initial={{ opacity: 0, y: 8 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -8 }}
+                  transition={{ duration: 0.15 }}
+                  className="rounded-lg border border-[var(--color-border)] bg-[var(--color-surface)] p-6 space-y-6"
                 >
-                  <h2 className={cn("font-bold text-lg flex items-center gap-2", isDark ? "text-white" : "text-[#1a1d23]")}>
-                    <User size={18} className="text-[#4a6fa5]" /> Personal Information
+                  <h2 className="text-base font-semibold text-[var(--color-text-strong)] flex items-center gap-2">
+                    <User size={16} className="text-[var(--color-brand-500)]" aria-hidden="true" />
+                    Personal Information
                   </h2>
 
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                    <div>
-                      <label className={labelCls}>Full Name *</label>
-                      <input className={inputCls} placeholder="John Doe" value={details.name}
-                        onChange={(e) => setDetails({ ...details, name: e.target.value })} />
-                    </div>
-                    <div>
-                      <label className={labelCls}>Email *</label>
-                      <input className={inputCls} type="email" placeholder="john@example.com" value={details.email}
-                        onChange={(e) => setDetails({ ...details, email: e.target.value })} />
-                    </div>
+                    <Input
+                      label="Full name"
+                      required
+                      placeholder="John Doe"
+                      value={details.name}
+                      onChange={(e) => setDetails({ ...details, name: e.target.value })}
+                      onBlur={() => setDetailsTouched((t) => ({ ...t, name: true }))}
+                      error={showErr("name") ? detailErrors.name : undefined}
+                      autoComplete="name"
+                    />
+                    <Input
+                      label="Email"
+                      type="email"
+                      required
+                      placeholder="john@example.com"
+                      value={details.email}
+                      onChange={(e) => setDetails({ ...details, email: e.target.value })}
+                      onBlur={() => setDetailsTouched((t) => ({ ...t, email: true }))}
+                      error={showErr("email") ? detailErrors.email : undefined}
+                      autoComplete="email"
+                    />
                     <div className="sm:col-span-2">
-                      <label className={labelCls}>Phone Number *</label>
-                      <input className={inputCls} type="tel" placeholder="+91 97155 90101" value={details.phone}
-                        onChange={(e) => setDetails({ ...details, phone: e.target.value })} />
+                      <Input
+                        label="Phone number"
+                        type="tel"
+                        required
+                        placeholder="+91 97155 90101"
+                        value={details.phone}
+                        onChange={(e) => setDetails({ ...details, phone: e.target.value })}
+                        onBlur={() => setDetailsTouched((t) => ({ ...t, phone: true }))}
+                        error={showErr("phone") ? detailErrors.phone : undefined}
+                        helper="We'll text you a delivery confirmation."
+                        autoComplete="tel"
+                      />
                     </div>
                   </div>
 
-                  <div className={cn("border-t pt-5", isDark ? "border-white/8" : "border-black/6")}>
-                    <h3 className={cn("font-bold text-base flex items-center gap-2 mb-4", isDark ? "text-white" : "text-[#1a1d23]")}>
-                      <MapPin size={16} className="text-[#4a6fa5]" /> Delivery Address
+                  <div className="border-t border-[var(--color-border)] pt-5 space-y-4">
+                    <h3 className="text-sm font-semibold text-[var(--color-text-strong)] flex items-center gap-2">
+                      <MapPin size={14} className="text-[var(--color-brand-500)]" aria-hidden="true" />
+                      Delivery address
                     </h3>
-                    <div className="space-y-4">
-                      <div>
-                        <label className={labelCls}>Street Address *</label>
-                        <input className={inputCls} placeholder="House No., Street, Area" value={details.address}
-                          onChange={(e) => setDetails({ ...details, address: e.target.value })} />
-                      </div>
-                      <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
-                        <div>
-                          <label className={labelCls}>City *</label>
-                          <input className={inputCls} placeholder="Tirunelveli" value={details.city}
-                            onChange={(e) => setDetails({ ...details, city: e.target.value })} />
-                        </div>
-                        <div>
-                          <label className={labelCls}>State</label>
-                          <input className={inputCls} placeholder="Tamil Nadu" value={details.state}
-                            onChange={(e) => setDetails({ ...details, state: e.target.value })} />
-                        </div>
-                        <div>
-                          <label className={labelCls}>Pincode *</label>
-                          <input className={inputCls} placeholder="627808" maxLength={6} value={details.pincode}
-                            onChange={(e) => setDetails({ ...details, pincode: e.target.value.replace(/\D/g, "") })} />
-                        </div>
-                      </div>
+
+                    <Input
+                      label="Street address"
+                      required
+                      placeholder="House no., street, area"
+                      value={details.address}
+                      onChange={(e) => setDetails({ ...details, address: e.target.value })}
+                      onBlur={() => setDetailsTouched((t) => ({ ...t, address: true }))}
+                      error={showErr("address") ? detailErrors.address : undefined}
+                      autoComplete="street-address"
+                    />
+
+                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                      <Input
+                        label="City"
+                        required
+                        placeholder="Tirunelveli"
+                        value={details.city}
+                        onChange={(e) => setDetails({ ...details, city: e.target.value })}
+                        onBlur={() => setDetailsTouched((t) => ({ ...t, city: true }))}
+                        error={showErr("city") ? detailErrors.city : undefined}
+                        autoComplete="address-level2"
+                      />
+                      <Input
+                        label="State"
+                        required
+                        placeholder="State / Region"
+                        value={details.state}
+                        onChange={(e) => setDetails({ ...details, state: e.target.value })}
+                        onBlur={() => setDetailsTouched((t) => ({ ...t, state: true }))}
+                        error={showErr("state") ? detailErrors.state : undefined}
+                        autoComplete="address-level1"
+                      />
+                      <Input
+                        label="Pincode"
+                        required
+                        placeholder="627808"
+                        inputMode="numeric"
+                        maxLength={6}
+                        value={details.pincode}
+                        onChange={(e) =>
+                          setDetails({ ...details, pincode: e.target.value.replace(/\D/g, "") })
+                        }
+                        onBlur={() => setDetailsTouched((t) => ({ ...t, pincode: true }))}
+                        error={showErr("pincode") ? detailErrors.pincode : undefined}
+                        autoComplete="postal-code"
+                      />
                     </div>
                   </div>
 
-                  <button
-                    onClick={() => setStep(1)}
-                    disabled={!isStep1Valid}
-                    className="w-full btn-primary justify-between disabled:opacity-50 disabled:cursor-not-allowed"
+                  <Button
+                    variant="primary"
+                    size="lg"
+                    fullWidth
+                    rightIcon={<ChevronRight size={16} />}
+                    onClick={() => {
+                      setSubmitAttempted(true);
+                      if (isStep1Valid) setStep(1);
+                    }}
                   >
-                    <span>Continue to Payment</span>
-                    <ChevronRight size={16} />
-                  </button>
+                    Continue to payment · {formatPrice(grandTotalINR)}
+                  </Button>
                 </motion.div>
               ) : (
-                /* ── STEP 2: Payment ── */
-                <motion.div key="step2"
-                  initial={{ opacity: 0, x: 24 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -24 }}
-                  transition={{ duration: 0.28 }}
+                <motion.div
+                  key="step2"
+                  initial={{ opacity: 0, y: 8 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -8 }}
+                  transition={{ duration: 0.15 }}
                   className="space-y-5"
                 >
-                  {/* Payment Mode Selector */}
-                  <div className={cn("rounded-2xl border p-6", isDark ? "bg-[#141820] border-white/8" : "bg-white border-black/6")} style={{ boxShadow: "var(--shadow-luxe)" }}>
-                    <h2 className={cn("font-bold text-lg mb-4", isDark ? "text-white" : "text-[#1a1d23]")}>Choose Payment Method</h2>
-                    <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
-                      {paymentModes.map((m) => (
-                        <button key={m.id} onClick={() => setPaymentMode(m.id)}
-                          className={cn(
-                            "flex flex-col items-center gap-2 p-4 rounded-xl border-2 transition-all duration-200 text-center",
-                            paymentMode === m.id
-                              ? "border-[#4a6fa5] bg-[#4a6fa5]/8 text-[#4a6fa5]"
-                              : isDark ? "border-white/10 text-white/50 hover:border-white/30" : "border-black/8 text-black/50 hover:border-[#4a6fa5]/40"
-                          )}>
-                          {m.icon}
-                          <span className="font-semibold text-sm">{m.label}</span>
-                          <span className={cn("text-xs", paymentMode === m.id ? "text-[#4a6fa5]/70" : isDark ? "text-white/30" : "text-black/30")}>{m.desc}</span>
-                        </button>
-                      ))}
+                  {/* Payment selector */}
+                  <fieldset className="rounded-lg border border-[var(--color-border)] bg-[var(--color-surface)] p-6">
+                    <legend className="text-base font-semibold text-[var(--color-text-strong)] px-1">
+                      Choose payment method
+                    </legend>
+                    <div className="mt-4 grid grid-cols-1 sm:grid-cols-3 gap-3">
+                      {paymentModes.map((m) => {
+                        const active = paymentMode === m.id;
+                        return (
+                          <label
+                            key={m.id}
+                            className={cn(
+                              "flex flex-col gap-1.5 p-4 rounded-md border cursor-pointer transition-colors",
+                              active
+                                ? "border-[var(--color-brand-500)] bg-[var(--color-brand-50)]"
+                                : "border-[var(--color-border)] bg-[var(--color-bg)] hover:border-[var(--color-border-strong)]"
+                            )}
+                          >
+                            <input
+                              type="radio"
+                              name="payment"
+                              value={m.id}
+                              checked={active}
+                              onChange={() => {
+                                setPaymentMode(m.id);
+                                setPaymentErr(null);
+                              }}
+                              className="sr-only"
+                            />
+                            <span className={cn("inline-flex items-center gap-2 text-sm font-medium", active ? "text-[var(--color-brand-700)]" : "text-[var(--color-text-strong)]")}>
+                              {m.icon}
+                              {m.label}
+                            </span>
+                            <span className={cn("text-xs", active ? "text-[var(--color-brand-700)]" : "text-[var(--color-text-muted)]")}>
+                              {m.desc}
+                            </span>
+                          </label>
+                        );
+                      })}
                     </div>
+                  </fieldset>
+
+                  {/* Conditional payment details */}
+                  <div className="rounded-lg border border-[var(--color-border)] bg-[var(--color-surface)] p-6">
+                    {paymentMode === "card" && (
+                      <div className="space-y-4">
+                        <h3 className="text-sm font-semibold text-[var(--color-text-strong)]">Card details</h3>
+                        <Input
+                          label="Card number"
+                          placeholder="1234 5678 9012 3456"
+                          inputMode="numeric"
+                          maxLength={19}
+                          value={cardNumber}
+                          onChange={(e) => {
+                            const v = e.target.value.replace(/\D/g, "").slice(0, 16);
+                            setCardNumber(v.replace(/(.{4})/g, "$1 ").trim());
+                          }}
+                          autoComplete="cc-number"
+                        />
+                        <Input
+                          label="Name on card"
+                          placeholder="John Doe"
+                          value={cardName}
+                          onChange={(e) => setCardName(e.target.value)}
+                          autoComplete="cc-name"
+                        />
+                        <div className="grid grid-cols-2 gap-4">
+                          <Input
+                            label="Expiry"
+                            placeholder="MM / YY"
+                            inputMode="numeric"
+                            maxLength={7}
+                            value={expiry}
+                            onChange={(e) => {
+                              const v = e.target.value.replace(/\D/g, "").slice(0, 4);
+                              setExpiry(v.length > 2 ? `${v.slice(0, 2)} / ${v.slice(2)}` : v);
+                            }}
+                            autoComplete="cc-exp"
+                          />
+                          <Input
+                            label="CVV"
+                            placeholder="•••"
+                            type="password"
+                            inputMode="numeric"
+                            maxLength={3}
+                            value={cvv}
+                            onChange={(e) => setCvv(e.target.value.replace(/\D/g, "").slice(0, 3))}
+                            autoComplete="cc-csc"
+                          />
+                        </div>
+                      </div>
+                    )}
+
+                    {paymentMode === "upi" && (
+                      <div className="space-y-4">
+                        <h3 className="text-sm font-semibold text-[var(--color-text-strong)]">UPI payment</h3>
+                        <fieldset>
+                          <legend className="sr-only">Choose UPI app</legend>
+                          <div className="grid grid-cols-3 gap-2">
+                            {(["gpay", "phonepe", "paytm"] as const).map((app) => {
+                              const active = upiApp === app;
+                              return (
+                                <label
+                                  key={app}
+                                  className={cn(
+                                    "py-2.5 text-center rounded-md border text-xs font-semibold uppercase tracking-[0.06em] cursor-pointer transition-colors",
+                                    active
+                                      ? "border-[var(--color-brand-500)] bg-[var(--color-brand-50)] text-[var(--color-brand-700)]"
+                                      : "border-[var(--color-border)] bg-[var(--color-bg)] text-[var(--color-text)] hover:border-[var(--color-border-strong)]"
+                                  )}
+                                >
+                                  <input
+                                    type="radio"
+                                    name="upi-app"
+                                    value={app}
+                                    checked={active}
+                                    onChange={() => setUpiApp(app)}
+                                    className="sr-only"
+                                  />
+                                  {app === "gpay" ? "GPay" : app === "phonepe" ? "PhonePe" : "Paytm"}
+                                </label>
+                              );
+                            })}
+                          </div>
+                        </fieldset>
+                        <Input
+                          label="UPI ID"
+                          placeholder="yourname@upi"
+                          value={upiId}
+                          onChange={(e) => setUpiId(e.target.value)}
+                          helper="Format: name@bank"
+                        />
+                      </div>
+                    )}
+
+                    {paymentMode === "cod" && (
+                      <div className="text-sm text-[var(--color-text)] space-y-3">
+                        <h3 className="text-base font-semibold text-[var(--color-text-strong)]">Cash on Delivery</h3>
+                        <p>Pay in cash when your order arrives. No prepayment needed.</p>
+                        {codFee > 0 && (
+                          <div className="px-3 py-2 rounded-md bg-[var(--color-warning-50)] text-[var(--color-warning-700)] text-xs">
+                            COD handling fee of {formatPrice(site.cod.feeINR)} applies on orders below {formatPrice(site.cod.feeThresholdINR)}.
+                          </div>
+                        )}
+                      </div>
+                    )}
                   </div>
 
-                  {/* Payment Details */}
-                  <AnimatePresence mode="wait">
-                    <motion.div key={paymentMode}
-                      initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }}
-                      transition={{ duration: 0.2 }}
-                      className={cn("rounded-2xl border p-6", isDark ? "bg-[#141820] border-white/8" : "bg-white border-black/6")}
-                      style={{ boxShadow: "var(--shadow-luxe)" }}
-                    >
-                      {paymentMode === "card" && (
-                        <div className="space-y-4">
-                          <h3 className={cn("font-bold text-base mb-2", isDark ? "text-white" : "text-[#1a1d23]")}>Card Details</h3>
-                          <div>
-                            <label className={labelCls}>Card Number</label>
-                            <input className={inputCls} placeholder="1234 5678 9012 3456" maxLength={19} value={cardNumber}
-                              onChange={(e) => { const v = e.target.value.replace(/\D/g, "").slice(0, 16); setCardNumber(v.replace(/(.{4})/g, "$1 ").trim()); }} />
-                          </div>
-                          <div>
-                            <label className={labelCls}>Name on Card</label>
-                            <input className={inputCls} placeholder="John Doe" value={cardName} onChange={(e) => setCardName(e.target.value)} />
-                          </div>
-                          <div className="grid grid-cols-2 gap-4">
-                            <div>
-                              <label className={labelCls}>Expiry</label>
-                              <input className={inputCls} placeholder="MM / YY" maxLength={7} value={expiry}
-                                onChange={(e) => { const v = e.target.value.replace(/\D/g, "").slice(0, 4); setExpiry(v.length > 2 ? `${v.slice(0, 2)} / ${v.slice(2)}` : v); }} />
-                            </div>
-                            <div>
-                              <label className={labelCls}>CVV</label>
-                              <input className={inputCls} placeholder="•••" maxLength={3} type="password" value={cvv}
-                                onChange={(e) => setCvv(e.target.value.replace(/\D/g, "").slice(0, 3))} />
-                            </div>
-                          </div>
-                        </div>
-                      )}
-                      {paymentMode === "upi" && (
-                        <div>
-                          <h3 className={cn("font-bold text-base mb-4", isDark ? "text-white" : "text-[#1a1d23]")}>UPI Payment</h3>
-                          <div className="flex gap-3 mb-4">
-                            {["GPay", "PhonePe", "Paytm"].map((app) => (
-                              <div key={app} className={cn("flex-1 py-3 rounded-xl border text-center text-xs font-semibold cursor-pointer transition-all hover:border-[#4a6fa5] hover:text-[#4a6fa5]", isDark ? "border-white/10 text-white/50" : "border-black/8 text-black/40")}>{app}</div>
-                            ))}
-                          </div>
-                          <label className={labelCls}>Enter UPI ID</label>
-                          <input className={inputCls} placeholder="yourname@upi" value={upiId} onChange={(e) => setUpiId(e.target.value)} />
-                        </div>
-                      )}
-                      {paymentMode === "cash" && (
-                        <div className="text-center py-4">
-                          <div className="w-14 h-14 rounded-full bg-[#4a6fa5]/10 flex items-center justify-center mx-auto mb-3">
-                            <Banknote size={26} className="text-[#4a6fa5]" />
-                          </div>
-                          <h3 className={cn("font-bold text-base mb-2", isDark ? "text-white" : "text-[#1a1d23]")}>Cash on Delivery</h3>
-                          <p className={cn("text-sm", isDark ? "text-white/50" : "text-black/40")}>Pay in cash when your order arrives. No prepayment needed.</p>
-                          <div className={cn("mt-4 p-3 rounded-xl text-xs", isDark ? "bg-white/5 text-white/40" : "bg-blue-50 text-blue-700")}>
-                            {formatPrice(50)} COD handling fee may apply on orders below {formatPrice(999)}
-                          </div>
-                        </div>
-                      )}
-                    </motion.div>
-                  </AnimatePresence>
+                  {paymentErr && (
+                    <div role="alert" className="px-4 py-3 rounded-md bg-[var(--color-danger-50)] text-[var(--color-danger-700)] text-sm">
+                      {paymentErr}
+                    </div>
+                  )}
 
-                  <button onClick={handleConfirm} disabled={placing}
-                    className="w-full btn-primary justify-center disabled:opacity-60 disabled:cursor-not-allowed">
-                    {placing ? (
-                      <span className="flex items-center gap-2">
-                        <svg className="animate-spin w-4 h-4" viewBox="0 0 24 24" fill="none">
-                          <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
-                          <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8H4z" />
-                        </svg>
-                        Processing...
-                      </span>
-                    ) : (
-                      <span className="flex items-center gap-2">
-                        <Lock size={15} /> Confirm & Pay {formatPrice(totalPrice)} <ChevronRight size={15} />
-                      </span>
-                    )}
-                  </button>
+                  <Button
+                    variant="primary"
+                    size="lg"
+                    fullWidth
+                    loading={placing}
+                    onClick={handleConfirm}
+                    leftIcon={!placing && <Lock size={15} />}
+                  >
+                    Confirm &amp; Pay · {formatPrice(grandTotalINR)}
+                  </Button>
+
+                  <p className="text-xs text-[var(--color-text-muted)] text-center">
+                    By placing this order, you agree to our{" "}
+                    <Link href="/terms-conditions" className="underline">Terms</Link> and{" "}
+                    <Link href="/cancellation-refund" className="underline">Refund Policy</Link>.
+                  </p>
                 </motion.div>
               )}
             </AnimatePresence>
           </div>
 
-          {/* Right — Order Summary */}
-          <div>
-            <div className={cn("rounded-2xl border p-5 sticky top-28", isDark ? "bg-[#141820] border-white/8" : "bg-white border-black/6")} style={{ boxShadow: "var(--shadow-luxe)" }}>
-              <h2 className={cn("font-bold text-base mb-4", isDark ? "text-white" : "text-[#1a1d23]")}>Order Summary</h2>
-              <div className="space-y-3 mb-4">
+          {/* Order summary */}
+          <aside>
+            <div className="rounded-lg border border-[var(--color-border)] bg-[var(--color-surface)] p-5 sticky top-[calc(var(--header-height)+16px)]">
+              <h2 className="text-base font-semibold text-[var(--color-text-strong)] mb-4">Order Summary</h2>
+              <ul className="space-y-3 mb-4">
                 {items.map((item) => (
-                  <div key={item.product.id} className="flex gap-3 items-center">
-                    <img src={item.product.images[0]} alt={item.product.name} className="w-12 h-12 rounded-lg object-cover flex-shrink-0" />
-                    <div className="flex-1 min-w-0">
-                      <p className={cn("text-xs font-medium line-clamp-1", isDark ? "text-white" : "text-[#1a1d23]")}>{item.product.name}</p>
-                      <p className={cn("text-xs", isDark ? "text-white/40" : "text-black/40")}>Qty: {item.quantity}</p>
+                  <li key={item.product.id} className="flex gap-3 items-center">
+                    <div className="relative w-12 h-12 rounded-md overflow-hidden bg-[var(--color-surface-2)] shrink-0">
+                      <Image
+                        src={item.product.images[0]}
+                        alt=""
+                        fill
+                        sizes="48px"
+                        className="object-cover"
+                      />
                     </div>
-                    <span className="text-xs font-bold text-[#4a6fa5] flex-shrink-0">{formatPrice(item.product.price * item.quantity)}</span>
-                  </div>
+                    <div className="flex-1 min-w-0">
+                      <p className="text-xs font-medium text-[var(--color-text-strong)] line-clamp-1">
+                        {item.product.name}
+                      </p>
+                      <p className="text-xs text-[var(--color-text-muted)]">Qty: {item.quantity}</p>
+                    </div>
+                    <span className="text-xs font-semibold tabular text-[var(--color-text-strong)] shrink-0">
+                      {formatPrice(item.product.price * item.quantity)}
+                    </span>
+                  </li>
                 ))}
-              </div>
+              </ul>
 
-              {/* Delivery address preview on step 2 */}
               {step === 1 && details.name && (
-                <div className={cn("rounded-xl p-3 mb-4 text-xs space-y-0.5", isDark ? "bg-white/5" : "bg-blue-50")}>
-                  <p className={cn("font-semibold flex items-center gap-1", isDark ? "text-white/80" : "text-[#1a1d23]")}><MapPin size={11} /> {details.name}</p>
-                  <p className={isDark ? "text-white/40" : "text-black/50"}>{details.address}, {details.city} – {details.pincode}</p>
-                  <p className={isDark ? "text-white/40" : "text-black/50"}><Phone size={10} className="inline mr-1" />{details.phone}</p>
+                <div className="rounded-md bg-[var(--color-bg)] border border-[var(--color-border)] p-3 mb-4 text-xs space-y-1">
+                  <p className="font-semibold flex items-center gap-1 text-[var(--color-text-strong)]">
+                    <MapPin size={11} aria-hidden="true" /> {details.name}
+                  </p>
+                  <p className="text-[var(--color-text-muted)]">
+                    {details.address}, {details.city} – {details.pincode}
+                  </p>
+                  <p className="text-[var(--color-text-muted)]">
+                    <Phone size={10} className="inline mr-1" aria-hidden="true" />
+                    {details.phone}
+                  </p>
                 </div>
               )}
 
-              <div className={cn("border-t pt-3 space-y-2 text-sm", isDark ? "border-white/10" : "border-black/6")}>
-                <div className="flex justify-between">
-                  <span className={isDark ? "text-white/50" : "text-black/40"}>Subtotal</span>
-                  <span className={isDark ? "text-white" : "text-[#1a1d23]"}>{formatPrice(totalPrice)}</span>
+              <div className="border-t border-[var(--color-border)] pt-3 space-y-2 text-sm tabular">
+                <div className="flex justify-between text-[var(--color-text)]">
+                  <span>Subtotal</span>
+                  <span>{formatPrice(totalPrice)}</span>
                 </div>
-                <div className="flex justify-between">
-                  <span className={isDark ? "text-white/50" : "text-black/40"}>Delivery</span>
-                  <span className="text-green-500 font-medium">Free</span>
+                <div className="flex justify-between text-[var(--color-text)]">
+                  <span>Delivery</span>
+                  <span className="text-[var(--color-success-700)] font-medium">Free</span>
                 </div>
-                <div className={cn("flex justify-between font-bold text-base pt-2 border-t", isDark ? "border-white/10 text-white" : "border-black/6 text-[#1a1d23]")}>
+                {codFee > 0 && (
+                  <div className="flex justify-between text-[var(--color-warning-700)]">
+                    <span>COD handling fee</span>
+                    <span>{formatPrice(codFee)}</span>
+                  </div>
+                )}
+                <div className="flex justify-between text-[var(--color-text-muted)] text-xs">
+                  <span>GST</span>
+                  <span>Inclusive</span>
+                </div>
+                <div className="flex justify-between font-semibold text-base pt-2 border-t border-[var(--color-border)] text-[var(--color-text-strong)]">
                   <span>Total</span>
-                  <span className="text-[#4a6fa5]">{formatPrice(totalPrice)}</span>
+                  <span>{formatPrice(grandTotalINR)}</span>
                 </div>
               </div>
+
+              <p className="mt-4 text-[11px] text-[var(--color-text-muted)] flex items-center gap-1.5">
+                <Lock size={11} aria-hidden="true" /> GSTIN <span className="font-mono">{site.gstin}</span>
+              </p>
             </div>
-          </div>
+          </aside>
         </div>
       </div>
     </div>

@@ -1,431 +1,342 @@
-@import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,500;0,700;1,400;1,500&family=DM+Sans:wght@300;400;500;600&display=swap&display=swap");
 @import "tailwindcss";
 
+/* =============================================================================
+   DESIGN TOKENS — single source of truth (audit UI-2, UI-5)
+   See outputs/03_visual_redesign_direction.md
+============================================================================= */
 @theme {
-  --font-sans: "Inter", sans-serif;
-  --font-serif: "Playfair Display", serif;
-  --font-display: "DM Sans", sans-serif;
-
-  /* === Primary: Slate Indigo === */
-  --color-primary:       #4a6fa5;   /* steel blue */
-  --color-primary-light: #6b8fc4;   /* lighter blue */
-  --color-primary-pale:  #e8eef7;   /* pale blue tint */
-  --color-primary-dark:  #2d4f7c;   /* deep navy */
-  --color-primary-deep:  #1a2f50;   /* darkest navy */
-
-  /* === Cool Accent: Slate === */
-  --color-accent:        #64748b;   /* cool slate */
-  --color-accent-light:  #94a3b8;   /* light slate */
-  --color-accent-pale:   #f1f5f9;   /* near-white cool */
-
-  /* === Cool Neutrals === */
-  --color-charcoal:      #1a1d23;   /* cool near-black */
-  --color-slate-dark:    #252a34;   /* dark cool grey */
-  --color-slate-mid:     #3d4452;   /* mid cool grey */
-  --color-fog:           #dde3ec;   /* cool light border */
-  --color-mist:          #f0f4f8;   /* cool light bg */
-  --color-pearl:         #f8fafc;   /* page background */
+  /* === Type ramp (mobile-first; desktop scales up via clamp where used) === */
+  --font-sans: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --font-display: "Fraunces", "Playfair Display", Georgia, serif;
+  --font-mono: "JetBrains Mono", ui-monospace, "SF Mono", Menlo, monospace;
+  /* Legacy alias still referenced by older components */
+  --font-serif: var(--font-display);
 
   /* === Radii === */
-  --radius-xl:  1rem;
-  --radius-2xl: 1.5rem;
-  --radius-3xl: 2rem;
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --radius-xl: 16px;
+  --radius-2xl: 20px;
+  --radius-full: 9999px;
 
-  /* === Shadows (cool-toned) === */
-  --shadow-luxe:    0 4px 24px rgba(20,30,50,0.08), 0 1px 4px rgba(20,30,50,0.04);
-  --shadow-luxe-lg: 0 8px 48px rgba(20,30,50,0.10), 0 2px 8px rgba(20,30,50,0.05);
-  --shadow-luxe-xl: 0 20px 80px rgba(20,30,50,0.14), 0 4px 16px rgba(20,30,50,0.07);
-  --shadow-blue:    0 8px 32px rgba(74,111,165,0.35);
-  --shadow-dark:    0 8px 32px rgba(26,29,35,0.30);
+  /* === Shadows (neutral, no brand tint) === */
+  --shadow-sm:      0 1px 2px rgb(0 0 0 / 0.04), 0 0 0 1px rgb(0 0 0 / 0.04);
+  --shadow-md:      0 4px 12px rgb(0 0 0 / 0.06), 0 1px 3px rgb(0 0 0 / 0.04);
+  --shadow-lg:      0 10px 32px rgb(0 0 0 / 0.10), 0 2px 6px rgb(0 0 0 / 0.04);
+  --shadow-card:    0 1px 2px rgb(0 0 0 / 0.04), 0 0 0 1px rgb(0 0 0 / 0.04);
+  --shadow-overlay: 0 24px 64px rgb(0 0 0 / 0.18), 0 8px 24px rgb(0 0 0 / 0.10);
+  /* Legacy aliases mapped onto the new scale */
+  --shadow-luxe:    var(--shadow-md);
+  --shadow-luxe-lg: var(--shadow-lg);
+  --shadow-luxe-xl: var(--shadow-lg);
+  --shadow-blue:    var(--shadow-md);
+  --shadow-dark:    var(--shadow-lg);
 
-  /* Legacy aliases mapped to new palette */
-  --color-luxe-teal:       #4a6fa5;
-  --color-luxe-teal-mid:   #4a6fa5;
+  /* === Layout tokens === */
+  --header-height: 64px;
+  --header-height-mobile: 56px;
+}
+
+/* =============================================================================
+   THEME COLOR TOKENS — light + dark twins
+============================================================================= */
+:root {
+  /* Neutral ramp (slight warm tilt — fits furniture/home retail) */
+  --color-bg:               #ffffff;
+  --color-surface:          #fafaf9;
+  --color-surface-2:        #f4f4f2;
+  --color-border:           #e7e7e3;
+  --color-border-strong:    #d6d6d1;
+  --color-text-strong:      #0f1115;
+  --color-text:             #2b2e35;
+  --color-text-muted:       #62656e;
+  --color-text-disabled:    #a3a6ae;
+
+  /* Brand (Suman Blue, consolidated from inline hexes) */
+  --color-brand-50:   #eef3fa;
+  --color-brand-100:  #d8e3f3;
+  --color-brand-500:  #4a6fa5;
+  --color-brand-600:  #3d5d8c;
+  --color-brand-700:  #2d4f7c;
+  --color-brand-900:  #1a2c47;
+
+  /* Semantic */
+  --color-success-50:  #ecfdf5;
+  --color-success-500: #16a34a;
+  --color-success-700: #15803d;
+  --color-warning-50:  #fff7ed;
+  --color-warning-500: #d97706;
+  --color-warning-700: #b45309;
+  --color-danger-50:   #fef2f2;
+  --color-danger-200:  #fecaca;
+  --color-danger-500:  #dc2626;
+  --color-danger-700:  #b91c1c;
+  --color-info-50:     #eff6ff;
+  --color-info-500:    #0ea5e9;
+  --color-info-700:    #0369a1;
+
+  /* Legacy aliases (kept until every component is migrated) */
+  --color-primary:        var(--color-brand-500);
+  --color-primary-light:  #6b8fc4;
+  --color-primary-pale:   var(--color-brand-50);
+  --color-primary-dark:   var(--color-brand-700);
+  --color-primary-deep:   var(--color-brand-900);
+  --color-accent:         #64748b;
+  --color-accent-light:   #94a3b8;
+  --color-accent-pale:    #f1f5f9;
+  --color-charcoal:       var(--color-text-strong);
+  --color-slate-dark:     #252a34;
+  --color-slate-mid:      #3d4452;
+  --color-fog:            var(--color-border);
+  --color-mist:           var(--color-surface-2);
+  --color-pearl:          var(--color-bg);
+  --color-luxe-teal:       var(--color-brand-500);
+  --color-luxe-teal-mid:   var(--color-brand-500);
   --color-luxe-teal-light: #6b8fc4;
-  --color-luxe-teal-dark:  #2d4f7c;
-  --color-luxe-teal-deep:  #1a2f50;
-  --color-luxe-gold:       #4a6fa5;
+  --color-luxe-teal-dark:  var(--color-brand-700);
+  --color-luxe-teal-deep:  var(--color-brand-900);
+  --color-luxe-gold:       var(--color-brand-500);
   --color-luxe-gold-light: #6b8fc4;
-  --color-luxe-charcoal:   #1a1d23;
-  --color-luxe-cream:      #f0f4f8;
-  --color-luxe-white:      #f8fafc;
+  --color-luxe-charcoal:   var(--color-text-strong);
+  --color-luxe-cream:      var(--color-surface-2);
+  --color-luxe-white:      var(--color-bg);
+
+  color-scheme: light;
 }
 
-/* ===========================
-   BASE STYLES
-=========================== */
-*, *::before, *::after {
-  box-sizing: border-box;
+.dark, [data-theme="dark"] {
+  --color-bg:               #0b0d12;
+  --color-surface:          #13161d;
+  --color-surface-2:        #1a1e27;
+  --color-border:           #262a35;
+  --color-border-strong:    #363a47;
+  --color-text-strong:      #f5f5f3;
+  --color-text:             #cfd0cb;
+  --color-text-muted:       #8a8e96;
+  --color-text-disabled:    #5a5e68;
+
+  --color-success-50:  #0f2a1a;
+  --color-success-500: #22c55e;
+  --color-success-700: #4ade80;
+  --color-warning-50:  #2a1d0a;
+  --color-warning-500: #f59e0b;
+  --color-warning-700: #fbbf24;
+  --color-danger-50:   #2a1010;
+  --color-danger-200:  #5a1f1f;
+  --color-danger-500:  #ef4444;
+  --color-danger-700:  #f87171;
+  --color-info-50:     #0c2030;
+  --color-info-500:    #38bdf8;
+  --color-info-700:    #7dd3fc;
+
+  color-scheme: dark;
 }
+
+/* =============================================================================
+   BASE
+============================================================================= */
+*, *::before, *::after { box-sizing: border-box; }
 
 html {
-  scroll-behavior: auto; /* Lenis handles this */
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
 body {
   font-family: var(--font-sans);
-  background-color: var(--color-pearl);
-  color: var(--color-charcoal);
+  background-color: var(--color-bg);
+  color: var(--color-text);
   overflow-x: hidden;
-  transition: background-color 0.3s ease, color 0.3s ease;
+  transition: background-color 0.2s ease, color 0.2s ease;
 }
 
-.dark body {
-  background-color: #0d1017;
-  color: #e8edf5;
-}
-
-/* ===========================
-   DARK MODE
-=========================== */
-.dark {
-  color-scheme: dark;
-}
-
-/* ===========================
-   CUSTOM SCROLLBAR
-=========================== */
-::-webkit-scrollbar {
-  width: 6px;
-}
-
-::-webkit-scrollbar-track {
-  background: transparent;
-}
-
+::-webkit-scrollbar { width: 8px; }
+::-webkit-scrollbar-track { background: transparent; }
 ::-webkit-scrollbar-thumb {
-  background: linear-gradient(180deg, #4a6fa5, #2d4f7c);
-  border-radius: 100px;
+  background: var(--color-border-strong);
+  border-radius: var(--radius-full);
+}
+::-webkit-scrollbar-thumb:hover { background: var(--color-text-muted); }
+
+/* Tabular numerics for prices, totals, qty */
+.tabular,
+[data-tabular] {
+  font-variant-numeric: tabular-nums;
 }
 
-::-webkit-scrollbar-thumb:hover {
-  background: linear-gradient(180deg, #6b8fc4, #4a6fa5);
+/* =============================================================================
+   TYPOGRAPHY UTILITIES (legacy aliases for now)
+============================================================================= */
+.font-serif    { font-family: var(--font-display); }
+.font-display  { font-family: var(--font-display); }
+
+/* =============================================================================
+   FOCUS — visible ring on every interactive element by default
+============================================================================= */
+:focus-visible {
+  outline: 2px solid var(--color-brand-500);
+  outline-offset: 2px;
+  border-radius: 4px;
 }
 
-/* ===========================
-   TYPOGRAPHY
-=========================== */
-.font-serif {
-  font-family: var(--font-serif);
+/* =============================================================================
+   SKIP TO CONTENT (audit A-5)
+============================================================================= */
+.skip-link {
+  position: absolute;
+  top: -100px;
+  left: 8px;
+  z-index: 100;
+  padding: 8px 16px;
+  background: var(--color-brand-500);
+  color: white;
+  border-radius: var(--radius-md);
+  font-weight: 600;
+  text-decoration: none;
+  transition: top 0.15s ease;
 }
+.skip-link:focus { top: 8px; }
 
-.font-display {
-  font-family: var(--font-display);
-}
-
-/* ===========================
-   GLASSMORPHISM
-=========================== */
+/* =============================================================================
+   LEGACY HELPERS (kept until the matching components are migrated)
+============================================================================= */
 .glass {
-  background: rgba(255, 255, 255, 0.08);
+  background: rgb(255 255 255 / 0.08);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
-  border: 1px solid rgba(255, 255, 255, 0.12);
+  border: 1px solid rgb(255 255 255 / 0.12);
 }
 
-.glass-dark {
-  background: rgba(0, 0, 0, 0.4);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-}
-
-/* ===========================
-   GRADIENT TEXT
-=========================== */
 .gradient-text {
-  background: linear-gradient(135deg, #4a6fa5 0%, #6b8fc4 50%, #4a6fa5 100%);
+  background: linear-gradient(135deg, var(--color-brand-500) 0%, var(--color-brand-700) 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
 }
 
-.gradient-text-cool {
-  background: linear-gradient(135deg, #4a6fa5 0%, #94a3b8 50%, #4a6fa5 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-}
-
-/* ===========================
-   LUXE BUTTON STYLES
-=========================== */
 .btn-primary {
   display: inline-flex;
   align-items: center;
   justify-content: center;
   gap: 0.5rem;
-  padding: 0.875rem 2rem;
-  background: linear-gradient(135deg, #4a6fa5, #2d4f7c);
+  padding: 0.75rem 1.5rem;
+  background: var(--color-brand-500);
   color: white;
   font-weight: 600;
   font-size: 0.875rem;
-  letter-spacing: 0.05em;
-  text-transform: uppercase;
-  border-radius: 0.5rem;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  border-radius: var(--radius-md);
+  transition: background-color 0.15s ease;
   border: none;
   cursor: pointer;
-  position: relative;
-  overflow: hidden;
 }
-
-.btn-primary::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(135deg, #6b8fc4, #4a6fa5);
-  opacity: 0;
-  transition: opacity 0.3s ease;
-}
-
-.btn-primary:hover::before {
-  opacity: 1;
-}
-
-.btn-primary:hover {
-  transform: translateY(-2px);
-  box-shadow: var(--shadow-blue);
-}
-
-.btn-primary span {
-  position: relative;
-  z-index: 1;
-}
+.btn-primary:hover { background: var(--color-brand-600); }
+.btn-primary:active { background: var(--color-brand-700); }
 
 .btn-outline {
   display: inline-flex;
   align-items: center;
   justify-content: center;
   gap: 0.5rem;
-  padding: 0.875rem 2rem;
-  border: 1.5px solid #4a6fa5;
-  color: #4a6fa5;
-  font-weight: 600;
+  padding: 0.75rem 1.5rem;
+  border: 1px solid var(--color-border);
+  background: var(--color-surface);
+  color: var(--color-text-strong);
+  font-weight: 500;
   font-size: 0.875rem;
-  letter-spacing: 0.05em;
-  text-transform: uppercase;
-  border-radius: 0.5rem;
-  background: transparent;
+  border-radius: var(--radius-md);
   cursor: pointer;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: border-color 0.15s ease;
 }
+.btn-outline:hover { border-color: var(--color-border-strong); }
 
-.btn-outline:hover {
-  background: #4a6fa5;
-  color: white;
-  transform: translateY(-2px);
-  box-shadow: var(--shadow-blue);
-}
-
-.btn-accent {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0.5rem;
-  padding: 0.875rem 2rem;
-  background: linear-gradient(135deg, #1a2f50, #2d4f7c);
-  color: white;
-  font-weight: 600;
-  font-size: 0.875rem;
-  letter-spacing: 0.05em;
-  text-transform: uppercase;
-  border-radius: 0.5rem;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  border: none;
-  cursor: pointer;
-}
-
-.btn-accent:hover {
-  transform: translateY(-2px);
-  box-shadow: var(--shadow-dark);
-}
-
-/* ===========================
-   CARD STYLES
-=========================== */
 .product-card {
-  border-radius: 1rem;
+  border-radius: var(--radius-lg);
   overflow: hidden;
-  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
   cursor: pointer;
 }
-
 .product-card:hover {
-  transform: translateY(-8px);
-  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.12);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
 }
 
-.product-card:hover .card-image {
-  transform: scale(1.06);
-}
-
-.card-image {
-  transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-/* ===========================
-   SECTION ANIMATIONS
-=========================== */
-.reveal-up {
-  opacity: 0;
-  transform: translateY(40px);
-  transition: opacity 0.7s cubic-bezier(0.4, 0, 0.2, 1),
-    transform 0.7s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-.reveal-up.visible {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-.reveal-left {
-  opacity: 0;
-  transform: translateX(-40px);
-  transition: opacity 0.7s cubic-bezier(0.4, 0, 0.2, 1),
-    transform 0.7s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-.reveal-left.visible {
-  opacity: 1;
-  transform: translateX(0);
-}
-
-/* ===========================
-   LOADING SKELETON
-=========================== */
 .skeleton {
   background: linear-gradient(
     90deg,
-    rgba(0, 0, 0, 0.06) 25%,
-    rgba(0, 0, 0, 0.12) 50%,
-    rgba(0, 0, 0, 0.06) 75%
+    color-mix(in srgb, var(--color-text) 6%, transparent) 25%,
+    color-mix(in srgb, var(--color-text) 12%, transparent) 50%,
+    color-mix(in srgb, var(--color-text) 6%, transparent) 75%
   );
   background-size: 200% 100%;
   animation: shimmer 1.5s infinite;
-  border-radius: 0.5rem;
+  border-radius: var(--radius-md);
 }
-
 @keyframes shimmer {
   0% { background-position: -200% 0; }
   100% { background-position: 200% 0; }
 }
 
-/* ===========================
-   SECTION DIVIDER
-=========================== */
 .section-divider {
   height: 1px;
-  background: linear-gradient(to right, transparent, rgba(74,111,165,0.3), transparent);
+  background: var(--color-border);
 }
 
-/* ===========================
-   HERO PARALLAX
-=========================== */
-.hero-overlay {
-  background: linear-gradient(
-    135deg,
-    rgba(15, 20, 35, 0.75) 0%,
-    rgba(45, 79, 124, 0.20) 50%,
-    rgba(10, 15, 28, 0.65) 100%
-  );
-}
-
-/* ===========================
-   FLOATING BUTTON
-=========================== */
 .floating-cta {
   position: fixed;
-  bottom: 2rem;
-  right: 2rem;
+  bottom: 1.5rem;
+  right: 1.5rem;
   z-index: 50;
-  animation: float 3s ease-in-out infinite;
 }
 
-@keyframes float {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-8px); }
-}
+.stars { display: inline-flex; gap: 2px; }
 
-/* ===========================
-   STAR RATING
-=========================== */
-.stars {
-  display: inline-flex;
-  gap: 2px;
-}
-
-/* ===========================
-   CAROUSEL
-=========================== */
-.carousel-track {
-  display: flex;
-  gap: 1.5rem;
-  transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-/* ===========================
-   MARQUEE
-=========================== */
-@keyframes marquee {
-  from { transform: translateX(0); }
-  to { transform: translateX(-50%); }
-}
-
-.marquee-track {
-  animation: marquee 25s linear infinite;
-  display: flex;
-  width: max-content;
-}
-
-.marquee-track:hover {
-  animation-play-state: paused;
-}
-
-/* ===========================
-   BADGE
-=========================== */
+/* Status badge tokens (mapped onto new semantic palette) */
 .badge {
   display: inline-flex;
   align-items: center;
   padding: 0.2rem 0.6rem;
-  border-radius: 100px;
-  font-size: 0.65rem;
-  font-weight: 700;
+  border-radius: var(--radius-sm);
+  font-size: 0.625rem;
+  font-weight: 600;
   letter-spacing: 0.08em;
   text-transform: uppercase;
 }
+.badge-new        { background: var(--color-info-50);    color: var(--color-info-700); }
+.badge-sale       { background: var(--color-danger-50);  color: var(--color-danger-700); }
+.badge-trending   { background: var(--color-brand-50);   color: var(--color-brand-700); }
+.badge-bestseller { background: var(--color-brand-50);   color: var(--color-brand-700); }
 
-.badge-new        { background: #e8eef7; color: #2d4f7c; }
-.badge-sale       { background: #fce8e8; color: #8b2020; }
-.badge-trending   { background: #fef9c3; color: #78350f; }
-.badge-bestseller { background: #e0f2fe; color: #0369a1; }
+/* Reveal-on-scroll utility (kept; respects reduced-motion below) */
+.reveal-up { opacity: 0; transform: translateY(24px); transition: opacity 0.6s ease, transform 0.6s ease; }
+.reveal-up.visible { opacity: 1; transform: translateY(0); }
 
-.dark .badge-new        { background: #1a2f50; color: #6b8fc4; }
-.dark .badge-sale       { background: #3a1010; color: #f87171; }
-.dark .badge-trending   { background: #3f2a00; color: #fbbf24; }
-.dark .badge-bestseller { background: #0c2844; color: #60a5fa; }
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+.marquee-track { animation: marquee 25s linear infinite; display: flex; width: max-content; }
+.marquee-track:hover { animation-play-state: paused; }
 
-/* ===========================
-   THEME TRANSITION
-=========================== */
-* {
-  transition-property: background-color, border-color, color;
-  transition-duration: 0.2s;
-  transition-timing-function: ease;
+.hero-overlay {
+  background: linear-gradient(
+    135deg,
+    rgb(15 20 35 / 0.65) 0%,
+    rgb(45 79 124 / 0.20) 50%,
+    rgb(10 15 28 / 0.55) 100%
+  );
 }
 
-img, video, svg, [class*="transform"] {
-  transition-property: transform, opacity, box-shadow, filter;
-}
-
-/* ===========================
-   FOCUS STYLES
-=========================== */
-:focus-visible {
-  outline: 2px solid #4a6fa5;
-  outline-offset: 3px;
-  border-radius: 4px;
+/* =============================================================================
+   REDUCED MOTION (audit M-10)
+============================================================================= */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+  .marquee-track { animation: none !important; }
+  .reveal-up { opacity: 1; transform: none; }
 }
