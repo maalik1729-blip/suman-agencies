@@ -2,7 +2,6 @@
 
 import { useState, useEffect, useMemo, useCallback, Suspense } from "react";
 import { useSearchParams, useRouter } from "next/navigation";
-import { motion, AnimatePresence } from "framer-motion";
 import { Search, X, LayoutGrid, List, SlidersHorizontal } from "lucide-react";
 import { products } from "@/data/products";
 import { ProductCard } from "@/components/ProductCard";
@@ -16,6 +15,7 @@ import {
 } from "@/components/FilterPanel";
 import { Button } from "@/components/ui/Button";
 import { EmptyState } from "@/components/ui/EmptyState";
+import { useCurrency } from "@/context/CurrencyContext";
 import { cn } from "@/lib/utils";
 
 function useDebounced<T>(value: T, ms: number): T {
@@ -30,6 +30,7 @@ function useDebounced<T>(value: T, ms: number): T {
 function ProductsPageInner() {
   const searchParams = useSearchParams();
   const router = useRouter();
+  const { formatPrice } = useCurrency();
 
   const initialCategory = (searchParams.get("category") as Category | null) ?? "all";
 
@@ -285,8 +286,7 @@ function ProductsPageInner() {
                       setFilters({ ...filters, priceMin: PRICE_MIN, priceMax: PRICE_MAX })
                     }
                   >
-                    ₹{filters.priceMin.toLocaleString("en-IN")}–₹
-                    {filters.priceMax.toLocaleString("en-IN")}
+                    {formatPrice(filters.priceMin)}–{formatPrice(filters.priceMax)}
                   </Chip>
                 )}
                 {filters.minRating > 0 && (
@@ -322,28 +322,23 @@ function ProductsPageInner() {
                 }
               />
             ) : (
-              <AnimatePresence mode="wait">
-                <motion.div
-                  key={`${viewMode}-${sort}-${debouncedSearch}-${filters.category}-${filters.subcategories.join("|")}`}
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  exit={{ opacity: 0 }}
-                  transition={{ duration: 0.18 }}
-                  className={cn(
-                    viewMode === "grid"
-                      ? "grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-3 gap-4 sm:gap-6"
-                      : "flex flex-col gap-3"
-                  )}
-                >
-                  {filtered.map((product) => (
-                    <ProductCard
-                      key={product.id}
-                      product={product}
-                      layout={viewMode === "list" ? "list" : "grid"}
-                    />
-                  ))}
-                </motion.div>
-              </AnimatePresence>
+              <div
+                key={`${viewMode}-${sort}-${debouncedSearch}-${filters.category}-${filters.subcategories.join("|")}`}
+                className={cn(
+                  "transition-opacity duration-180",
+                  viewMode === "grid"
+                    ? "grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-3 gap-4 sm:gap-6"
+                    : "flex flex-col gap-3"
+                )}
+              >
+                {filtered.map((product) => (
+                  <ProductCard
+                    key={product.id}
+                    product={product}
+                    layout={viewMode === "list" ? "list" : "grid"}
+                  />
+                ))}
+              </div>
             )}
           </div>
         </div>

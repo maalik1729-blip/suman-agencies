@@ -3,7 +3,6 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { motion, AnimatePresence } from "framer-motion";
 import {
   ArrowRight, Star, Truck, Shield, RotateCcw, Phone,
   ChevronLeft, ChevronRight,
@@ -58,37 +57,41 @@ function HeroSection() {
 
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 py-20 w-full">
         <div className="max-w-2xl">
-          <motion.p
-            initial={{ opacity: 0, y: 12 }}
-            animate={loaded ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.5 }}
-            className="text-xs font-semibold uppercase tracking-[0.12em] text-white/80"
+          <p
+            className={cn(
+              "text-xs font-semibold uppercase tracking-[0.12em] text-white/80",
+              loaded ? "animate-fade-up" : "opacity-0"
+            )}
+            style={{ animationDelay: "0ms" }}
           >
             {site.brand} · Tirunelveli
-          </motion.p>
-          <motion.h1
-            initial={{ opacity: 0, y: 24 }}
-            animate={loaded ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.6, delay: 0.05 }}
-            className="mt-3 font-display font-semibold text-white tracking-tight leading-[1.05] text-4xl sm:text-5xl lg:text-6xl"
+          </p>
+          <h1
+            className={cn(
+              "mt-3 font-display font-semibold text-white tracking-tight leading-[1.05] text-4xl sm:text-5xl lg:text-6xl",
+              loaded ? "animate-fade-up" : "opacity-0"
+            )}
+            style={{ animationDelay: "50ms" }}
           >
             Furniture &amp; electronics,
             <br />
             made for homes worldwide.
-          </motion.h1>
-          <motion.p
-            initial={{ opacity: 0, y: 16 }}
-            animate={loaded ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.6, delay: 0.15 }}
-            className="mt-5 text-base sm:text-lg text-white/85 max-w-xl"
+          </h1>
+          <p
+            className={cn(
+              "mt-5 text-base sm:text-lg text-white/85 max-w-xl",
+              loaded ? "animate-fade-up" : "opacity-0"
+            )}
+            style={{ animationDelay: "150ms" }}
           >
             Worldwide delivery · GST invoice · 30-day returns.
-          </motion.p>
-          <motion.div
-            initial={{ opacity: 0, y: 16 }}
-            animate={loaded ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.6, delay: 0.25 }}
-            className="mt-8 flex flex-col sm:flex-row items-stretch sm:items-center gap-3"
+          </p>
+          <div
+            className={cn(
+              "mt-8 flex flex-col sm:flex-row items-stretch sm:items-center gap-3",
+              loaded ? "animate-fade-up" : "opacity-0"
+            )}
+            style={{ animationDelay: "250ms" }}
           >
             <Link href="/products?category=furniture">
               <Button
@@ -112,7 +115,7 @@ function HeroSection() {
                 Shop Electronics
               </Button>
             </Link>
-          </motion.div>
+          </div>
         </div>
       </div>
     </section>
@@ -283,60 +286,54 @@ function TrendingCarousel() {
         </div>
 
         <div className="relative">
-          <AnimatePresence mode="wait">
-            <motion.div
-              key={item.id}
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 0.2 }}
-              className="grid grid-cols-1 md:grid-cols-[3fr_2fr] gap-6 lg:gap-10 items-center"
-            >
-              <div className="relative aspect-4/3 rounded-lg overflow-hidden bg-(--color-surface-2)">
-                <Image
-                  src={item.images[0]}
-                  alt={item.name}
-                  fill
-                  sizes="(min-width: 768px) 60vw, 100vw"
-                  className="object-cover"
-                />
-              </div>
-              <div>
-                <p className="text-[11px] font-semibold uppercase tracking-[0.08em] text-(--color-text-muted)">
-                  {item.subcategory}
-                </p>
-                <h3 className="mt-2 font-display font-semibold text-2xl sm:text-3xl tracking-tight text-(--color-text-strong)">
-                  {item.name}
-                </h3>
-                <p className="mt-3 text-sm text-(--color-text) leading-relaxed line-clamp-3">
-                  {item.description}
-                </p>
-                <div className="mt-5 flex items-baseline gap-3 tabular">
-                  <span className="text-2xl font-semibold text-(--color-text-strong)">
-                    {formatPrice(item.price)}
+          <div
+            key={item.id}
+            className="grid grid-cols-1 md:grid-cols-[3fr_2fr] gap-6 lg:gap-10 items-center transition-opacity duration-200"
+          >
+            <div className="relative aspect-4/3 rounded-lg overflow-hidden bg-(--color-surface-2)">
+              <Image
+                src={item.images[0]}
+                alt={item.name}
+                fill
+                sizes="(min-width: 768px) 60vw, 100vw"
+                className="object-cover"
+              />
+            </div>
+            <div>
+              <p className="text-[11px] font-semibold uppercase tracking-[0.08em] text-(--color-text-muted)">
+                {item.subcategory}
+              </p>
+              <h3 className="mt-2 font-display font-semibold text-2xl sm:text-3xl tracking-tight text-(--color-text-strong)">
+                {item.name}
+              </h3>
+              <p className="mt-3 text-sm text-(--color-text) leading-relaxed line-clamp-3">
+                {item.description}
+              </p>
+              <div className="mt-5 flex items-baseline gap-3 tabular">
+                <span className="text-2xl font-semibold text-(--color-text-strong)">
+                  {formatPrice(item.price)}
+                </span>
+                {item.originalPrice && (
+                  <span className="text-base text-(--color-text-muted) line-through">
+                    {formatPrice(item.originalPrice)}
                   </span>
-                  {item.originalPrice && (
-                    <span className="text-base text-(--color-text-muted) line-through">
-                      {formatPrice(item.originalPrice)}
-                    </span>
-                  )}
-                </div>
-                <div className="mt-6 flex items-center gap-4">
-                  <Link href={`/products/${item.id}`}>
-                    <Button variant="primary" size="md" rightIcon={<ArrowRight size={14} />}>
-                      View details
-                    </Button>
-                  </Link>
-                  <Link
-                    href="/products"
-                    className="text-sm text-(--color-text-muted) hover:text-(--color-text-strong) transition-colors"
-                  >
-                    Browse all →
-                  </Link>
-                </div>
+                )}
               </div>
-            </motion.div>
-          </AnimatePresence>
+              <div className="mt-6 flex items-center gap-4">
+                <Link href={`/products/${item.id}`}>
+                  <Button variant="primary" size="md" rightIcon={<ArrowRight size={14} />}>
+                    View details
+                  </Button>
+                </Link>
+                <Link
+                  href="/products"
+                  className="text-sm text-(--color-text-muted) hover:text-(--color-text-strong) transition-colors"
+                >
+                  Browse all →
+                </Link>
+              </div>
+            </div>
+          </div>
 
           {/* Slim progress bar */}
           <div className="mt-8 h-px bg-(--color-border) rounded-full overflow-hidden">

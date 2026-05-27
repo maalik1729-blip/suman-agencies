@@ -4,7 +4,6 @@ import { useEffect, useState, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
-import { motion } from "framer-motion";
 import { CheckCircle, Package, Truck, Home, Download, Phone, MapPin } from "lucide-react";
 import { useCart } from "@/context/CartContext";
 import { useCurrency, type Currency } from "@/context/CurrencyContext";
@@ -191,12 +190,7 @@ function OrderStatusInner() {
     <div className="min-h-screen bg-(--color-bg) pt-[calc(var(--header-height)+24px)] pb-16 px-4 sm:px-6">
       <div className="max-w-2xl mx-auto">
         {/* Success header */}
-        <motion.div
-          initial={{ scale: 0.9, opacity: 0 }}
-          animate={{ scale: 1, opacity: 1 }}
-          transition={{ type: "spring", damping: 18, stiffness: 220 }}
-          className="flex flex-col items-center text-center mb-10"
-        >
+        <div className="flex flex-col items-center text-center mb-10 animate-scale-in">
           <div className="w-16 h-16 rounded-full bg-(--color-success-50) flex items-center justify-center mb-4">
             <CheckCircle size={32} className="text-(--color-success-500)" aria-hidden="true" />
           </div>
@@ -206,7 +200,7 @@ function OrderStatusInner() {
           <p className="mt-2 text-sm text-(--color-text-muted) max-w-md">
             Thank you, {order.address.name.split(" ")[0]}. We've received your order and will send updates to {order.address.email}.
           </p>
-        </motion.div>
+        </div>
 
         {/* Order metadata */}
         <div className="rounded-lg border border-(--color-border) bg-(--color-surface) p-5 mb-5">

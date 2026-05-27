@@ -4,7 +4,6 @@ import { useState, useMemo } from "react";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
-import { motion, AnimatePresence } from "framer-motion";
 import {
   CreditCard, Banknote, Smartphone, ChevronRight,
   Lock, ArrowLeft, CheckCircle, User, MapPin, Phone,
@@ -256,20 +255,13 @@ export default function CheckoutPage() {
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           {/* Form column */}
           <div className="lg:col-span-2">
-            <AnimatePresence mode="wait">
-              {step === 0 ? (
-                <motion.div
-                  key="step1"
-                  initial={{ opacity: 0, y: 8 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: -8 }}
-                  transition={{ duration: 0.15 }}
-                  className="rounded-lg border border-(--color-border) bg-(--color-surface) p-6 space-y-6"
-                >
+            {step === 0 ? (
+              <div className="rounded-lg border border-(--color-border) bg-(--color-surface) p-6 space-y-6 transition-opacity duration-150">
                   <h2 className="text-base font-semibold text-(--color-text-strong) flex items-center gap-2">
                     <User size={16} className="text-(--color-brand-500)" aria-hidden="true" />
                     Personal Information
                   </h2>
+
 
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <Input
@@ -376,16 +368,9 @@ export default function CheckoutPage() {
                   >
                     Continue to payment · {formatPrice(grandTotalINR)}
                   </Button>
-                </motion.div>
+                </div>
               ) : (
-                <motion.div
-                  key="step2"
-                  initial={{ opacity: 0, y: 8 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: -8 }}
-                  transition={{ duration: 0.15 }}
-                  className="space-y-5"
-                >
+              <div className="space-y-5 transition-opacity duration-150">
                   {/* Payment selector */}
                   <fieldset className="rounded-lg border border-(--color-border) bg-(--color-surface) p-6">
                     <legend className="text-base font-semibold text-(--color-text-strong) px-1">
@@ -556,9 +541,9 @@ export default function CheckoutPage() {
                     <Link href="/terms-conditions" className="underline">Terms</Link> and{" "}
                     <Link href="/cancellation-refund" className="underline">Refund Policy</Link>.
                   </p>
-                </motion.div>
+              </div>
               )}
-            </AnimatePresence>
+
           </div>
 
           {/* Order summary */}

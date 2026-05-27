@@ -84,17 +84,14 @@ export function Navbar() {
                   <Link
                     href={link.href}
                     className={cn(
-                      "relative inline-flex items-center px-3 py-2 text-sm font-medium rounded-md transition-colors",
+                      "inline-flex items-center px-3 py-2 text-sm font-medium rounded-md transition-colors border-b-2",
                       active
-                        ? "text-(--color-text-strong)"
-                        : "text-(--color-text) hover:text-(--color-text-strong)"
+                        ? "text-(--color-text-strong) border-(--color-brand-500)"
+                        : "text-(--color-text) hover:text-(--color-text-strong) border-transparent"
                     )}
                     aria-current={active ? "page" : undefined}
                   >
                     {link.label}
-                    {active && (
-                      <span className="absolute left-3 right-3 -bottom-px h-0.5 rounded-full bg-(--color-brand-500)" />
-                    )}
                   </Link>
                 </li>
               );
