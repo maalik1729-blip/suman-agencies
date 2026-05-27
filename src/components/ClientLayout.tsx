@@ -1,5 +1,6 @@
 "use client";
 
+import { Suspense } from "react";
 import { CartProvider } from "@/context/CartContext";
 import { CurrencyProvider } from "@/context/CurrencyContext";
 import { ThemeProvider } from "@/context/ThemeContext";
@@ -20,7 +21,9 @@ export function ClientLayout({ children }: { children: React.ReactNode }) {
               Skip to content
             </a>
 
-            <Navbar />
+            <Suspense fallback={<div className="h-[var(--header-height)] bg-(--color-bg) border-b border-(--color-border)" />}>
+              <Navbar />
+            </Suspense>
             <main id="main-content">{children}</main>
             <Footer />
             <CartDrawer />

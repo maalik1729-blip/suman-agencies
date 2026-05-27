@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useSearchParams } from "next/navigation";
 import { ShoppingCart, Menu, X, Sun, Moon } from "lucide-react";
 import { useCart } from "@/context/CartContext";
 import { useTheme } from "@/context/ThemeContext";
@@ -20,6 +20,8 @@ const navLinks = [
 
 export function Navbar() {
   const pathname = usePathname();
+  const searchParams = useSearchParams();
+  const isBulk = searchParams.get("type") === "bulk";
   const { totalItems, setIsOpen } = useCart();
   const { resolvedTheme, setTheme } = useTheme();
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -77,8 +79,9 @@ export function Navbar() {
           <ul className="hidden md:flex items-center gap-1">
             {navLinks.map((link) => {
               const active =
-                pathname === link.href ||
-                (link.href !== "/" && pathname.startsWith(link.href));
+                (pathname === link.href ||
+                  (link.href !== "/" && pathname.startsWith(link.href))) &&
+                !(link.href === "/contact" && isBulk);
               return (
                 <li key={link.href}>
                   <Link
@@ -99,7 +102,13 @@ export function Navbar() {
             <li>
               <Link
                 href="/contact?type=bulk"
-                className="ml-2 inline-flex items-center px-3 py-2 text-sm text-(--color-text-muted) hover:text-(--color-text-strong) transition-colors"
+                className={cn(
+                  "ml-2 inline-flex items-center px-3 py-2 text-sm font-medium rounded-md transition-colors border-b-2",
+                  isBulk
+                    ? "text-(--color-text-strong) border-(--color-brand-500)"
+                    : "text-(--color-text-muted) hover:text-(--color-text-strong) border-transparent"
+                )}
+                aria-current={isBulk ? "page" : undefined}
               >
                 For Businesses →
               </Link>
@@ -176,8 +185,9 @@ export function Navbar() {
           <nav className="flex-1 overflow-y-auto p-4 flex flex-col gap-1">
             {navLinks.map((link) => {
               const active =
-                pathname === link.href ||
-                (link.href !== "/" && pathname.startsWith(link.href));
+                (pathname === link.href ||
+                  (link.href !== "/" && pathname.startsWith(link.href))) &&
+                !(link.href === "/contact" && isBulk);
               return (
                 <Link
                   key={link.href}
@@ -196,7 +206,12 @@ export function Navbar() {
 
             <Link
               href="/contact?type=bulk"
-              className="px-3 py-3 rounded-md text-base font-medium text-(--color-text-muted) hover:bg-(--color-surface-2)"
+              className={cn(
+                "px-3 py-3 rounded-md text-base font-medium transition-colors",
+                isBulk
+                  ? "bg-(--color-brand-50) text-(--color-brand-700)"
+                  : "text-(--color-text-muted) hover:bg-(--color-surface-2)"
+              )}
             >
               For Businesses
             </Link>
