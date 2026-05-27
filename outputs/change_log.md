@@ -12,6 +12,9 @@ Pipeline: ui_redesign/ui-redesign.md (Stages 1–4 executed)
 | 2026-05-27T13:24 | src/app/products/page.tsx | **Fix 3** — `framer-motion` import removed. Product grid `AnimatePresence`+`motion.div` replaced with a keyed plain `div` using `transition-opacity`. **Fix 6** — Hardcoded `₹` symbol in price filter chip replaced with `formatPrice()` from `useCurrency()`. Added `useCurrency` hook import. |
 | 2026-05-27T13:25 | src/app/order-status/page.tsx | **Fix 4** — `framer-motion` import removed. Success header `motion.div` (spring scale animation) replaced with a plain `div` using `animate-scale-in` CSS class. |
 | 2026-05-27T13:26 | src/app/checkout/page.tsx | **Fix 5** — `framer-motion` import removed. Step 1 and Step 2 `AnimatePresence`+`motion.div` transitions replaced with plain `div` elements using `transition-opacity duration-150`. |
+| 2026-05-27T13:41 | src/components/Navbar.tsx | Replaced absolute-positioned active child span with direct `border-b-2` on the link to prevent layout shift and fix Tailwind v4 negative positioning compatibility (`-bottom-px` removal). |
+| 2026-05-27T13:50 | src/components/Navbar.tsx | Checked `type === 'bulk'` parameter via `useSearchParams` to differentiate between normal contact and bulk business request, ensuring the active underline is correctly placed on **For Businesses** instead of standard **Contact**. |
+| 2026-05-27T13:50 | src/components/ClientLayout.tsx | Wrapped `<Navbar />` in a `<Suspense>` boundary to ensure safe use of `useSearchParams` during static pre-rendering without de-optimizing the layout component or causing build-time warnings. |
 
 ---
 
