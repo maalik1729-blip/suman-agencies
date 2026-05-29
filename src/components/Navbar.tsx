@@ -25,6 +25,10 @@ export function Navbar() {
   const { totalItems, setIsOpen } = useCart();
   const { resolvedTheme, setTheme } = useTheme();
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [mounted, setMounted] = useState(false);
+
+  // Defer theme-sensitive rendering until after hydration (next-themes pattern).
+  useEffect(() => { setMounted(true); }, []);
   const drawerRef = useRef<HTMLDivElement>(null);
 
   // Close mobile drawer on route change.
@@ -49,7 +53,8 @@ export function Navbar() {
     };
   }, [mobileOpen]);
 
-  const isDark = resolvedTheme === "dark";
+  // Use `mounted` to avoid SSR/client mismatch — resolvedTheme is undefined on server.
+  const isDark = mounted && resolvedTheme === "dark";
   const toggleTheme = () => setTheme(isDark ? "light" : "dark");
 
   return (
