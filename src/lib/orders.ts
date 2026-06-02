@@ -60,16 +60,44 @@ export function saveOrder(order: Order): void {
   writeString(site.storage.lastOrderId, order.id);
 
   // Fire and forget to the backend API
-  // In production, use the actual deployed Render URL in .env.local
-  const backendUrl = process.env.NEXT_PUBLIC_BACKEND_URL || "http://localhost:10000/api/orders"; 
+  const backendUrl = process.env.NEXT_PUBLIC_BACKEND_URL || "https://suman-agencies.onrender.com/api/orders"; 
+  
+  // Map frontend order structure to backend's expected schema
+  const payload = {
+    customer: {
+      name: order.address.name,
+      email: order.address.email,
+      phone: order.address.phone,
+      address: {
+        street: order.address.line,
+        city: order.address.city,
+        state: order.address.state,
+        pincode: order.address.pincode,
+        country: 'India'
+      }
+    },
+    items: order.items.map(i => ({
+      productId: i.id,
+      name: i.name,
+      price: i.unitPriceINR,
+      quantity: i.quantity,
+      image: i.image
+    })),
+    pricing: {
+      subtotal: order.totals.subtotalINR,
+      tax: 0,
+      shipping: order.totals.shippingINR,
+      discount: 0,
+      total: order.totals.totalINR
+    }
+  };
   
   fetch(backendUrl, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(order),
+    body: JSON.stringify(payload),
   }).catch(() => {
     // Fail silently in development if the backend isn't running.
-    // This prevents the Next.js red error overlay from appearing.
     console.warn("Backend sync skipped: Backend is not running.");
   });
 }
