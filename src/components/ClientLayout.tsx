@@ -21,7 +21,7 @@ export function ClientLayout({ children }: { children: React.ReactNode }) {
               Skip to content
             </a>
 
-            <Suspense fallback={<div className="h-[var(--header-height)] bg-(--color-bg) border-b border-(--color-border)" />}>
+            <Suspense fallback={<div className="h-(--header-height) bg-(--color-bg) border-b border-(--color-border)" />}>
               <Navbar />
             </Suspense>
             <main id="main-content">{children}</main>

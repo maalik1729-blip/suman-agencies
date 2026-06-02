@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect, useRef } from "react";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
@@ -54,6 +54,71 @@ function validateDetails(d: DetailsForm): DetailsErrors {
   return errors;
 }
 
+/** Map each currency to its PayGlocal OneClick button ID */
+const PB_IDS: Record<string, string> = {
+  USD: "pb_BgoKxjPT6v3d",
+  INR: "pb_cmhrzNhQGmsZ",
+  EUR: "pb_MD1dr9YNAkHW",
+};
+
+interface PayGlocalButtonProps {
+  onBeforePayment: () => void;
+  currency: string;
+}
+
+/**
+ * Renders the PayGlocal OneClick button inside an iframe.
+ * simple.js requires `document.currentScript` at parse-time, so dynamic
+ * script injection doesn't work — srcdoc gives it a real parse context.
+ */
+function PayGlocalButton({ onBeforePayment, currency }: PayGlocalButtonProps) {
+  const iframeRef = useRef<HTMLIFrameElement>(null);
+  const savedRef = useRef(false);
+  const pbId = PB_IDS[currency] || PB_IDS.INR;
+
+  // Save the order the moment the user interacts with the iframe (clicks PAY NOW)
+  useEffect(() => {
+    savedRef.current = false; // reset when currency changes
+
+    const onBlur = () => {
+      // If our iframe has focus, the user clicked inside it
+      if (document.activeElement === iframeRef.current && !savedRef.current) {
+        savedRef.current = true;
+        onBeforePayment();
+      }
+    };
+
+    window.addEventListener("blur", onBlur);
+    return () => window.removeEventListener("blur", onBlur);
+  }, [onBeforePayment, pbId]);
+
+  const srcDoc = `<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<style>
+  html, body { margin:0; padding:0; background:transparent; display:flex; justify-content:center; align-items:center; min-height:70px; }
+</style>
+</head>
+<body>
+<form><script src="https://oneclick.payglocal.in/simple.js" data-pb-id="${pbId}"><\/script></form>
+</body>
+</html>`;
+
+  return (
+    <iframe
+      ref={iframeRef}
+      key={pbId}
+      srcDoc={srcDoc}
+      title="PayGlocal Payment"
+      className="my-2 w-full border-0 rounded-lg"
+      style={{ minHeight: "110px", maxWidth: "22rem" }}
+      allow="payment"
+    />
+  );
+}
+
 export default function CheckoutPage() {
   const router = useRouter();
   const { items, totalPrice, clearCart } = useCart();
@@ -91,6 +156,22 @@ export default function CheckoutPage() {
   const showErr = (k: keyof DetailsForm) =>
     (submitAttempted || detailsTouched[k]) && detailErrors[k];
 
+  const paymentModes: { id: PaymentMode; label: string; icon: React.ReactNode; desc: string }[] = useMemo(
+    () => [
+      { id: "upi", label: "UPI", icon: <Smartphone size={20} />, desc: "GPay, PhonePe, Paytm" },
+      { id: "card", label: "Card", icon: <CreditCard size={20} />, desc: "Credit / Debit card" },
+      {
+        id: "cod",
+        label: "Cash on Delivery",
+        icon: <Banknote size={20} />,
+        desc: totalPrice < site.cod.feeThresholdINR
+          ? `+${formatPrice(site.cod.feeINR)} handling fee`
+          : "No extra fee",
+      },
+    ],
+    [totalPrice, formatPrice]
+  );
+
   // Empty cart guard
   if (items.length === 0) {
     return (
@@ -110,40 +191,15 @@ export default function CheckoutPage() {
     );
   }
 
-  function paymentIsValid(): string | null {
-    if (paymentMode === "cod") return null;
-    if (paymentMode === "card") {
-      const digits = cardNumber.replace(/\s/g, "");
-      if (digits.length < 13 || digits.length > 19) return "Enter a valid card number";
-      if (!cardName.trim()) return "Enter the name on card";
-      if (!/^\d{2}\s\/\s\d{2}$/.test(expiry)) return "Enter expiry as MM / YY";
-      if (cvv.length !== 3) return "Enter a 3-digit CVV";
-      return null;
-    }
-    if (paymentMode === "upi") {
-      if (!/^[\w.\-]{3,}@[a-z]{3,}$/i.test(upiId)) return "Enter a valid UPI ID, e.g. yourname@upi";
-      return null;
-    }
-    return null;
-  }
-
   const handleConfirm = async () => {
-    const err = paymentIsValid();
-    if (err) {
-      setPaymentErr(err);
-      return;
-    }
+    if (paymentMode !== "cod") return;
+
     setPaymentErr(null);
     setPlacing(true);
     // Simulated processing — in production replace with real gateway.
     await new Promise((r) => setTimeout(r, 800));
 
-    const payment: OrderPayment =
-      paymentMode === "upi"
-        ? { method: "upi", upiId, app: upiApp }
-        : paymentMode === "card"
-        ? { method: "card", cardLast4: cardNumber.replace(/\s/g, "").slice(-4) }
-        : { method: "cod" };
+    const payment: OrderPayment = { method: "cod" };
 
     const id = generateOrderId();
     const order: Order = {
@@ -182,21 +238,48 @@ export default function CheckoutPage() {
     router.push(`/order-status?id=${id}`);
   };
 
-  const paymentModes: { id: PaymentMode; label: string; icon: React.ReactNode; desc: string }[] = useMemo(
-    () => [
-      { id: "upi", label: "UPI", icon: <Smartphone size={20} />, desc: "GPay, PhonePe, Paytm" },
-      { id: "card", label: "Card", icon: <CreditCard size={20} />, desc: "Credit / Debit card" },
-      {
-        id: "cod",
-        label: "Cash on Delivery",
-        icon: <Banknote size={20} />,
-        desc: totalPrice < site.cod.feeThresholdINR
-          ? `+${formatPrice(site.cod.feeINR)} handling fee`
-          : "No extra fee",
+  const handlePayGlocalClick = () => {
+    const payment: OrderPayment =
+      paymentMode === "upi"
+        ? { method: "upi" }
+        : { method: "card" };
+
+    const id = generateOrderId();
+    const order: Order = {
+      id,
+      placedAt: new Date().toISOString(),
+      status: "confirmed",
+      items: items.map((i) => ({
+        id: i.product.id,
+        name: i.product.name,
+        image: i.product.images[0],
+        unitPriceINR: i.product.price,
+        quantity: i.quantity,
+        variant: i.color,
+      })),
+      address: {
+        name: details.name,
+        email: details.email,
+        phone: details.phone,
+        line: details.address,
+        city: details.city,
+        state: details.state,
+        pincode: details.pincode,
       },
-    ],
-    [totalPrice, formatPrice]
-  );
+      payment,
+      totals: {
+        subtotalINR: totalPrice,
+        shippingINR: 0,
+        codFeeINR: codFee,
+        totalINR: grandTotalINR,
+      },
+      currency,
+    };
+
+    saveOrder(order);
+  };
+
+
 
   return (
     <div className="min-h-screen bg-(--color-bg) pt-[calc(var(--header-height)+24px)] pb-16 px-4 sm:px-6">
@@ -411,98 +494,17 @@ export default function CheckoutPage() {
                         );
                       })}
                     </div>
-                  </fieldset>
-
-                  {/* Conditional payment details */}
+                  </fieldset>                  {/* Conditional payment details */}
                   <div className="rounded-lg border border-(--color-border) bg-(--color-surface) p-6">
-                    {paymentMode === "card" && (
-                      <div className="space-y-4">
-                        <h3 className="text-sm font-semibold text-(--color-text-strong)">Card details</h3>
-                        <Input
-                          label="Card number"
-                          placeholder="1234 5678 9012 3456"
-                          inputMode="numeric"
-                          maxLength={19}
-                          value={cardNumber}
-                          onChange={(e) => {
-                            const v = e.target.value.replace(/\D/g, "").slice(0, 16);
-                            setCardNumber(v.replace(/(.{4})/g, "$1 ").trim());
-                          }}
-                          autoComplete="cc-number"
-                        />
-                        <Input
-                          label="Name on card"
-                          placeholder="John Doe"
-                          value={cardName}
-                          onChange={(e) => setCardName(e.target.value)}
-                          autoComplete="cc-name"
-                        />
-                        <div className="grid grid-cols-2 gap-4">
-                          <Input
-                            label="Expiry"
-                            placeholder="MM / YY"
-                            inputMode="numeric"
-                            maxLength={7}
-                            value={expiry}
-                            onChange={(e) => {
-                              const v = e.target.value.replace(/\D/g, "").slice(0, 4);
-                              setExpiry(v.length > 2 ? `${v.slice(0, 2)} / ${v.slice(2)}` : v);
-                            }}
-                            autoComplete="cc-exp"
-                          />
-                          <Input
-                            label="CVV"
-                            placeholder="•••"
-                            type="password"
-                            inputMode="numeric"
-                            maxLength={3}
-                            value={cvv}
-                            onChange={(e) => setCvv(e.target.value.replace(/\D/g, "").slice(0, 3))}
-                            autoComplete="cc-csc"
-                          />
-                        </div>
-                      </div>
-                    )}
-
-                    {paymentMode === "upi" && (
-                      <div className="space-y-4">
-                        <h3 className="text-sm font-semibold text-(--color-text-strong)">UPI payment</h3>
-                        <fieldset>
-                          <legend className="sr-only">Choose UPI app</legend>
-                          <div className="grid grid-cols-3 gap-2">
-                            {(["gpay", "phonepe", "paytm"] as const).map((app) => {
-                              const active = upiApp === app;
-                              return (
-                                <label
-                                  key={app}
-                                  className={cn(
-                                    "py-2.5 text-center rounded-md border text-xs font-semibold uppercase tracking-[0.06em] cursor-pointer transition-colors",
-                                    active
-                                      ? "border-(--color-brand-500) bg-(--color-brand-50) text-(--color-brand-700)"
-                                      : "border-(--color-border) bg-(--color-bg) text-(--color-text) hover:border-(--color-border-strong)"
-                                  )}
-                                >
-                                  <input
-                                    type="radio"
-                                    name="upi-app"
-                                    value={app}
-                                    checked={active}
-                                    onChange={() => setUpiApp(app)}
-                                    className="sr-only"
-                                  />
-                                  {app === "gpay" ? "GPay" : app === "phonepe" ? "PhonePe" : "Paytm"}
-                                </label>
-                              );
-                            })}
-                          </div>
-                        </fieldset>
-                        <Input
-                          label="UPI ID"
-                          placeholder="yourname@upi"
-                          value={upiId}
-                          onChange={(e) => setUpiId(e.target.value)}
-                          helper="Format: name@bank"
-                        />
+                    {(paymentMode === "card" || paymentMode === "upi") && (
+                      <div className="space-y-4 text-center py-4 flex flex-col items-center">
+                        <h3 className="text-base font-semibold text-(--color-text-strong)">
+                          PayGlocal Secure Checkout
+                        </h3>
+                        <p className="text-sm text-(--color-text-muted) max-w-sm">
+                          Click below to pay securely using PayGlocal online checkout.
+                        </p>
+                        <PayGlocalButton onBeforePayment={handlePayGlocalClick} currency={currency} />
                       </div>
                     )}
 
@@ -525,16 +527,18 @@ export default function CheckoutPage() {
                     </div>
                   )}
 
-                  <Button
-                    variant="primary"
-                    size="lg"
-                    fullWidth
-                    loading={placing}
-                    onClick={handleConfirm}
-                    leftIcon={!placing && <Lock size={15} />}
-                  >
-                    Confirm &amp; Pay · {formatPrice(grandTotalINR)}
-                  </Button>
+                  {paymentMode === "cod" && (
+                    <Button
+                      variant="primary"
+                      size="lg"
+                      fullWidth
+                      loading={placing}
+                      onClick={handleConfirm}
+                      leftIcon={!placing && <Lock size={15} />}
+                    >
+                      Confirm &amp; Pay · {formatPrice(grandTotalINR)}
+                    </Button>
+                  )}
 
                   <p className="text-xs text-(--color-text-muted) text-center">
                     By placing this order, you agree to our{" "}

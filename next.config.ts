@@ -11,6 +11,7 @@ const nextConfig: NextConfig = {
   compress: true,
   poweredByHeader: false,
   reactStrictMode: true,
+  allowedDevOrigins: ['superlatively-snooty-casen.ngrok-free.dev'],
 };
 
 export default nextConfig;

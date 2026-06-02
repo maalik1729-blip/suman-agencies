@@ -137,10 +137,10 @@ export function Navbar() {
             <button
               onClick={() => setIsOpen(true)}
               className="relative inline-flex items-center justify-center w-9 h-9 rounded-md text-(--color-text-strong) hover:bg-(--color-surface-2) transition-colors"
-              aria-label={`Shopping cart, ${totalItems} ${totalItems === 1 ? "item" : "items"}`}
+              aria-label={mounted ? `Shopping cart, ${totalItems} ${totalItems === 1 ? "item" : "items"}` : "Shopping cart, 0 items"}
             >
               <ShoppingCart size={18} />
-              {totalItems > 0 && (
+              {mounted && totalItems > 0 && (
                 <span
                   className="absolute -top-1 -right-1 min-w-[18px] h-[18px] px-1 rounded-full bg-(--color-brand-500) text-white text-[11px] font-semibold inline-flex items-center justify-center"
                   aria-hidden="true"
@@ -156,7 +156,7 @@ export function Navbar() {
       {/* Mobile drawer */}
       <div
         className={cn(
-          "md:hidden fixed inset-0 z-[60] transition-opacity duration-200",
+          "md:hidden fixed inset-0 z-60 transition-opacity duration-200",
           mobileOpen ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"
         )}
         aria-hidden={!mobileOpen}

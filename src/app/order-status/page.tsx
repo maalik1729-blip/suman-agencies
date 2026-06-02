@@ -11,6 +11,7 @@ import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/Button";
 import { EmptyState } from "@/components/ui/EmptyState";
 import { site } from "@/data/site";
+import { readString } from "@/lib/storage";
 import { loadOrder, type Order, type OrderStatus } from "@/lib/orders";
 
 const STEP_DEFS: Array<{ key: OrderStatus; icon: typeof CheckCircle; label: string }> = [
@@ -35,11 +36,12 @@ function OrderStatusInner() {
   const orderIdParam = params.get("id");
 
   useEffect(() => {
-    if (!orderIdParam) {
+    const resolvedId = orderIdParam || readString(site.storage.lastOrderId);
+    if (!resolvedId) {
       setOrder(null);
       return;
     }
-    const loaded = loadOrder(orderIdParam);
+    const loaded = loadOrder(resolvedId);
     setOrder(loaded);
     // Audit UX-4: clear the cart only AFTER the order snapshot is safely loaded.
     if (loaded) clearCart();

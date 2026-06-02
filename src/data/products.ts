@@ -24,7 +24,7 @@ export const products: Product[] = [
     name: "3 Seater Wooden Sofa Set",
     category: "furniture",
     subcategory: "Sofas",
-    price: 12517,
+    price: 1,
     rating: 4.5,
     reviewCount: 420,
     images: ["/products/product-35.jpeg"],

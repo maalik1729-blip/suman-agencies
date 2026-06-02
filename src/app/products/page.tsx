@@ -138,7 +138,7 @@ function ProductsPageInner() {
 
       {/* Sticky control bar */}
       <div
-        className="sticky z-40 bg-(--color-bg)/95 backdrop-blur supports-[backdrop-filter]:bg-(--color-bg)/80 border-y border-(--color-border)"
+        className="sticky z-40 bg-(--color-bg)/95 backdrop-blur supports-backdrop-filter:bg-(--color-bg)/80 border-y border-(--color-border)"
         style={{ top: "var(--header-height)" }}
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 py-3 flex items-center gap-3 flex-wrap">
@@ -347,7 +347,7 @@ function ProductsPageInner() {
       {/* Mobile filter bottom sheet */}
       <div
         className={cn(
-          "lg:hidden fixed inset-0 z-[60] transition-opacity duration-200",
+          "lg:hidden fixed inset-0 z-60 transition-opacity duration-200",
           sheetOpen ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"
         )}
         aria-hidden={!sheetOpen}
