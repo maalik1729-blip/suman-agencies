@@ -30,7 +30,11 @@ app.use('/api/', limiter);
 
 // CORS configuration
 const corsOptions = {
-  origin: process.env.FRONTEND_URL || 'https://sumanagency.shop',
+  origin: [
+    process.env.FRONTEND_URL || 'https://sumanagency.shop',
+    'http://localhost:3000',
+    'http://localhost:3001'
+  ],
   credentials: true,
   optionsSuccessStatus: 200
 };

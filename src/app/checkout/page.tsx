@@ -66,57 +66,48 @@ interface PayGlocalButtonProps {
   currency: string;
 }
 
-/**
- * Renders the PayGlocal OneClick button inside an iframe.
- * simple.js requires `document.currentScript` at parse-time, so dynamic
- * script injection doesn't work — srcdoc gives it a real parse context.
- */
 function PayGlocalButton({ onBeforePayment, currency }: PayGlocalButtonProps) {
-  const iframeRef = useRef<HTMLIFrameElement>(null);
-  const savedRef = useRef(false);
+  const containerRef = useRef<HTMLDivElement>(null);
   const pbId = PB_IDS[currency] || PB_IDS.INR;
 
-  // Save the order the moment the user interacts with the iframe (clicks PAY NOW)
   useEffect(() => {
-    savedRef.current = false; // reset when currency changes
+    if (!containerRef.current) return;
 
-    const onBlur = () => {
-      // If our iframe has focus, the user clicked inside it
-      if (document.activeElement === iframeRef.current && !savedRef.current) {
-        savedRef.current = true;
+    // Clear container
+    containerRef.current.innerHTML = "";
+
+    // Create form and script
+    const form = document.createElement("form");
+    const script = document.createElement("script");
+    script.src = "https://oneclick.payglocal.in/simple.js";
+    script.setAttribute("data-pb-id", pbId);
+    script.async = false; // ensure synchronous execution context for document.currentScript
+
+    form.appendChild(script);
+    containerRef.current.appendChild(form);
+
+    // Capture payment click using event delegation
+    const handleContainerClick = (e: MouseEvent) => {
+      const target = e.target as HTMLElement;
+      if (
+        target.classList.contains(`PayGlocal-button-${pbId}`) || 
+        target.closest('[class*="PayGlocal-button"]')
+      ) {
         onBeforePayment();
       }
     };
 
-    window.addEventListener("blur", onBlur);
-    return () => window.removeEventListener("blur", onBlur);
+    containerRef.current.addEventListener("click", handleContainerClick);
+
+    return () => {
+      if (containerRef.current) {
+        containerRef.current.removeEventListener("click", handleContainerClick);
+        containerRef.current.innerHTML = "";
+      }
+    };
   }, [onBeforePayment, pbId]);
 
-  const srcDoc = `<!DOCTYPE html>
-<html>
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<style>
-  html, body { margin:0; padding:0; background:transparent; display:flex; justify-content:center; align-items:center; min-height:70px; }
-</style>
-</head>
-<body>
-<form><script src="https://oneclick.payglocal.in/simple.js" data-pb-id="${pbId}"><\/script></form>
-</body>
-</html>`;
-
-  return (
-    <iframe
-      ref={iframeRef}
-      key={pbId}
-      srcDoc={srcDoc}
-      title="PayGlocal Payment"
-      className="my-2 w-full border-0 rounded-lg"
-      style={{ minHeight: "110px", maxWidth: "22rem" }}
-      allow="payment"
-    />
-  );
+  return <div ref={containerRef} className="my-2 flex justify-center w-full min-h-[60px]" />;
 }
 
 export default function CheckoutPage() {
