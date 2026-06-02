@@ -58,6 +58,16 @@ function key(id: string): string {
 export function saveOrder(order: Order): void {
   writeJSON(key(order.id), order);
   writeString(site.storage.lastOrderId, order.id);
+
+  // Fire and forget to the backend API
+  // In production, use the actual deployed Render URL. We fallback to localhost for dev.
+  const backendUrl = process.env.NEXT_PUBLIC_BACKEND_URL || "https://suman-backend-v0r1.onrender.com/api/orders"; // Replace with actual backend URL
+  
+  fetch(backendUrl, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(order),
+  }).catch((err) => console.error("Failed to sync order to backend:", err));
 }
 
 export function loadOrder(id: string): Order | null {
